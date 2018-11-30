@@ -10,7 +10,6 @@ public class Buffs
 	public float fantome;
 	float maxCumulableTimer = 100;
 	public Vector3 bumpDir = Vector3.zero;
-
 	public Buffs()
 	{
 		bump = 0;
@@ -35,12 +34,14 @@ public Buffs buffActifs;
 switchManager switchManager;
 playerMovement pm;
 Rigidbody rb;
+playerShader playerShader;
 	
 	void Awake () {
 		buffActifs = new Buffs();
 		pm = GetComponent<playerMovement>();
 		rb = GetComponent<Rigidbody>();
 		switchManager = GameObject.Find("Master").GetComponent<switchManager>();
+		playerShader = GetComponent<playerShader>();
 	}
 	
 	
@@ -89,5 +90,17 @@ Rigidbody rb;
                 pm.speed = pm.baseSpeed;
             }
 		}
+
+		if (buffActifs.fantome > 0)
+		{
+			if (playerShader.index == 0)
+			{
+				//playerShader.PutDissolve();
+			}
+		}
+		/*else if (buffActifs.fantome == 0 && playerShader.index != 0)
+		{
+			playerShader.PutBaseSkin();
+		}*/
 	}
 }
