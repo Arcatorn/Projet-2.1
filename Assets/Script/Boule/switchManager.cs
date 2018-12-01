@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
+using UnityEngine.Rendering.PostProcessing;
 
 public class switchManager : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class switchManager : MonoBehaviour
     GameObject cercleOfActualPlayer;
 
     private PingPong ping;
+    public PostProcessVolume ppv;
+    public PostProcessProfile ppp_1;
+    public PostProcessProfile ppp_2;
+
+    public GameObject[] cercles;
 
     private void Awake()
     {
@@ -25,16 +31,17 @@ public class switchManager : MonoBehaviour
 
     private void Update()
     {
-        cercleOfActualPlayer = actualPlayer.transform.GetChild(3).gameObject;
+        
         if (whileOnPlayer)
         {
+            cercleOfActualPlayer = actualPlayer.transform.GetChild(3).gameObject;
             switchTest(); 
             if(!cercleOfActualPlayer.activeInHierarchy)
                 cercleOfActualPlayer.SetActive(true);
         }
         else{
-             if(cercleOfActualPlayer.activeInHierarchy)
-                cercleOfActualPlayer.SetActive(false);
+            cercles[0].SetActive(false);
+            cercles[1].SetActive(false);
         }
     }
 
@@ -48,6 +55,13 @@ public class switchManager : MonoBehaviour
             selectPlayer(actualPlayerIndex);
             playerOnBall = true;
             updateCameraCall(ping.boule);
+            if (actualPlayerIndex == 0)
+            {
+               ppv.profile = ppp_1;
+            }
+            else{
+                ppv.profile = ppp_2;
+            }
         }
     }
 
@@ -66,8 +80,10 @@ public class switchManager : MonoBehaviour
     void DisablePlayer()
     {
         actualPlayer.GetComponent<playerMovement>().disableForceField();
-        //actualPlayer.GetComponent<playerMovement>().enabled = false;
         actualPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+         if(actualPlayer.transform.GetChild(3).gameObject.activeInHierarchy)
+            actualPlayer.transform.GetChild(3).gameObject.SetActive(false);
     }
 
     void ActivatePlayer()
