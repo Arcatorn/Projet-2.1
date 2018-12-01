@@ -90,6 +90,7 @@ public class playerMovement : MonoBehaviour
     {
         if (!childrenCollider.enabled)
             childrenCollider.enabled = true;
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Travel_Loop");
         if (!bouclier.activeInHierarchy)
             bouclier.SetActive(true);
     }

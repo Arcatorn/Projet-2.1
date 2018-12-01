@@ -101,6 +101,7 @@ public class PingPong : MonoBehaviour
         var magnitude = position.magnitude * Time.deltaTime;
         if (Physics.Raycast(boule.transform.position, position, out hit, magnitude * 2, layer))
         {
+           
             if (hit.collider.name == "Champ de force")
             {
                 playerActif = playerCible;
@@ -132,6 +133,8 @@ public class PingPong : MonoBehaviour
         {
             bouleManager.OnCollisionBoulePlayer(players[playerActif]);
             bouleManager.dirBumpToSend = dirBouleCollision;
+            if (players[playerCible] != switchScript.actualPlayer)
+            FMODUnity.RuntimeManager.PlayOneShot("event:/FootStep");
         }
     }
 

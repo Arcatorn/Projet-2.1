@@ -62,6 +62,7 @@ public class switchManager : MonoBehaviour
             else{
                 ppv.profile = ppp_2;
             }
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Switch");
         }
     }
 
