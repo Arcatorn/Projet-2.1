@@ -17,7 +17,9 @@ public class bouleManager : MonoBehaviour
     [SerializeField] bouleEtat e = (bouleEtat)0;
     public Vector3 dirBumpToSend;
     public string[] names = {"None", "Bump", "Follow", "Acceleration", "Ghost"};
-    public Text t;
+    public Sprite[] normal;
+    public Sprite[] highlighted;
+    public Image[] images;
 
     public void OnCollisionBoulePlayer(GameObject playerHitten)
     {
@@ -37,7 +39,7 @@ public class bouleManager : MonoBehaviour
         }
         else if (e == bouleEtat.Fantome)
         {
-            playerHitten.GetComponent<playerBuffs>().buffActifs.follow += 3;
+            playerHitten.GetComponent<playerBuffs>().buffActifs.fantome += 3;
         }
     }
 
@@ -51,7 +53,12 @@ public class bouleManager : MonoBehaviour
             else {
                 e = (bouleEtat)0;
             }
-            t.text = names[(int)e];
+            int a = (int)e;
+            for (int i =0; i < images.Length; i++)
+            {
+                images[i].sprite = normal[i];
+            }
+            images[a].sprite = highlighted[a];
         }
     }
     void Update()

@@ -63,7 +63,6 @@ playerShader playerShader;
 			if (gameObject == switchManager.actualPlayer)
 			{
 				rb.velocity = v * 16;
-				Debug.Log(v.y);
 			}
 			else
 			{
@@ -95,12 +94,13 @@ playerShader playerShader;
 		{
 			if (playerShader.index == 0)
 			{
-				//playerShader.PutDissolve();
+				playerShader.PutDissolve();
 			}
+			
 		}
-		/*else if (buffActifs.fantome == 0 && playerShader.index != 0)
+		else if (buffActifs.fantome == 0 && playerShader.index != 0)
 		{
 			playerShader.PutBaseSkin();
-		}*/
+		}
 	}
 }

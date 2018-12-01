@@ -30,32 +30,33 @@ public class playerShader : MonoBehaviour {
 	{
 		joint.GetComponent<SkinnedMeshRenderer>().material = m[0];
 		surface.GetComponent<SkinnedMeshRenderer>().material = m[0];
+		material_joint.SetFloat("Vector1_C45ECC06", -1);
+		material_surface.SetFloat("Vector1_C45ECC06", -1);
+		dissolutionTime = -1;
 		index = 0;
 	}
 	
 	public void PutDissolve()
 	{
-		joint.GetComponent<SkinnedMeshRenderer>().material = m[1];
-		surface.GetComponent<SkinnedMeshRenderer>().material = m[1];
 		index = 1;
 	}
 
 	public void PutGhost()
 	{
-		joint.GetComponent<SkinnedMeshRenderer>().material = m[2];
-		surface.GetComponent<SkinnedMeshRenderer>().material = m[2];
+		joint.GetComponent<SkinnedMeshRenderer>().material = m[1];
+		surface.GetComponent<SkinnedMeshRenderer>().material = m[1];
 		index = 2;
 	}
 
 	void Dissolution()
 	{
-		dissolutionTime = Mathf.Clamp(dissolutionTime + Time.deltaTime, -1, 1);
+		dissolutionTime = Mathf.Clamp(dissolutionTime + Time.deltaTime * 1.5f, -1, 1);
 		material_joint.SetFloat("Vector1_C45ECC06", dissolutionTime);
 		material_surface.SetFloat("Vector1_C45ECC06", dissolutionTime);
-		if (dissolutionTime == 1)
+		if (dissolutionTime >= 0.5f)
 		{
 			PutGhost();
-			dissolutionTime = 0;
+			dissolutionTime = -1;
 		}
 	}
 
