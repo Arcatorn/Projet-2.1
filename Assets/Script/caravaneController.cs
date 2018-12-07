@@ -2,15 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class caravaneController : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+public class caravaneController : MonoBehaviour
+{
+    [SerializeField] GameObject caravaneToMove;
+	[SerializeField] GameObject[] buttons;
 	
-	// Update is called once per frame
-	void Update () {
-		
+	void FixedUpdate()
+	{
+		caravaneToMove.transform.Translate(caravaneToMove.transform.forward * 5 * Time.deltaTime);
+	}
+
+	public void detectButton(GameObject wantedGameObject)
+	{
+		GameObject go;
+		for(int i = 0; i < buttons.Length;i++)
+		{
+			if(wantedGameObject == buttons[i])
+			{
+				go = buttons[i];
+				print(go.name);
+			}
+		}
 	}
 }

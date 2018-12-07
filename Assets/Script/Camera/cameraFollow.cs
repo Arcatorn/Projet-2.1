@@ -11,7 +11,6 @@ public class cameraFollow : MonoBehaviour
 
     public void Start()
     {
-        objectWanted = GameObject.Find("Jacques, le perso bleu");
         offset = objectWanted.transform.position - transform.position;
     }
 
