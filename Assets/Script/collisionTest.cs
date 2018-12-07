@@ -5,9 +5,10 @@ using UnityEngine;
 public class collisionTest : MonoBehaviour
 {
 	[SerializeField] caravaneController caravaneScript;
-	void OnTriggerEnter(Collider col)
+	GameObject actualPlayer;
+
+	void Awake()
 	{
-		caravaneScript.detectButton(col.transform.gameObject);
-		print("touched");
+		actualPlayer = this.gameObject;
 	}
 }
