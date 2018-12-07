@@ -14,4 +14,9 @@ public class rotateLeft : MonoBehaviour
     {
         master.rotateLeft();
     }
+
+    void OnTriggerExit()
+    {
+        master.stopRotate();
+    }
 }

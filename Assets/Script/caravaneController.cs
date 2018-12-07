@@ -10,6 +10,7 @@ public class caravaneController : MonoBehaviour
     Rigidbody rigid;
     Vector3 velocity = Vector3.zero;
 
+    bool rotating = false;
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -17,10 +18,11 @@ public class caravaneController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Mathf.Abs(velocity.x) > 10)
-			velocity.x = 10 * Mathf.Sign(velocity.x);
-		if(Mathf.Abs(velocity.z )> 10)
-			velocity.z = 10 * Mathf.Sign(velocity.z);
+		velocity.y = 0;
+        if (Mathf.Abs(velocity.x) > 10)
+            velocity.x = 10 * Mathf.Sign(velocity.x);
+        if (Mathf.Abs(velocity.z) > 10)
+            velocity.z = 10 * Mathf.Sign(velocity.z);
         rigid.velocity = velocity;
     }
     public void moveForward()
@@ -35,12 +37,14 @@ public class caravaneController : MonoBehaviour
 
     public void rotateRight()
     {
+        rotating = true;
         var rotateVector = new Vector3(0, 30, 0);
         transform.Rotate(rotateVector * Time.deltaTime * rotateSpeed);
     }
 
     public void rotateLeft()
     {
+		rotating = true;
         var rotateVector = new Vector3(0, -30, 0);
         transform.Rotate(rotateVector * Time.deltaTime * rotateSpeed);
     }
@@ -54,4 +58,9 @@ public class caravaneController : MonoBehaviour
     {
         velocity = Vector3.zero;
     }
+
+	public void stopRotate()
+	{
+		rigid.angularVelocity = Vector3.zero;
+	}
 }
