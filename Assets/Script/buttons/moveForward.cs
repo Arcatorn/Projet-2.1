@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class moveForward : MonoBehaviour
 {
-    caravaneController master;
+	public testNM2 master;
 
     void Awake()
     {
-        master = GameObject.Find("Caravane Qui Bouge").GetComponent<caravaneController>();
+		if (master == null && GameObject.Find ("Caravane Qui Bouge") != null) 
+		{
+			master = GameObject.Find ("Caravane Qui Bouge").GetComponent<testNM2> ();
+		}
     }
-    void OnTriggerStay()
+    void OnTriggerEnter()
     {
-        master.moveForward();
+		master.DirectionController();
     }
 }

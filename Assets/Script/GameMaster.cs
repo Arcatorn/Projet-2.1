@@ -29,16 +29,16 @@ public class GameMaster : MonoBehaviour
 
     void Update()
     {
-        if (!switching)
-        {
-            Switch();
-            MovePlayerActif();
-            Zoom();
-        }
-        else
-        {
-            MoveCamera();
-        }
+		if (testNM2.chooseNewDir == false) 
+		{
+			if (!switching) {
+				Switch ();
+				MovePlayerActif ();
+				Zoom ();
+			} else {
+				MoveCamera ();
+			}
+		}
     }
 
     void Switch()
@@ -54,14 +54,14 @@ public class GameMaster : MonoBehaviour
 
     void MovePlayerActif()
     {
-        if (Input.GetMouseButton(0))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
-            {
-                pc[playerActif].destination = hit.point;
-            }
-        }
+		if (testNM2.chooseNewDir == false) {
+			if (Input.GetMouseButtonDown (0)) {
+				RaycastHit hit;
+				if (Physics.Raycast (cam.ScreenPointToRay (Input.mousePosition), out hit, Mathf.Infinity)) {
+					pc [playerActif].destination = hit.point;
+				}
+			}
+		}
     }
 
     void MoveCamera()
@@ -71,7 +71,6 @@ public class GameMaster : MonoBehaviour
         if (dist > 2)
         {
             activPS.transform.position += dir * Time.deltaTime * camSpeed;
-            Debug.Log(dist);
         }
         else
         {
