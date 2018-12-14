@@ -98,6 +98,7 @@ public class CartesManager : MonoBehaviour {
 	public static OnePlay toTransform;
 	public List<OnePlay2> isExecuting = new List<OnePlay2>();
 	public static bool aPlayHasOccured = false;
+	public GameMaster gameMaster;
 
     void Awake()
     {
@@ -105,6 +106,7 @@ public class CartesManager : MonoBehaviour {
         {
             master = GameObject.Find("Caravane").GetComponent<testNM2>();
         }
+		gameMaster = GetComponent<GameMaster>();
     }
 	
 	void Start () {

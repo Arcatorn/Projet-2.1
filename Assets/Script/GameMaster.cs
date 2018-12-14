@@ -13,8 +13,6 @@ public class GameMaster : MonoBehaviour
     public bool switching = false;
     float camSpeed = 50;
     public Vector3 offset;
-    public GameObject ps;
-    GameObject activPS;
     public static bool cursorIsOnCard = false;
     public static bool isPlayingACard = false;
     public static bool hittingAModule = false;
@@ -24,6 +22,9 @@ public class GameMaster : MonoBehaviour
     public LineRenderer lr;
     public GameObject caj;
     CartesManager cartesManager;
+
+    public Color[] colorPlayers;
+    public Animator[] animButtons;
 
     void Awake()
     {
@@ -35,6 +36,7 @@ public class GameMaster : MonoBehaviour
         pc[0].updateRotation = false;
         pc[1].updateRotation = false;
         cartesManager = GetComponent<CartesManager>();
+        cam.backgroundColor = colorPlayers[0];
     }
 
     void Update()
@@ -82,8 +84,10 @@ public class GameMaster : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             switching = true;
-            activPS = Instantiate(ps as GameObject);
-            activPS.transform.position = players[playerActif].transform.position;
+            for (int i = 0; i < animButtons.Length; i++)
+            {
+                animButtons[i].SetTrigger("Switch");
+            }
         }
     }
 
@@ -101,19 +105,25 @@ public class GameMaster : MonoBehaviour
 
     void MoveCamera()
     {
-        Vector3 dir = (players[(playerActif + 1) % 2].transform.position - activPS.transform.position).normalized;
-        float dist = Vector3.Distance(players[(playerActif + 1) % 2].transform.position, activPS.transform.position);
+        Vector3 camFictivPosition = new Vector3(cam.transform.position.x, players[playerActif].transform.position.y, cam.transform.position.z);
+        Vector3 dir = (players[(playerActif + 1) % 2].transform.position - camFictivPosition).normalized;
+        float dist = Vector3.Distance(players[(playerActif + 1) % 2].transform.position, camFictivPosition);
         if (dist > 2)
         {
-            activPS.transform.position += dir * Time.deltaTime * camSpeed;
-            cam.transform.position = activPS.transform.position - offset;
+            var distTot = Vector3.Distance(players[(playerActif + 1) % 2].transform.position, players[playerActif].transform.position);
+            var distActual = Vector3.Distance(players[playerActif].transform.position, camFictivPosition);
+            cam.backgroundColor = Color.Lerp(colorPlayers[playerActif], colorPlayers[(playerActif + 1) % 2], distActual / distTot);
+
+            camFictivPosition += dir * Time.deltaTime * camSpeed;
+            camFictivPosition.y = cam.transform.position.y;
+            cam.transform.position = camFictivPosition;
         }
         else
         {
             playerActif = (playerActif + 1) % 2;
             switching = false;
             cam.transform.position = players[playerActif].transform.position - offset;
-            Destroy(activPS);
+            cam.backgroundColor = colorPlayers[playerActif];
         }
     }
 
@@ -123,7 +133,7 @@ public class GameMaster : MonoBehaviour
         if (Mathf.Abs(a) > 0)
         {
             a *= 15;
-            if ((cam.transform.position.y - a) >= 30 && (cam.transform.position.y - a) <= 70)
+            if ((cam.transform.position.y - a) >= 30 && (cam.transform.position.y - a) <= 90)
             {
                 cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y - a, cam.transform.position.z);
                 offset = new Vector3(0, players[playerActif].transform.position.y - cam.transform.position.y, 0);
