@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class testNM2 : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class testNM2 : MonoBehaviour {
 	public Camera camInt;
 
 	public static bool chooseNewDir = false;
+	public Image seperationScreen;
 	
 
 	void Update () 
@@ -38,6 +40,7 @@ public class testNM2 : MonoBehaviour {
 		chooseNewDir = true;
 		camExt.rect = new Rect (0, 0, 1, 1);
 		camInt.rect = new Rect (1, 0, 0, 0);
+		seperationScreen.enabled = false;
 	}
 
 	public void EndChosseDirection()
@@ -45,6 +48,7 @@ public class testNM2 : MonoBehaviour {
 		StartCoroutine ("cantact", 0.1f);
 		camExt.rect = new Rect (0.5f, 0, 0.5f, 1);
 		camInt.rect = new Rect (0, 0, 0.5f, 1);
+		seperationScreen.enabled = true;
 	}
 
 	IEnumerator cantact(float delay)
