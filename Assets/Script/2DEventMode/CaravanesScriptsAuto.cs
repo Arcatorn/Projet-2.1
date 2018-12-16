@@ -81,8 +81,9 @@ public class CaravanesScriptsAuto : MonoBehaviour {
         {
             GameObject t = Instantiate(tir as GameObject);
             PiouPiouScript p = t.AddComponent<PiouPiouScript>();
-            p.direction = otherCaravane.transform.position + new Vector3(Random.value, Random.value, 0);
+            //p.direction = (otherCaravane.transform.position + new Vector3(Random.value, Random.value, 0)).normalized;
 			var a = (otherCaravane.transform.position - transform.position).normalized;
+			p.direction = a  + new Vector3(Random.value, Random.value, 0);
             t.transform.position = transform.position + a * (i + 1);
         }
 	}
