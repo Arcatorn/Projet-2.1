@@ -7,6 +7,7 @@ public class PiouPiouScript : MonoBehaviour {
 	Rigidbody2D rb;
 	public Vector3 direction;
 	public float speed = 3f;
+	public GameObject ennemi;
 
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -16,8 +17,11 @@ public class PiouPiouScript : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		other.gameObject.GetComponent<CaravanesScriptsAuto>().hasBeenHit = true;
-		Destroy(gameObject);
+        if (other.gameObject == ennemi)
+        {
+            other.gameObject.GetComponent<CaravanesScriptsAuto>().hasBeenHit = true;
+            Destroy(gameObject);
+        }
 	}
 
 	IEnumerator DestroyTir()

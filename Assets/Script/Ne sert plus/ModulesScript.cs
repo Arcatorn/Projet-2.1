@@ -7,7 +7,7 @@ public class ModulesScript : MonoBehaviour {
 	public bool isActivated = false;
 	public float timerMax = 5;
 	float timer = 0;
-	public moduleType myType;
+	//public moduleType myType;
 
 	void Start () {
 		

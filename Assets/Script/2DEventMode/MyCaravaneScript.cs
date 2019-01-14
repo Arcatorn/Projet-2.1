@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CaravanesScriptsAuto : MonoBehaviour {
+public class MyCaravaneScript : MonoBehaviour {
 
 	Vector3 startPosition;
 	Vector3 destination;
@@ -78,7 +78,7 @@ public class CaravanesScriptsAuto : MonoBehaviour {
         }
     }
 
-	void PiouPiou()
+	public void PiouPiou()
 	{
         for (int i = 0; i < 3; i++)
         {

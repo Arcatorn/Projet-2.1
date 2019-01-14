@@ -46,15 +46,15 @@ public class GameMaster : MonoBehaviour
             PlayerLine();
         }
         else if (endPlayingCard)
+        {
+            if (hittingAModule)
             {
-                if (hittingAModule)
-                {
-                    PlayCard();
-                }
-                hittingAModule = false;
-                endPlayingCard = false;
+                PlayCard();
             }
-        else 
+            hittingAModule = false;
+            endPlayingCard = false;
+        }
+        else
         {
             if (lr.enabled)
             {
@@ -63,20 +63,21 @@ public class GameMaster : MonoBehaviour
             }
         }
 
-		if (testNM2.chooseNewDir == false) 
-		{
-			if (!switching) {
-                if (!cursorIsOnCard)
-                {
-                    Switch();
-                    MovePlayerActif();
-                    Zoom();
-                }
-                CameraFollow();
-			} else {
-				MoveCamera ();
-			}
-		}
+        if (!switching)
+        {
+            if (!cursorIsOnCard)
+            {
+                Switch();
+                //MovePlayerActif();
+                //Zoom();
+            }
+            CameraFollow();
+        }
+        else
+        {
+            MoveCamera();
+        }
+
     }
 
     void Switch()
@@ -93,14 +94,15 @@ public class GameMaster : MonoBehaviour
 
     void MovePlayerActif()
     {
-		if (testNM2.chooseNewDir == false) {
-			if (Input.GetMouseButtonDown (0)) {
-				RaycastHit hit;
-				if (Physics.Raycast (cam.ScreenPointToRay (Input.mousePosition), out hit, Mathf.Infinity)) {
-					pc [playerActif].destination = hit.point;
-				}
-			}
-		}
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+            {
+                pc[playerActif].destination = hit.point;
+            }
+        }
     }
 
     void MoveCamera()
@@ -168,23 +170,21 @@ public class GameMaster : MonoBehaviour
         if (Physics.Raycast(origin, dir, out hit, dist))
         {
             point = hit.point;
-            if (hit.transform.tag == "Module")
-            {
-                hittingAModule = true;
-                moduleHit = hit.transform.gameObject;
-            }
-            else
-            {
-                hittingAModule = false;
-            }
+            // if (hit.transform.tag == "Module")
+            // {
+            //     hittingAModule = true;
+            //     moduleHit = hit.transform.gameObject;
+            // }
+            // else
+            // {
+            //     hittingAModule = false;
+            // }
         }
         lr.SetPositions(new Vector3[] {origin, point});
-        
     }
 
     public void PlayCard()
     {
-        moduleHit.GetComponent<MeshRenderer>().material = Resources.Load("Materials/Player1") as Material;
         cartesManager.PlayACardOnModule(cardIDBeingPlayed);
         cardIDBeingPlayed = -1;
     }
