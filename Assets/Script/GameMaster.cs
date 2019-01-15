@@ -94,6 +94,7 @@ public class GameMaster : MonoBehaviour
             for (int i = 0; i < animButtons.Length; i++)
             {
                 animButtons[i].SetTrigger("Switch");
+                // faire un appel à carte Manager pour changer la main des joueurs
                 playerActif = (playerActif + 1) % 2;
                 switching = false;
                 cam.backgroundColor = colorPlayers[playerActif];
@@ -178,11 +179,12 @@ public class GameMaster : MonoBehaviour
 
     public void PlayCard()
     {
+         pc[playerActif].enabled = true;
+        var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
+        pc[playerActif].destination = c.pos;
         persoScripts[playerActif].carteID = cardIDBeingPlayed;
         persoScripts[playerActif].vaJouerUneCarte = true;
         cardIDBeingPlayed = -1;
-        var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
-        pc[playerActif].destination = c.pos;
     }
 
 

@@ -109,5 +109,8 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
         }
     }
 
-	
+	public void MAFONCTIONTESTPOURDAMIEN()
+	{
+		Debug.Log("Au revoir");
+	}
 }

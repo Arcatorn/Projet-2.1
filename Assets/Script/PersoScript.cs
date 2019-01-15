@@ -26,9 +26,10 @@ public class PersoScript : MonoBehaviour {
 
 	public void JouerUneCarte(int cardID)
 	{
-		if (nma.remainingDistance < 0.2f)
+		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
+		if (remainingDistance < 1.2f)
 		{
-			Debug.Log("finit");
+			Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), nma.destination, Quaternion.identity);
 			cartesManager.PlayACardOnModule(carteID);
 			carteID = -1;
 			vaJouerUneCarte = false;

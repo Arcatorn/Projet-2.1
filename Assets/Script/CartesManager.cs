@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public enum CartesTypes
 {
-	Deplacement = 0,
-	Radar = 1,
+	Yeux = 0,
+	Estomac = 1,
 	Armement = 2,
 	Ramasser = 3,
 	Terraformer = 4,
@@ -185,7 +185,6 @@ public class CartesManager : MonoBehaviour {
 	void TransformPlay()
     {
 		int idSalle = toTransform.mGO.GetComponent<SalleScript>().id;
-		Debug.Log(idSalle);
 		allSalles[idSalle].AddCarte(playerCards[toTransform.cardID]);
 		allSalles[idSalle].salleScript.sr.sprite = cartesButtonsScripts[toTransform.cardID].gameObject.GetComponent<Image>().sprite;
         aPlayHasOccured = false;
@@ -195,7 +194,7 @@ public class CartesManager : MonoBehaviour {
 	{
        for (int i = 0; i < allSalles.Count; i++)
 	   {
-		   allSalles[i].CoolDown(Time.deltaTime);
+		   //allSalles[i].CoolDown(Time.deltaTime);
 	   }
 	}
 
