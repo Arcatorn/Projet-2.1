@@ -63,22 +63,25 @@ public class GameMaster : MonoBehaviour
                 caj.SetActive(false);
                 detector.SetActive(false);
             }
+            
+
+            if (!switching)
+            {
+                if (!cursorIsOnCard)
+                {
+                    ClicDetection();
+                    Switch();
+                    //Zoom();
+                }
+                //CameraFollow();
+            }
+            else
+            {
+                //MoveCamera();
+            }
         }
 
-        if (!switching)
-        {
-            if (!cursorIsOnCard)
-            {
-                Switch();
-                //MovePlayerActif();
-                //Zoom();
-            }
-            CameraFollow();
-        }
-        else
-        {
-            MoveCamera();
-        }
+       
 
     }
 
@@ -90,22 +93,13 @@ public class GameMaster : MonoBehaviour
             for (int i = 0; i < animButtons.Length; i++)
             {
                 animButtons[i].SetTrigger("Switch");
+                playerActif = (playerActif + 1) % 2;
+                switching = false;
+                cam.backgroundColor = colorPlayers[playerActif];
             }
         }
     }
 
-    void MovePlayerActif()
-    {
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
-            {
-                pc[playerActif].destination = hit.point;
-            }
-        }
-    }
 
     void MoveCamera()
     {
@@ -145,6 +139,7 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+
     void CameraFollow()
     {
         if(pc[playerActif].velocity.magnitude > 0.05f)
@@ -182,8 +177,34 @@ public class GameMaster : MonoBehaviour
 
     public void PlayCard()
     {
-        cartesManager.PlayACardOnModule(cardIDBeingPlayed);
+        
         cardIDBeingPlayed = -1;
+        var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
+        pc[playerActif].destination = c.pos;
+    }
+
+    IEnumerator WaitingForPlayerToMoveToMakeAPlay(int player, int cardID){
+        if (pc[player].transform.position == pc[player].destination)
+        {
+            cartesManager.PlayACardOnModule(cardIDBeingPlayed);
+            yield break;
+        }
+
+    }
+
+    public void ClicDetection()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
+            RaycastHit hit;
+            var dir = (point - Camera.main.transform.position);
+            int layer = (1<<12);
+            if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer))
+            {
+                pc[playerActif].destination = hit.collider.gameObject.GetComponent<ConsoleScript>().pos;
+            }
+        }
     }
 
 }
