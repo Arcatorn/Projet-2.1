@@ -21,6 +21,7 @@ public class GameMaster : MonoBehaviour
     public static GameObject moduleHit;
     public LineRenderer lr;
     public GameObject caj;
+    public GameObject detector;
     CartesManager cartesManager;
 
     public Color[] colorPlayers;
@@ -60,6 +61,7 @@ public class GameMaster : MonoBehaviour
             {
                 lr.enabled = false;
                 caj.SetActive(false);
+                detector.SetActive(false);
             }
         }
 
@@ -157,30 +159,25 @@ public class GameMaster : MonoBehaviour
         {
             lr.enabled = true;
             caj.SetActive(true);
+            detector.SetActive(true);
         }
         var origin = players[playerActif].transform.position;
-        Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Camera.main.pixelHeight - Input.mousePosition.y, Camera.main.nearClipPlane));
-		point.z = -point.z + (Camera.main.transform.position.z * 2);
-        point.y = origin.y;
-        caj.transform.position = point;
+        Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
+		//point.z = -point.z + (Camera.main.transform.position.z * 2);
+        //point.y = origin.y;
+        
 
         RaycastHit hit;
         var dist = Vector3.Distance(origin, point);
-        var dir = (point - origin).normalized;
-        if (Physics.Raycast(origin, dir, out hit, dist))
+        var dir = (point - Camera.main.transform.position);
+
+        caj.transform.position = point + dir;
+        int layer = ~(1<<11);
+        if (Physics.Raycast(caj.transform.position, dir, out hit, dist, layer))
         {
-            point = hit.point;
-            // if (hit.transform.tag == "Module")
-            // {
-            //     hittingAModule = true;
-            //     moduleHit = hit.transform.gameObject;
-            // }
-            // else
-            // {
-            //     hittingAModule = false;
-            // }
+            detector.transform.position = hit.point;
         }
-        lr.SetPositions(new Vector3[] {origin, point});
+        lr.SetPositions(new Vector3[] {Camera.main.transform.position, point + dir * 10});
     }
 
     public void PlayCard()

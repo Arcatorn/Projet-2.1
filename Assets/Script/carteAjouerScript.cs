@@ -8,9 +8,10 @@ public class carteAjouerScript : MonoBehaviour {
 	public Color baseColor;
 	SalleScript salleScriptCollider;
 	GameMaster gm;
+	public GameObject caj;
 
 	void Awake() {
-		meshRenderer = GetComponent<MeshRenderer>();
+		meshRenderer = caj.GetComponent<MeshRenderer>();
 		if (gm == null)
 		{
 			gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
@@ -31,7 +32,6 @@ public class carteAjouerScript : MonoBehaviour {
 		}
 	}
 
-	
 
 	private void OnTriggerExit(Collider other) {
 		if (other.tag == "Module")
