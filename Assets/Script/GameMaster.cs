@@ -20,7 +20,6 @@ public class GameMaster : MonoBehaviour
     public static int cardIDBeingPlayed = -1;
     public static bool endPlayingCard = false;
     public static GameObject moduleHit;
-    public LineRenderer lr;
     public GameObject caj;
     public GameObject detector;
     CartesManager cartesManager;
@@ -58,9 +57,8 @@ public class GameMaster : MonoBehaviour
         }
         else
         {
-            if (lr.enabled)
+            if (caj.activeInHierarchy)
             {
-                lr.enabled = false;
                 caj.SetActive(false);
                 detector.SetActive(false);
             }
@@ -152,9 +150,8 @@ public class GameMaster : MonoBehaviour
 
     public void PlayerLine()
     {
-        if (!lr.enabled)
+        if (!caj.activeInHierarchy)
         {
-            lr.enabled = true;
             caj.SetActive(true);
             detector.SetActive(true);
         }
@@ -174,7 +171,6 @@ public class GameMaster : MonoBehaviour
         {
             detector.transform.position = hit.point;
         }
-        lr.SetPositions(new Vector3[] {Camera.main.transform.position, point + dir * 10});
     }
 
     public void PlayCard()

@@ -5,107 +5,49 @@ using UnityEngine.UI;
 
 public enum CartesTypes
 {
-	Yeux = 0,
-	Estomac = 1,
-	Armement = 2,
-	Ramasser = 3,
-	Terraformer = 4,
-	Reperation = 5
+	Yeux = 1,
+	Estomac = 2,
+	Griffes = 3,
+	Pattes = 4,
+	Bouche = 5,
+	Truffe = 6
 }
 
-
-
-public abstract class Cartes
+public enum SallesTypes
 {
-    public CartesTypes type;
-
-    virtual public void Action(MyCaravaneScript m) { }
+	Excavation = 0,
+	Defense = 1,
+	Navigation = 2,
+	Radar = 3,
+	Electronics = 4,
+	Communication = 5
 }
 
-public class Deplacement : Cartes
+public class Cartes
 {
-    public Deplacement()
-    {
-        type = CartesTypes.Deplacement;
-    }
+	public int id;
+	public CartesTypes cartesTypes;
 
-    override public void Action(MyCaravaneScript m)
-    {
-		Debug.Log("Esquive !");
-    }
-}
-
-public class Armement : Cartes
-{
-    public Armement()
-    {
-        type = CartesTypes.Armement;
-    }
-
-    override public void Action(MyCaravaneScript m)
-    {
-		Debug.Log("Tir !");
-		m.PiouPiou();
-    }
-}
-
-public class Brouillage : Cartes
-{
-    public Brouillage()
-    {
-        type = CartesTypes.Radar;
-    }
-
-    override public void Action(MyCaravaneScript m)
-    {
-		Debug.Log("Brouillage !");
-    }
+	public Cartes(int _id, CartesTypes _cartesTypes)
+	{
+		id = _id;
+		cartesTypes = _cartesTypes;
+	}
 }
 
 public class Salle
 {
+	public SallesTypes sallesTypes;
     public GameObject salleGO;
     public SalleScript salleScript;
-    public int cd;
-	public Cartes myCarte;
-	public float timer;
-	public MyCaravaneScript m;
-
-    public Salle(GameObject _salleGO, int _cd, MyCaravaneScript _mm)
+    public Salle(GameObject _salleGO, SallesTypes _sallesTypes)
     {
         salleGO = _salleGO;
         salleScript = _salleGO.GetComponent<SalleScript>();
-        cd = _cd;
-		m =_mm;
-		RemoveCarte();
+		sallesTypes = _sallesTypes;
     }
 
-	public void RemoveCarte()
-	{
-		myCarte = null;
-	}
-	public void AddCarte(Cartes c)
-	{
-		myCarte = c;
-	}
-
-    public void CoolDown(float t)
-    {
-        timer += t;
-        if (timer >= cd)
-        {
-            if (myCarte != null)
-            {
-                ExecuteAction();
-            }
-            timer = 0;
-        }
-    }
-
-	public void ExecuteAction()
-	{
-		myCarte.Action(m);
-	}
+	
 }
 
 public class CartesManager : MonoBehaviour {
@@ -117,9 +59,6 @@ public class CartesManager : MonoBehaviour {
 	public static OnePlay toTransform;
 	public static bool aPlayHasOccured = false;
 	public GameMaster gameMaster;
-
-	public MyCaravaneScript myCaravaneScript;
-
     void Awake()
     {
 		gameMaster = GetComponent<GameMaster>();
@@ -135,36 +74,18 @@ public class CartesManager : MonoBehaviour {
 		{
 			TransformPlay();
 		}
-		GestionAllSalles();
 	}
 
     void Initialize()
     {
         for (int i = 0; i < 3; i++)
         {
-            if (i == 0)
-            {
-                Cartes c = new Deplacement();
-                playerCards.Add(c);
-                cartesButtonsScripts[i] = emplacements[i].GetComponent<CartesButtons>();
-                cartesButtonsScripts[i].id = i;
-            }
-            else if (i == 1)
-            {
-                Cartes c = new Brouillage();
-                playerCards.Add(c);
-                cartesButtonsScripts[i] = emplacements[i].GetComponent<CartesButtons>();
-                cartesButtonsScripts[i].id = i;
-            }
-			else
-			{
-				Cartes c = new Armement();
-                playerCards.Add(c);
-                cartesButtonsScripts[i] = emplacements[i].GetComponent<CartesButtons>();
-                cartesButtonsScripts[i].id = i;
-			}
+            Cartes c = new Cartes(i, (CartesTypes)i);
+            playerCards.Add(c);
+            cartesButtonsScripts[i] = emplacements[i].GetComponent<CartesButtons>();
+            cartesButtonsScripts[i].id = i;
         }
-		InitializeSalles();
+        InitializeSalles();
     }
 
     public struct OnePlay
@@ -185,30 +106,19 @@ public class CartesManager : MonoBehaviour {
 	void TransformPlay()
     {
 		int idSalle = toTransform.mGO.GetComponent<SalleScript>().id;
-		allSalles[idSalle].AddCarte(playerCards[toTransform.cardID]);
+		//allSalles[idSalle].AddCarte(playerCards[toTransform.cardID]);
 		allSalles[idSalle].salleScript.sr.sprite = cartesButtonsScripts[toTransform.cardID].gameObject.GetComponent<Image>().sprite;
         aPlayHasOccured = false;
     }
 
-	void GestionAllSalles()
-	{
-       for (int i = 0; i < allSalles.Count; i++)
-	   {
-		   //allSalles[i].CoolDown(Time.deltaTime);
-	   }
-	}
-
 	void InitializeSalles()
 	{
-		Salle a = new Salle(GameObject.Find("Salle1"), 3, myCaravaneScript);
-		allSalles.Add(a);
-		a.salleScript.id = 0;
-		a = new Salle(GameObject.Find("Salle2"), 5, myCaravaneScript);
-		allSalles.Add(a);
-		a.salleScript.id = 1;
-		a = new Salle(GameObject.Find("Salle3"), 8, myCaravaneScript);
-		allSalles.Add(a);
-		a.salleScript.id = 2;
+		for (int i = 1; i < 4; i++)
+		{
+			Salle a = new Salle(GameObject.Find("Salle" + i.ToString()), (SallesTypes)i);
+			allSalles.Add(a);
+			a.salleScript.id = i;
+		}
 	}
 
 }
