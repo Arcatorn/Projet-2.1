@@ -141,14 +141,14 @@ public class CartesManager : MonoBehaviour {
 			nouveauPlayerActif = 2;
 			for (int i = 0; i < 3; i++)
 			{
-				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = Instantiate(Resources.Load("Sprites/Cartes/Carte" + playerTwoCards[i].id.ToString())) as Sprite;
+				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = Resources.Load("Sprites/Cartes/Carte" + playerTwoCards[i].id.ToString()) as Sprite;
 			}
 		}
 		else{
 			nouveauPlayerActif = 1;
 			for (int i = 0; i < 3; i++)
 			{
-				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = Instantiate(Resources.Load("Sprites/Cartes/Carte" + playerOneCards[i].id.ToString())) as Sprite;
+				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = Resources.Load("Sprites/Cartes/Carte" + playerOneCards[i].id.ToString()) as Sprite;
 			}
 		}
 	}
