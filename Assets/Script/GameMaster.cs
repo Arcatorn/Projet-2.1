@@ -92,7 +92,6 @@ public class GameMaster : MonoBehaviour
             for (int i = 0; i < animButtons.Length; i++)
             {
                 animButtons[i].SetTrigger("Switch");
-                // faire un appel à carte Manager pour changer la main des joueurs
                 playerActif = (playerActif + 1) % 2;
                 switching = false;
                 cam.backgroundColor = colorPlayers[playerActif];

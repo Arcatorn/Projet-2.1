@@ -19,7 +19,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 	[HideInInspector]
 	public ButtonStates buttonState;
 	Animator anim;
-
+	CartesManager cartesManager;
 	public Canvas myCanvas;
 	public GameObject ps;
 	public int id;
@@ -31,6 +31,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 		anim = GetComponent<Animator>();
 		buttonState = ButtonStates.normal;
 		cd = transform.GetChild(0).GetComponent<Image>();
+		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
@@ -111,6 +112,6 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 
 	public void MAFONCTIONTESTPOURDAMIEN()
 	{
-		Debug.Log("Au revoir");
+		cartesManager.ChangerPictoMainDuJoueur();
 	}
 }
