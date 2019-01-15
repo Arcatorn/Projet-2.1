@@ -26,8 +26,9 @@ public class PersoScript : MonoBehaviour {
 
 	public void JouerUneCarte(int cardID)
 	{
-		if (transform.position == nma.destination)
+		if (nma.remainingDistance < 0.2f)
 		{
+			Debug.Log("finit");
 			cartesManager.PlayACardOnModule(carteID);
 			carteID = -1;
 			vaJouerUneCarte = false;

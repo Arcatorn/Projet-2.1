@@ -7,6 +7,7 @@ public class GameMaster : MonoBehaviour
 {
 
     public GameObject[] players;
+    public PersoScript[] persoScripts;
     public int playerActif;
     public NavMeshAgent[] pc;
     Camera cam;
@@ -177,20 +178,13 @@ public class GameMaster : MonoBehaviour
 
     public void PlayCard()
     {
-        
+        persoScripts[playerActif].carteID = cardIDBeingPlayed;
+        persoScripts[playerActif].vaJouerUneCarte = true;
         cardIDBeingPlayed = -1;
         var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
         pc[playerActif].destination = c.pos;
     }
 
-    IEnumerator WaitingForPlayerToMoveToMakeAPlay(int player, int cardID){
-        if (pc[player].transform.position == pc[player].destination)
-        {
-            cartesManager.PlayACardOnModule(cardIDBeingPlayed);
-            yield break;
-        }
-
-    }
 
     public void ClicDetection()
     {
