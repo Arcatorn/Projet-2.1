@@ -53,7 +53,6 @@ public class PersoScript : MonoBehaviour
 			{
 				specialAction.SetActive(true);
 			}
-			WantedConsoleScript.ActivateText();
 		}
 	}
 

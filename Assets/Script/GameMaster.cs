@@ -199,4 +199,9 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    public void ButtonClickSpecialAttack()
+    {
+       persoScripts[playerActif].WantedConsoleScript.ActivateText();
+    }
+
 }
