@@ -20,6 +20,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 	[HideInInspector]
 	public ButtonStates buttonState;
 	Animator anim;
+	private CardSound cardSound;
 	CartesManager cartesManager;
 	public Canvas myCanvas;
 	public GameObject ps;
@@ -31,6 +32,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 		anim = GetComponent<Animator>();
 		buttonState = ButtonStates.normal;
 		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
+		cardSound = Camera.main.GetComponent<CardSound>();
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
@@ -40,6 +42,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 			anim.SetTrigger("Pressed");
 			buttonState = ButtonStates.hold;
 			GameMaster.isPlayingACard = true;
+			cardSound.HoldCard();
 		//}
 	}
 
@@ -59,6 +62,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 			else {
 				//buttonState = ButtonStates.normal;
 				anim.SetTrigger("Normal");
+			cardSound.CancelHolding();
 			}
             GameMaster.endPlayingCard = true;
 
