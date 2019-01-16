@@ -27,11 +27,6 @@ public class SalleScript : MonoBehaviour {
 			spotInUse[i] = false;
 		}
 	}
-	
-	
-	void Update () {
-		
-	}
 
 	public void OnDragCardOnMe()
 	{
@@ -49,6 +44,8 @@ public class SalleScript : MonoBehaviour {
         if (!spotInUse[rnd])
         {
             cartesManager.cartesPhysiques[carteID].transform.position = spotCartes[rnd].transform.position;
+			cartesManager.cartesPhysiques[carteID].GetComponent<CartePhysiqueScript>().salleID = id;
+			cartesManager.cartesPhysiques[carteID].GetComponent<CartePhysiqueScript>().spotID = rnd;
 			spotInUse[rnd] = true;
         }
         else

@@ -180,6 +180,7 @@ public class GameMaster : MonoBehaviour
         pc[playerActif].destination = c.pos;
         persoScripts[playerActif].carteID = cardIDBeingPlayed;
         persoScripts[playerActif].vaJouerUneCarte = true;
+        persoScripts[playerActif].vaRamasserUneCarte = false;
         cardIDBeingPlayed = -1;
     }
 
@@ -195,12 +196,20 @@ public class GameMaster : MonoBehaviour
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer))
             {
                 pc[playerActif].destination = hit.collider.gameObject.GetComponent<ConsoleScript>().pos;
+                persoScripts[playerActif].vaJouerUneCarte = false;
+                persoScripts[playerActif].vaRamasserUneCarte = false;
             }
 
             int layer2 = (1<<13);
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer2))
             {
-                pc[playerActif].destination = hit.collider.gameObject.transform.position;
+                if (!cartesManager.CheckHandisFull(playerActif))
+                {
+                    persoScripts[playerActif].WantedCarteId = hit.collider.gameObject.GetComponent<CartePhysiqueScript>().id;
+                    pc[playerActif].destination = hit.collider.gameObject.transform.position;
+                    persoScripts[playerActif].vaJouerUneCarte = false;
+                    persoScripts[playerActif].vaRamasserUneCarte = true;
+                }
             }
         }
     }

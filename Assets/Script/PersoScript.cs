@@ -8,14 +8,14 @@ public class PersoScript : MonoBehaviour
 {
 
 	NavMeshAgent nma;
-	
+	public int monID;
 	public bool vaJouerUneCarte = false;
 	public bool vaRamasserUneCarte = false;
 	public int carteID = -1;
 	
 	CartesManager cartesManager;
 	public ConsoleScript WantedConsoleScript;
-	
+	public int WantedCarteId;
 	[SerializeField] private GameObject specialAction;
 	
 	void Start () 
@@ -29,6 +29,10 @@ public class PersoScript : MonoBehaviour
 		if (vaJouerUneCarte)
 		{
 			JouerUneCarte(carteID);
+		}
+		else if (vaRamasserUneCarte)
+		{
+			RamasserUneCarte();
 		}	
 	}
 
@@ -40,6 +44,16 @@ public class PersoScript : MonoBehaviour
 			cartesManager.PlayACardOnModule(carteID);
 			carteID = -1;
 			vaJouerUneCarte = false;
+		}
+	}
+
+	public void RamasserUneCarte()
+	{
+		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
+		if (remainingDistance < 2f)
+		{
+			cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
+			vaRamasserUneCarte = false;
 		}
 	}
 

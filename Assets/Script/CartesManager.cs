@@ -66,7 +66,7 @@ public class CartesManager : MonoBehaviour {
 	public static bool aPlayHasOccured = false;
 	public GameMaster gameMaster;
 	public AllActions allActions;
-	public int nouveauPlayerActif = 1;
+	public int nouveauPlayerActif = 0;
     void Awake()
     {
 		gameMaster = GetComponent<GameMaster>();
@@ -125,14 +125,16 @@ public class CartesManager : MonoBehaviour {
     {
 		int idSalle = toTransform.mGO.GetComponent<SalleScript>().id;
 		allSalles[idSalle].salleScript.sr.sprite = cartesButtonsScripts[toTransform.cardID].gameObject.GetComponent<Image>().sprite;
-		allActions.CallAction(toTransform.cardID, idSalle);
-		if (nouveauPlayerActif == 1)
+		
+		if (nouveauPlayerActif == 0)
 		{
+			allActions.CallAction(playerOneCards[toTransform.cardID].id, idSalle);
 			playerOneCards.RemoveAt(toTransform.cardID);
 			SortCartes(playerOneCards);
 		}
 		else
 		{
+			allActions.CallAction(playerTwoCards[toTransform.cardID].id, idSalle);
 			playerTwoCards.RemoveAt(toTransform.cardID);
 			SortCartes(playerTwoCards);
 		}
@@ -152,13 +154,13 @@ public class CartesManager : MonoBehaviour {
 
 	public void ChangerPictoMainDuJoueur()
 	{
-		if (nouveauPlayerActif == 1)
+		if (nouveauPlayerActif == 0)
 		{
-			nouveauPlayerActif = 2;
+			nouveauPlayerActif = 1;
 			SortCartes(playerTwoCards);
 		}
 		else{
-			nouveauPlayerActif = 1;
+			nouveauPlayerActif = 0;
 			SortCartes(playerOneCards);
 		}
 	}
@@ -177,6 +179,46 @@ public class CartesManager : MonoBehaviour {
 				m.sprite = Resources.Load<Sprite> ("Sprites/Cartes/Blanc");
 				m.enabled = false;
 			}
+		}
+	}
+
+	public bool CheckHandisFull(int player)
+	{
+		bool toReturn = false;
+		if (player == 0)
+		{
+			if (playerOneCards.Count == 3)
+			{
+				
+				toReturn = true;
+			}
+		}
+		else{
+			if (playerTwoCards.Count == 3)
+			{
+				toReturn = true;
+			}
+		}
+		
+		return toReturn;
+	}
+
+	public void AjouterUneCarteDansLaMain(int player, int carteId)
+	{
+		if (player == 0)
+		{
+			playerOneCards.Add(allCards[carteId]);
+			SortCartes(playerOneCards);
+			cartesPhysiques[carteId].transform.position = new Vector3(-100, 0,0);
+			CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
+			allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
+		}
+		else{
+			playerTwoCards.Add(allCards[carteId]);
+			SortCartes(playerTwoCards);
+			cartesPhysiques[carteId].transform.position = new Vector3(-100, 0,0);
+			CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
+			allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
 		}
 	}
 
