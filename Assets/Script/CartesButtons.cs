@@ -32,42 +32,55 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		if (buttonState == ButtonStates.highlighted)
-		{
+		//if (buttonState == ButtonStates.highlighted)
+		//{
 			anim.SetTrigger("Pressed");
 			buttonState = ButtonStates.hold;
 			GameMaster.isPlayingACard = true;
-		}
+		//}
 	}
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (buttonState == ButtonStates.hold)
-		{
-			buttonState = ButtonStates.release;
-		}
+		//if (buttonState == ButtonStates.hold)
+		//{
+		//	buttonState = ButtonStates.release;
+		//}
+
+		if (GameMaster.hittingAModule)
+            {
+                GameMaster.cardIDBeingPlayed = id;
+            	//buttonState = ButtonStates.disabled;
+				anim.SetTrigger("Normal");
+            }
+			else {
+				//buttonState = ButtonStates.normal;
+				anim.SetTrigger("Normal");
+			}
+            GameMaster.endPlayingCard = true;
+
 		GameMaster.cursorIsOnCard = false;
 		GameMaster.isPlayingACard = false;
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		if (buttonState == ButtonStates.normal)
-		{
+		//if (buttonState == ButtonStates.normal)
+		//{
 			anim.SetTrigger("Highlighted");
 			buttonState = ButtonStates.highlighted;
 			GameMaster.cursorIsOnCard = true;
-		}
+		//}
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		if (buttonState == ButtonStates.highlighted)
-		{
+		//if (buttonState == ButtonStates.highlighted)
+		//{
 			anim.SetTrigger("Normal");
 			buttonState = ButtonStates.normal;
 			GameMaster.cursorIsOnCard = false;
-		}
+		//}
 	}
 
 	public void OnDrag (PointerEventData eventData)
@@ -77,7 +90,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 
     private void Update()
     {
-        if (buttonState == ButtonStates.release)
+       /* if (buttonState == ButtonStates.release)
         {
             if (GameMaster.hittingAModule)
             {
@@ -90,6 +103,6 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 				anim.SetTrigger("Normal");
 			}
             GameMaster.endPlayingCard = true;
-        }
+        }*/
     }
 }

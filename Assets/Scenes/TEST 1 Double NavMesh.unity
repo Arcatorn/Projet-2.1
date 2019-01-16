@@ -1598,6 +1598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vaJouerUneCarte: 0
+  vaRamasserUneCarte: 0
   carteID: -1
   WantedConsoleScript: {fileID: 0}
   specialAction: {fileID: 1510615420}
@@ -2160,7 +2161,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1199545686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.35, y: -1.08, z: -11.15}
+  m_LocalPosition: {x: 8.35, y: -1.08, z: -18.3}
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children:
   - {fileID: 143953577}
@@ -4162,6 +4163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vaJouerUneCarte: 0
+  vaRamasserUneCarte: 0
   carteID: -1
   WantedConsoleScript: {fileID: 0}
   specialAction: {fileID: 1510615420}

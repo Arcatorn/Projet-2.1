@@ -128,12 +128,12 @@ public class CartesManager : MonoBehaviour {
 		allActions.CallAction(toTransform.cardID, idSalle);
 		if (nouveauPlayerActif == 1)
 		{
-			playerOneCards.Remove(allCards[toTransform.cardID]);
+			playerOneCards.RemoveAt(toTransform.cardID);
 			SortCartes(playerOneCards);
 		}
 		else
 		{
-			playerTwoCards.Remove(allCards[toTransform.cardID]);
+			playerTwoCards.RemoveAt(toTransform.cardID);
 			SortCartes(playerTwoCards);
 		}
 		
