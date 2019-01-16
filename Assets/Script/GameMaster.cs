@@ -23,11 +23,13 @@ public class GameMaster : MonoBehaviour
     public GameObject caj;
     CartesManager cartesManager;
 
+    private CardSound cardSound;
     //public Color[] colorPlayers;
     public Animator[] animButtons;
 
     void Awake()
     {
+        cardSound = Camera.main.GetComponent<CardSound>();
         playerActif = 0;
         pc[0].enabled = true;
         pc[1].enabled = true;
@@ -192,6 +194,7 @@ public class GameMaster : MonoBehaviour
         persoScripts[playerActif].vaJouerUneCarte = true;
         persoScripts[playerActif].vaRamasserUneCarte = false;
         cardIDBeingPlayed = -1;
+        cardSound.GoingToPlayACard();
     }
 
 

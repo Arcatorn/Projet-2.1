@@ -15,6 +15,7 @@ public class PersoScript : MonoBehaviour
 
 	public Animator PlayerAnim;
 	CartesManager cartesManager;
+	private CardSound cardSound;
 	public ConsoleScript WantedConsoleScript;
 	public int WantedCarteId;
 	[SerializeField] private GameObject specialAction;
@@ -23,6 +24,7 @@ public class PersoScript : MonoBehaviour
 	{
 		nma = GetComponent<NavMeshAgent>();
 		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
+		cardSound = Camera.main.GetComponent<CardSound>();
 	}	
 	
 	void Update () 
@@ -66,6 +68,7 @@ public class PersoScript : MonoBehaviour
 		{
 			cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
 			vaRamasserUneCarte = false;
+			cardSound.CardPickUp();
 		}
 	}
 

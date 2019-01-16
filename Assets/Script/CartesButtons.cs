@@ -77,6 +77,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 			anim.SetTrigger("Highlighted");
 			buttonState = ButtonStates.highlighted;
 			GameMaster.cursorIsOnCard = true;
+			cardSound.HoverCard();
 		//}
 	}
 
