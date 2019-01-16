@@ -28831,7 +28831,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1266132763}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 2.08, y: 70.53, z: -17.2}
+  m_LocalPosition: {x: 2.08, y: 100, z: -17.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -28910,7 +28910,7 @@ MonoBehaviour:
   _ditheringTexture: {fileID: 0}
   _noiseTexture: {fileID: 0}
   Resolution: 1
-  DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
+  DefaultSpotCookie: {fileID: 0}
 --- !u!1 &1266922414
 GameObject:
   m_ObjectHideFlags: 0

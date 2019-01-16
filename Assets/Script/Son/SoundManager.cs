@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FMODUnity;
+//using FMODUnity;
 
 public class SoundManager : MonoBehaviour {
 
@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour {
 	//FMOD.Studio.CPU_USAGE cpuUsage;
 	//studioSystem.getCPUUsage(out cpuUsage);
 
-	public StudioEventEmitter e;
+	//public StudioEventEmitter e;
 	
 
 	// Use this for initialization
@@ -19,7 +19,7 @@ public class SoundManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		e.SendMessage("Play");
+	//	e.SendMessage("Play");
 		
 	}
 }
