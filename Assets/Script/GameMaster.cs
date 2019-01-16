@@ -196,6 +196,7 @@ public class GameMaster : MonoBehaviour
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer))
             {
                 pc[playerActif].destination = hit.collider.gameObject.GetComponent<ConsoleScript>().pos;
+                persoScripts[playerActif].PlayerAnim.SetBool("GoRun",true);
                 persoScripts[playerActif].vaJouerUneCarte = false;
                 persoScripts[playerActif].vaRamasserUneCarte = false;
             }

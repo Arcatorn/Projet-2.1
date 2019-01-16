@@ -12,7 +12,8 @@ public class PersoScript : MonoBehaviour
 	public bool vaJouerUneCarte = false;
 	public bool vaRamasserUneCarte = false;
 	public int carteID = -1;
-	
+
+	public Animator PlayerAnim;
 	CartesManager cartesManager;
 	public ConsoleScript WantedConsoleScript;
 	public int WantedCarteId;
@@ -28,10 +29,18 @@ public class PersoScript : MonoBehaviour
 	{
 		if (vaJouerUneCarte)
 		{
+			if (!PlayerAnim.GetBool("GoRun"))
+			{
+				PlayerAnim.SetBool("GoRun", true);
+			}
 			JouerUneCarte(carteID);
 		}
 		else if (vaRamasserUneCarte)
 		{
+			if (!PlayerAnim.GetBool("GoRun"))
+			{
+				PlayerAnim.SetBool("GoRun", true);
+			}
 			RamasserUneCarte();
 		}	
 	}
@@ -41,6 +50,8 @@ public class PersoScript : MonoBehaviour
 		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
 		if (remainingDistance < 1.2f)
 		{
+			PlayerAnim.SetBool("GoRun",false);
+			PlayerAnim.SetBool("PlayCard",true);
 			cartesManager.PlayACardOnModule(carteID);
 			carteID = -1;
 			vaJouerUneCarte = false;
@@ -67,6 +78,25 @@ public class PersoScript : MonoBehaviour
 			{
 				specialAction.SetActive(true);
 			}
+
+			if (!vaJouerUneCarte && !vaRamasserUneCarte)
+			{
+				PlayerAnim.SetBool("GoRun",false);
+				PlayerAnim.SetBool("OnConsole", true);
+			}
+		
+		}
+	}
+
+	private void OnTriggerStay(Collider other)
+	{
+		if (other.transform.parent.name == "Console")
+		{
+			if (PlayerAnim.GetBool("PlayCard"))
+			{
+				PlayerAnim.SetBool("PlayCard",false);
+				PlayerAnim.SetBool("OnConsole", true);
+			}
 		}
 	}
 
@@ -79,6 +109,7 @@ public class PersoScript : MonoBehaviour
 			{
 				specialAction.SetActive(false);
 			}
+			PlayerAnim.SetBool("OnConsole", false);
 		}
 	}
 }
