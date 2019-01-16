@@ -98,7 +98,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.74
+    agentRadius: 0.2
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -106,7 +106,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.24666667
+    cellSize: 0.06666667
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -28814,6 +28814,7 @@ GameObject:
   - component: {fileID: 1266132764}
   - component: {fileID: 1266132768}
   - component: {fileID: 1266132769}
+  - component: {fileID: 1266132770}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -28976,6 +28977,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListenerNumber: 0
+--- !u!114 &1266132770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1266132763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f53cfc739fb5d42994a85589caddb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Select_Sound: event:/Card_Holding
+  Select_Sound2: event:/Card_Cancel
+  Select_Sound3: event:/Card_Hover
+  Select_Sound4: event:/Card_Ordered
+  Select_Sound5: event:/Card_Pickup
 --- !u!1 &1266922414
 GameObject:
   m_ObjectHideFlags: 0
