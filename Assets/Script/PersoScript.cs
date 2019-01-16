@@ -10,7 +10,7 @@ public class PersoScript : MonoBehaviour
 	NavMeshAgent nma;
 	
 	public bool vaJouerUneCarte = false;
-	
+	public bool vaRamasserUneCarte = false;
 	public int carteID = -1;
 	
 	CartesManager cartesManager;

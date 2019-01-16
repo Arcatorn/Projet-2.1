@@ -91,10 +91,11 @@ public class GameMaster : MonoBehaviour
             switching = true;
             for (int i = 0; i < animButtons.Length; i++)
             {
-                animButtons[i].SetTrigger("Switch");
+                //animButtons[i].SetTrigger("Switch");
                 playerActif = (playerActif + 1) % 2;
                 switching = false;
                 cam.backgroundColor = colorPlayers[playerActif];
+                cartesManager.ChangerPictoMainDuJoueur();
             }
         }
     }
@@ -194,6 +195,12 @@ public class GameMaster : MonoBehaviour
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer))
             {
                 pc[playerActif].destination = hit.collider.gameObject.GetComponent<ConsoleScript>().pos;
+            }
+
+            int layer2 = (1<<13);
+            if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer2))
+            {
+                pc[playerActif].destination = hit.collider.gameObject.transform.position;
             }
         }
     }

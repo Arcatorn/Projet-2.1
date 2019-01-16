@@ -128,12 +128,13 @@ public class CartesManager : MonoBehaviour {
 		allActions.CallAction(toTransform.cardID, idSalle);
 		if (nouveauPlayerActif == 1)
 		{
-			emplacements[playerOneCards.IndexOf(allCards[toTransform.cardID])].GetComponent<Image>().enabled = false;
 			playerOneCards.Remove(allCards[toTransform.cardID]);
+			SortCartes(playerOneCards);
 		}
-		else{
-			emplacements[playerTwoCards.IndexOf(allCards[toTransform.cardID])].GetComponent<Image>().enabled = false;
+		else
+		{
 			playerTwoCards.Remove(allCards[toTransform.cardID]);
+			SortCartes(playerTwoCards);
 		}
 		
         aPlayHasOccured = false;
@@ -154,16 +155,27 @@ public class CartesManager : MonoBehaviour {
 		if (nouveauPlayerActif == 1)
 		{
 			nouveauPlayerActif = 2;
-			for (int i = 0; i < 3; i++)
-			{
-				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = playerTwoCards[i].illu;
-			}
+			SortCartes(playerTwoCards);
 		}
 		else{
 			nouveauPlayerActif = 1;
-			for (int i = 0; i < 3; i++)
+			SortCartes(playerOneCards);
+		}
+	}
+
+	void SortCartes(List<Cartes> liste)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			Image m = cartesButtonsScripts[i].gameObject.GetComponent<Image>();
+			if (i < liste.Count)
 			{
-				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = playerOneCards[i].illu;
+				m.enabled = true;
+				m.sprite = liste[i].illu;
+			}
+			else {
+				m.sprite = Resources.Load<Sprite> ("Sprites/Cartes/Blanc");
+				m.enabled = false;
 			}
 		}
 	}

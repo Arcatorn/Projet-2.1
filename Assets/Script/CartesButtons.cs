@@ -83,7 +83,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
             {
                 GameMaster.cardIDBeingPlayed = id;
             	buttonState = ButtonStates.disabled;
-				anim.SetTrigger("Disabled");
+				anim.SetTrigger("Normal");
             }
 			else {
 				buttonState = ButtonStates.normal;
@@ -91,14 +91,5 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 			}
             GameMaster.endPlayingCard = true;
         }
-        else if (buttonState == ButtonStates.disabled)
-        {
-			anim.SetTrigger("Normal");
-        }
     }
-
-	public void MAFONCTIONTESTPOURDAMIEN()
-	{
-		cartesManager.ChangerPictoMainDuJoueur();
-	}
 }
