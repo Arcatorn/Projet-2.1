@@ -29,12 +29,14 @@ public class Cartes
 	public CartesTypes cartesTypes;
 	public GameObject cartePhysique;
 	public Sprite illu;
+	public Sprite picto;
 	public Cartes(int _id, CartesTypes _cartesTypes, GameObject _cartePhysique)
 	{
 		id = _id;
 		cartesTypes = _cartesTypes;
 		cartePhysique = _cartePhysique;
 		illu = Resources.Load <Sprite> ("Sprites/Cartes/Carte" + id.ToString());
+		picto = Resources.Load <Sprite> ("Sprites/Cartes/Picto" + id.ToString());
 	}
 }
 
@@ -49,8 +51,6 @@ public class Salle
         salleScript = _salleGO.GetComponent<SalleScript>();
 		sallesTypes = _sallesTypes;
     }
-
-	
 }
 
 public class CartesManager : MonoBehaviour {
@@ -103,6 +103,7 @@ public class CartesManager : MonoBehaviour {
                 playerTwoCards.Add(c);
             }
         }
+		SortCartes(playerOneCards);
         InitializeSalles();
     }
 
@@ -124,16 +125,17 @@ public class CartesManager : MonoBehaviour {
 	void TransformPlay()
     {
 		int idSalle = toTransform.mGO.GetComponent<SalleScript>().id;
-		allSalles[idSalle].salleScript.sr.sprite = cartesButtonsScripts[toTransform.cardID].gameObject.GetComponent<Image>().sprite;
 		
 		if (nouveauPlayerActif == 0)
 		{
+			allSalles[idSalle].salleScript.sr.sprite = playerOneCards[toTransform.cardID].picto;
 			allActions.CallAction(playerOneCards[toTransform.cardID].id, idSalle);
 			playerOneCards.RemoveAt(toTransform.cardID);
 			SortCartes(playerOneCards);
 		}
 		else
 		{
+			allSalles[idSalle].salleScript.sr.sprite = playerTwoCards[toTransform.cardID].picto;
 			allActions.CallAction(playerTwoCards[toTransform.cardID].id, idSalle);
 			playerTwoCards.RemoveAt(toTransform.cardID);
 			SortCartes(playerTwoCards);
@@ -174,6 +176,7 @@ public class CartesManager : MonoBehaviour {
 			{
 				m.enabled = true;
 				m.sprite = liste[i].illu;
+				cartesButtonsScripts[i].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(liste[i].id + 1));
 			}
 			else {
 				m.sprite = Resources.Load<Sprite> ("Sprites/Cartes/Blanc");
@@ -220,6 +223,35 @@ public class CartesManager : MonoBehaviour {
 			CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
 			allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
 		}
+	}
+
+	string ConvertisseurIntEnChiffreRomain(int toConvert)
+	{
+		string toReturn = "O";
+		if (toConvert == 1)
+		{
+			toReturn = "I";
+		}else if (toConvert == 2)
+		{
+			toReturn = "II";
+		}
+		else if (toConvert == 3)
+		{
+			toReturn = "III";
+		}
+		else if (toConvert == 4)
+		{
+			toReturn = "IV";
+		}
+		else if (toConvert == 5)
+		{
+			toReturn = "V";
+		}
+		else if (toConvert == 6)
+		{
+			toReturn = "VI";
+		}
+		return toReturn;
 	}
 
 }

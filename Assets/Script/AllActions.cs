@@ -14,7 +14,7 @@ public class AllActions : MonoBehaviour {
 
 	IEnumerator DureeAction(monAction a)
 	{
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(2);
 		cartesManager.allSalles[a.salleID].salleScript.sr.sprite = Resources.Load<Sprite> ("Sprites/Cartes/Blanc");
 		cartesManager.allSalles[a.salleID].salleScript.SpawnCarte(a.carteID);
 		yield break;

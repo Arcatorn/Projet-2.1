@@ -42,7 +42,8 @@ public class PersoScript : MonoBehaviour
 				PlayerAnim.SetBool("GoRun", true);
 			}
 			RamasserUneCarte();
-		}	
+		}
+		DirectionFacing();	
 	}
 
 	public void JouerUneCarte(int cardID)
@@ -92,6 +93,8 @@ public class PersoScript : MonoBehaviour
 	{
 		if (other.transform.parent.name == "Console")
 		{
+			Vector3 relativePos = WantedConsoleScript.gameObject.transform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
 			if (PlayerAnim.GetBool("PlayCard"))
 			{
 				PlayerAnim.SetBool("PlayCard",false);
@@ -112,4 +115,13 @@ public class PersoScript : MonoBehaviour
 			PlayerAnim.SetBool("OnConsole", false);
 		}
 	}
+
+    public void DirectionFacing()
+    {
+        if (nma.velocity.magnitude > 0.5f)
+        {
+            Vector3 relativePos = nma.velocity.normalized;
+            transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        }
+    }
 }

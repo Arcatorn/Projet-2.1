@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public enum ButtonStates
 {
@@ -23,6 +24,8 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 	public Canvas myCanvas;
 	public GameObject ps;
 	public int id;
+	public TextMeshProUGUI textMeshProComponent;
+	
 	
 	private void Awake() {
 		anim = GetComponent<Animator>();

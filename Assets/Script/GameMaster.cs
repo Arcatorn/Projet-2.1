@@ -21,10 +21,9 @@ public class GameMaster : MonoBehaviour
     public static bool endPlayingCard = false;
     public static GameObject moduleHit;
     public GameObject caj;
-    public GameObject detector;
     CartesManager cartesManager;
 
-    public Color[] colorPlayers;
+    //public Color[] colorPlayers;
     public Animator[] animButtons;
 
     void Awake()
@@ -37,7 +36,7 @@ public class GameMaster : MonoBehaviour
         pc[0].updateRotation = false;
         pc[1].updateRotation = false;
         cartesManager = GetComponent<CartesManager>();
-        cam.backgroundColor = colorPlayers[0];
+        //cam.backgroundColor = colorPlayers[0];
     }
 
     void Update()
@@ -60,7 +59,6 @@ public class GameMaster : MonoBehaviour
             if (caj.activeInHierarchy)
             {
                 caj.SetActive(false);
-                detector.SetActive(false);
             }
             
 
@@ -94,7 +92,7 @@ public class GameMaster : MonoBehaviour
                 //animButtons[i].SetTrigger("Switch");
                 playerActif = (playerActif + 1) % 2;
                 switching = false;
-                cam.backgroundColor = colorPlayers[playerActif];
+                //cam.backgroundColor = colorPlayers[playerActif];
                 cartesManager.ChangerPictoMainDuJoueur();
             }
         }
@@ -110,7 +108,7 @@ public class GameMaster : MonoBehaviour
         {
             var distTot = Vector3.Distance(players[(playerActif + 1) % 2].transform.position, players[playerActif].transform.position);
             var distActual = Vector3.Distance(players[playerActif].transform.position, camFictivPosition);
-            cam.backgroundColor = Color.Lerp(colorPlayers[playerActif], colorPlayers[(playerActif + 1) % 2], distActual / distTot);
+            //cam.backgroundColor = Color.Lerp(colorPlayers[playerActif], colorPlayers[(playerActif + 1) % 2], distActual / distTot);
 
             camFictivPosition += dir * Time.deltaTime * camSpeed;
             camFictivPosition.y = cam.transform.position.y;
@@ -121,7 +119,7 @@ public class GameMaster : MonoBehaviour
             playerActif = (playerActif + 1) % 2;
             switching = false;
             cam.transform.position = players[playerActif].transform.position - offset;
-            cam.backgroundColor = colorPlayers[playerActif];
+            //cam.backgroundColor = colorPlayers[playerActif];
         }
     }
 
@@ -153,7 +151,6 @@ public class GameMaster : MonoBehaviour
         if (!caj.activeInHierarchy)
         {
             caj.SetActive(true);
-            detector.SetActive(true);
         }
         var origin = players[playerActif].transform.position;
         Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
@@ -166,16 +163,29 @@ public class GameMaster : MonoBehaviour
         var dir = (point - Camera.main.transform.position);
 
         caj.transform.position = point + dir;
-        int layer = ~(1<<11);
+        int layer = (1<<10);
         if (Physics.Raycast(caj.transform.position, dir, out hit, dist, layer))
         {
-            detector.transform.position = hit.point;
+            caj.GetComponent<Animator>().SetBool("Dance", true);
+            hit.collider.gameObject.transform.parent.gameObject.GetComponent<SalleScript>().OnDragCardOnMe();
+			hittingAModule = true;
+            moduleHit = hit.transform.gameObject;
+        }
+        else
+        {
+            if (moduleHit != null)
+            {
+                moduleHit.transform.parent.gameObject.GetComponent<SalleScript>().OnExitCardOnMe();
+                moduleHit = null;
+                hittingAModule = false;
+                caj.GetComponent<Animator>().SetBool("Dance", false);
+            }
         }
     }
 
     public void PlayCard()
     {
-         pc[playerActif].enabled = true;
+        pc[playerActif].enabled = true;
         var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
         pc[playerActif].destination = c.pos;
         persoScripts[playerActif].carteID = cardIDBeingPlayed;
