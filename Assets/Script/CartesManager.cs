@@ -144,7 +144,7 @@ public class CartesManager : MonoBehaviour {
 
 	void InitializeSalles()
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			Salle a = new Salle(GameObject.Find("Salle" + i.ToString()), (SallesTypes)i);
 			allSalles.Add(a);

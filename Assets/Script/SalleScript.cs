@@ -7,7 +7,7 @@ public class SalleScript : MonoBehaviour {
 
 	public Material normalMaterial;
 	public Material onCardDrag;
-	MeshRenderer mr;
+	[SerializeField] MeshRenderer mr;
 	public int id;
 	public SpriteRenderer sr;
 	public GameObject[] spotCartes = new GameObject[3];
@@ -18,7 +18,6 @@ public class SalleScript : MonoBehaviour {
 	{
 		if (mr == null)
 		{
-			mr = GetComponent<MeshRenderer>();
 			mr.material = normalMaterial;
 		}
 		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
