@@ -91,8 +91,10 @@ public class GameMaster : MonoBehaviour
             switching = true;
             for (int i = 0; i < animButtons.Length; i++)
             {
+                persoScripts[playerActif].lumierePerso.SetActive(false);
                 //animButtons[i].SetTrigger("Switch");
                 playerActif = (playerActif + 1) % 2;
+                persoScripts[playerActif].lumierePerso.SetActive(true);
                 switching = false;
                 //cam.backgroundColor = colorPlayers[playerActif];
                 cartesManager.ChangerPictoMainDuJoueur();

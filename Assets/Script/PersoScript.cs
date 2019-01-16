@@ -19,9 +19,12 @@ public class PersoScript : MonoBehaviour
 	public ConsoleScript WantedConsoleScript;
 	public int WantedCarteId;
 	[SerializeField] private GameObject specialAction;
+
+	public GameObject lumierePerso;
 	
-	void Start () 
+	void Start ()
 	{
+		lumierePerso = transform.GetChild(0).gameObject;
 		nma = GetComponent<NavMeshAgent>();
 		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
 		cardSound = Camera.main.GetComponent<CardSound>();
