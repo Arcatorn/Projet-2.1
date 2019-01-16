@@ -23,14 +23,10 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 	public Canvas myCanvas;
 	public GameObject ps;
 	public int id;
-	Image cd;
-	float cdTimerMax = 5;
-	float cdTimer = 0;
 	
 	private void Awake() {
 		anim = GetComponent<Animator>();
 		buttonState = ButtonStates.normal;
-		cd = transform.GetChild(0).GetComponent<Image>();
 		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
 	}
 
@@ -86,7 +82,6 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
             if (GameMaster.hittingAModule)
             {
                 GameMaster.cardIDBeingPlayed = id;
-				cd.fillAmount = 1;
             	buttonState = ButtonStates.disabled;
 				anim.SetTrigger("Disabled");
             }
@@ -98,15 +93,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
         }
         else if (buttonState == ButtonStates.disabled)
         {
-            cdTimer += Time.deltaTime;
-            cd.fillAmount = 1 - (cdTimer / cdTimerMax);
-
-            if (cdTimer >= cdTimerMax)
-            {
-                cdTimer = 0;
-                buttonState = ButtonStates.normal;
-				anim.SetTrigger("Normal");
-            }
+			anim.SetTrigger("Normal");
         }
     }
 

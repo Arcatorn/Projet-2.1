@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public enum CartesTypes
 {
-	Yeux = 1,
-	Estomac = 2,
-	Griffes = 3,
-	Pattes = 4,
-	Bouche = 5,
-	Truffe = 6
+	Yeux = 0,
+	Estomac = 1,
+	Griffes = 2,
+	Pattes = 3,
+	Bouche = 4,
+	Truffe = 5
 }
 
 public enum SallesTypes
@@ -29,12 +29,12 @@ public class Cartes
 	public CartesTypes cartesTypes;
 	public GameObject cartePhysique;
 	public Sprite illu;
-	public Cartes(int _id, CartesTypes _cartesTypes)
+	public Cartes(int _id, CartesTypes _cartesTypes, GameObject _cartePhysique)
 	{
 		id = _id;
 		cartesTypes = _cartesTypes;
-		illu = Resources.Load("Sprites/Cartes/Carte" + id.ToString()) as Sprite;
-		// Recupere les cartes de Simon (un truc avec les gameObject)
+		cartePhysique = _cartePhysique;
+		illu = Resources.Load <Sprite> ("Sprites/Cartes/Carte" + id.ToString());
 	}
 }
 
@@ -60,14 +60,17 @@ public class CartesManager : MonoBehaviour {
 	public List<Cartes> playerTwoCards = new List<Cartes>();
 	public Image[] emplacements;
 	CartesButtons[] cartesButtonsScripts = new CartesButtons[3];
+	public GameObject[] cartesPhysiques = new GameObject[6];
 	public List<Salle> allSalles = new List<Salle>();
 	public static OnePlay toTransform;
 	public static bool aPlayHasOccured = false;
 	public GameMaster gameMaster;
+	public AllActions allActions;
 	public int nouveauPlayerActif = 1;
     void Awake()
     {
 		gameMaster = GetComponent<GameMaster>();
+		allActions = GetComponent<AllActions>();
     }
 	
 	void Start () {
@@ -86,12 +89,13 @@ public class CartesManager : MonoBehaviour {
     {
         for (int i = 0; i < 6; i++)
         {
-            Cartes c = new Cartes(i, (CartesTypes)i);
+            Cartes c = new Cartes(i, (CartesTypes)i, cartesPhysiques[i]);
             allCards.Add(c);
             if (i < 3)
             {
                 cartesButtonsScripts[i] = emplacements[i].GetComponent<CartesButtons>();
                 cartesButtonsScripts[i].id = i;
+				emplacements[i].GetComponent<Image>().sprite = c.illu;
                 playerOneCards.Add(c);
             }
             else
@@ -121,6 +125,17 @@ public class CartesManager : MonoBehaviour {
     {
 		int idSalle = toTransform.mGO.GetComponent<SalleScript>().id;
 		allSalles[idSalle].salleScript.sr.sprite = cartesButtonsScripts[toTransform.cardID].gameObject.GetComponent<Image>().sprite;
+		allActions.CallAction(toTransform.cardID, idSalle);
+		if (nouveauPlayerActif == 1)
+		{
+			emplacements[playerOneCards.IndexOf(allCards[toTransform.cardID])].GetComponent<Image>().enabled = false;
+			playerOneCards.Remove(allCards[toTransform.cardID]);
+		}
+		else{
+			emplacements[playerTwoCards.IndexOf(allCards[toTransform.cardID])].GetComponent<Image>().enabled = false;
+			playerTwoCards.Remove(allCards[toTransform.cardID]);
+		}
+		
         aPlayHasOccured = false;
     }
 
@@ -141,14 +156,14 @@ public class CartesManager : MonoBehaviour {
 			nouveauPlayerActif = 2;
 			for (int i = 0; i < 3; i++)
 			{
-				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = Resources.Load("Sprites/Cartes/Carte" + playerTwoCards[i].id.ToString()) as Sprite;
+				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = playerTwoCards[i].illu;
 			}
 		}
 		else{
 			nouveauPlayerActif = 1;
 			for (int i = 0; i < 3; i++)
 			{
-				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = Resources.Load("Sprites/Cartes/Carte" + playerOneCards[i].id.ToString()) as Sprite;
+				cartesButtonsScripts[i].gameObject.GetComponent<Image>().sprite = playerOneCards[i].illu;
 			}
 		}
 	}

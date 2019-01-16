@@ -4,19 +4,41 @@ using UnityEngine;
 
 public class AllActions : MonoBehaviour {
 
+	CartesManager cartesManager;
+	GameMaster gameMaster;
 	
-	void Start () {
-		
-	}
-	
-	
-	void Update () {
-		
+	void Awake () {
+		cartesManager = GetComponent<CartesManager>();
+		gameMaster = GetComponent<GameMaster>();
 	}
 
-	public void CallAction(int actionId)
+	IEnumerator DureeAction(monAction a)
 	{
-		if (actionId == 1)
+		yield return new WaitForSeconds(1);
+		cartesManager.allSalles[a.salleID].salleScript.sr.sprite = Resources.Load<Sprite> ("Sprites/Cartes/Blanc");
+		cartesManager.allSalles[a.salleID].salleScript.SpawnCarte(a.carteID);
+		yield break;
+	}
+
+	public struct monAction
+	{
+		public int carteID;
+		public int salleID;
+	}
+
+	public void CallAction(int carteID, int salleID)
+	{
+		int actionId = salleID * 6 + carteID;
+		monAction action = new monAction();
+		action.carteID = carteID;
+		action.salleID = salleID;
+		StartCoroutine("DureeAction", action);
+
+		if (actionId == 0)
+		{
+
+		}
+		else if (actionId == 1)
 		{
 
 		}
