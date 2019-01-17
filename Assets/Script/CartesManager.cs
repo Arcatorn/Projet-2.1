@@ -15,12 +15,12 @@ public enum CartesTypes
 
 public enum SallesTypes
 {
-	Excavation = 0,
+	Communication = 0,
 	Defense = 1,
-	Navigation = 2,
-	Radar = 3,
-	Electronics = 4,
-	Communication = 5
+	Radar = 2,
+	Informatique = 3,
+	Navigation = 4,
+	Excavation = 5
 }
 
 public class Cartes
