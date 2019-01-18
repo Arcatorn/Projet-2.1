@@ -6,17 +6,18 @@ using UnityEngine.UI;
 
 public class PersoScript : MonoBehaviour 
 {
-
 	NavMeshAgent nma;
 	public int monID;
 	public bool vaJouerUneCarte = false;
 	public bool vaRamasserUneCarte = false;
+	public bool vaSurUneConsole = false;
 	public int carteID = -1;
-
+	public bool isConsoling = false;
+	public ConsoleScript myConsole = null;
 	public Animator PlayerAnim;
 	CartesManager cartesManager;
 	private CardSound cardSound;
-	public ConsoleScript WantedConsoleScript;
+	public GameObject WantedConsole;
 	public int WantedCarteId;
 	[SerializeField] private GameObject specialAction;
 
@@ -48,6 +49,18 @@ public class PersoScript : MonoBehaviour
 			}
 			RamasserUneCarte();
 		}
+		else if (vaSurUneConsole)
+		{
+			if (!PlayerAnim.GetBool("GoRun"))
+			{
+				PlayerAnim.SetBool("GoRun", true);
+			}
+			AllerSurUneConsole();
+		}
+		if (WantedConsole != null && WantedConsole.GetComponent<ConsoleScript>().persoOnMeID != monID )
+		{
+			CancelOrder();
+		}
 		DirectionFacing();	
 	}
 
@@ -72,55 +85,38 @@ public class PersoScript : MonoBehaviour
 			cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
 			vaRamasserUneCarte = false;
 			cardSound.CardPickUp();
+			PlayerAnim.SetBool("GoRun", false);
+			PlayerAnim.SetTrigger("Grabbing");
 		}
 	}
 
-	private void OnTriggerEnter(Collider other)
+	public void AllerSurUneConsole()
 	{
-		if (other.transform.parent.name == "Console")
+		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
+		if (remainingDistance < 1.2f)
 		{
-			var room = other.transform.parent;
-			WantedConsoleScript = room.GetComponent<ConsoleScript>();
-			if (!specialAction.activeInHierarchy)
-			{
-				specialAction.SetActive(true);
-			}
-
-			if (!vaJouerUneCarte && !vaRamasserUneCarte)
-			{
-				PlayerAnim.SetBool("GoRun",false);
-				PlayerAnim.SetBool("OnConsole", true);
-			}
-		
-		}
-	}
-
-	private void OnTriggerStay(Collider other)
-	{
-		if (other.transform.parent.name == "Console")
-		{
-			Vector3 relativePos = WantedConsoleScript.gameObject.transform.position - transform.position;
+			Vector3 relativePos = myConsole.gameObject.transform.position - transform.position;
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-			if (PlayerAnim.GetBool("PlayCard"))
-			{
-				PlayerAnim.SetBool("PlayCard",false);
-				PlayerAnim.SetBool("OnConsole", true);
-			}
+			myConsole.persoOnMe = true;
+			myConsole.persoOnMeID = monID;
+			PlayerAnim.SetBool("GoRun", false);
+			PlayerAnim.SetBool("OnConsole", true);
+			vaSurUneConsole = false;
+			//nma.isStopped = true;
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
+	public void CancelOrder()
 	{
-		if (other.transform.parent.name == "Console")
-		{
-			WantedConsoleScript = null;
-			if (specialAction.activeInHierarchy)
-			{
-				specialAction.SetActive(false);
-			}
-			PlayerAnim.SetBool("OnConsole", false);
-		}
+		PlayerAnim.SetBool("OnConsole", false);
+		PlayerAnim.SetBool("GoRun", false);
+		vaJouerUneCarte = false;
+		vaRamasserUneCarte = false;
+		vaSurUneConsole = false;
+		WantedCarteId = -1;
+		myConsole = null;
 	}
+
 
     public void DirectionFacing()
     {
@@ -130,4 +126,37 @@ public class PersoScript : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
         }
     }
+
+    public void OrderGoToConsole(ConsoleScript _myConsole)
+    {
+        if (myConsole != null)
+        {
+            myConsole.persoOnMe = false;
+            myConsole.persoOnMeID = -1;
+        }
+        myConsole = _myConsole;
+        PlayerAnim.SetBool("GoRun", true);
+        vaSurUneConsole = true;
+    }
+
+    public void OrderGoPlayACard(int _cardId, ConsoleScript _myConsole)
+    {
+        carteID = _cardId;
+        if (myConsole != null)
+        {
+            myConsole.persoOnMe = false;
+            myConsole.persoOnMeID = -1;
+        }
+        myConsole = _myConsole;
+        PlayerAnim.SetBool("GoRun", true);
+    }
+
+	public void OrderGoGetACard(int _wantedCardId)
+	{
+		WantedCarteId = _wantedCardId;
+		PlayerAnim.SetBool("GoRun", true);
+		vaRamasserUneCarte = true;
+	}
+
+
 }

@@ -9,6 +9,8 @@ public class ConsoleScript : MonoBehaviour
 	public Vector3 pos;
 	public int RoomNumber = 1;
 	public Text TextADroite;
+	public bool persoOnMe = false;
+	public int persoOnMeID;
 	
 	public void ActivateText()
 	{

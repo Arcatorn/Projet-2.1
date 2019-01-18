@@ -192,9 +192,8 @@ public class GameMaster : MonoBehaviour
         pc[playerActif].enabled = true;
         var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
         pc[playerActif].destination = c.pos;
-        persoScripts[playerActif].carteID = cardIDBeingPlayed;
-        persoScripts[playerActif].vaJouerUneCarte = true;
-        persoScripts[playerActif].vaRamasserUneCarte = false;
+        persoScripts[playerActif].CancelOrder();
+        persoScripts[playerActif].OrderGoPlayACard(cardIDBeingPlayed, c);
         cardIDBeingPlayed = -1;
         cardSound.GoingToPlayACard();
     }
@@ -210,10 +209,13 @@ public class GameMaster : MonoBehaviour
             int layer = (1<<12);
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer))
             {
-                pc[playerActif].destination = hit.collider.gameObject.GetComponent<ConsoleScript>().pos;
-                persoScripts[playerActif].PlayerAnim.SetBool("GoRun",true);
-                persoScripts[playerActif].vaJouerUneCarte = false;
-                persoScripts[playerActif].vaRamasserUneCarte = false;
+                ConsoleScript consoleScript = hit.collider.gameObject.GetComponent<ConsoleScript>();
+                if (consoleScript.persoOnMe == false)
+                {
+                    pc[playerActif].destination = consoleScript.pos;
+                    persoScripts[playerActif].CancelOrder();
+                    persoScripts[playerActif].OrderGoToConsole(consoleScript);
+                }
             }
 
             int layer2 = (1<<13);
@@ -221,18 +223,18 @@ public class GameMaster : MonoBehaviour
             {
                 if (!cartesManager.CheckHandisFull(playerActif))
                 {
-                    persoScripts[playerActif].WantedCarteId = hit.collider.gameObject.GetComponent<CartePhysiqueScript>().id;
+                    int _wantedCardID = hit.collider.gameObject.GetComponent<CartePhysiqueScript>().id;
                     pc[playerActif].destination = hit.collider.gameObject.transform.position;
-                    persoScripts[playerActif].vaJouerUneCarte = false;
-                    persoScripts[playerActif].vaRamasserUneCarte = true;
+                    persoScripts[playerActif].CancelOrder();
+                    persoScripts[playerActif].OrderGoGetACard(_wantedCardID);
                 }
             }
         }
     }
 
-    public void ButtonClickSpecialAttack()
+    public void ButtonClickSpecialAction()
     {
-       persoScripts[playerActif].WantedConsoleScript.ActivateText();
+       //persoScripts[playerActif].WantedConsoleScript.ActivateText();
     }
 
 }
