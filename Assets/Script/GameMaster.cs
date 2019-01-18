@@ -24,7 +24,6 @@ public class GameMaster : MonoBehaviour
     CartesManager cartesManager;
 
     private CardSound cardSound;
-    //public Color[] colorPlayers;
     public Animator[] animButtons;
 
     void Awake()
@@ -70,13 +69,7 @@ public class GameMaster : MonoBehaviour
                 {
                     ClicDetection();
                     Switch();
-                    //Zoom();
                 }
-                //CameraFollow();
-            }
-            else
-            {
-                //MoveCamera();
             }
         }
 
@@ -92,11 +85,9 @@ public class GameMaster : MonoBehaviour
             for (int i = 0; i < animButtons.Length; i++)
             {
                 persoScripts[playerActif].lumierePerso.SetActive(false);
-                //animButtons[i].SetTrigger("Switch");
                 playerActif = (playerActif + 1) % 2;
                 persoScripts[playerActif].lumierePerso.SetActive(true);
                 switching = false;
-                //cam.backgroundColor = colorPlayers[playerActif];
                 cartesManager.ChangerPictoMainDuJoueur();
             }
         }
@@ -158,8 +149,6 @@ public class GameMaster : MonoBehaviour
         }
         var origin = players[playerActif].transform.position;
         Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
-		//point.z = -point.z + (Camera.main.transform.position.z * 2);
-        //point.y = origin.y;
         
 
         RaycastHit hit;

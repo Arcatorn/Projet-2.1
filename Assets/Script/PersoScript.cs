@@ -35,26 +35,14 @@ public class PersoScript : MonoBehaviour
 	{
 		if (vaJouerUneCarte)
 		{
-			if (!PlayerAnim.GetBool("GoRun"))
-			{
-				PlayerAnim.SetBool("GoRun", true);
-			}
 			JouerUneCarte(carteID);
 		}
 		else if (vaRamasserUneCarte)
 		{
-			if (!PlayerAnim.GetBool("GoRun"))
-			{
-				PlayerAnim.SetBool("GoRun", true);
-			}
 			RamasserUneCarte();
 		}
 		else if (vaSurUneConsole)
 		{
-			if (!PlayerAnim.GetBool("GoRun"))
-			{
-				PlayerAnim.SetBool("GoRun", true);
-			}
 			AllerSurUneConsole();
 		}
 		if (WantedConsole != null && WantedConsole.GetComponent<ConsoleScript>().persoOnMeID != monID )
@@ -67,13 +55,19 @@ public class PersoScript : MonoBehaviour
 	public void JouerUneCarte(int cardID)
 	{
 		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
+		Debug.Log(remainingDistance);
 		if (remainingDistance < 1.2f)
 		{
+			Vector3 relativePos = myConsole.gameObject.transform.position - transform.position;
+            transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+			myConsole.persoOnMe = true;
+			myConsole.persoOnMeID = monID;
 			PlayerAnim.SetBool("GoRun",false);
-			PlayerAnim.SetBool("PlayCard",true);
+			PlayerAnim.SetTrigger("PlayCard");
 			cartesManager.PlayACardOnModule(carteID);
 			carteID = -1;
 			vaJouerUneCarte = false;
+			nma.SetDestination(transform.position);
 		}
 	}
 
@@ -102,7 +96,7 @@ public class PersoScript : MonoBehaviour
 			PlayerAnim.SetBool("GoRun", false);
 			PlayerAnim.SetBool("OnConsole", true);
 			vaSurUneConsole = false;
-			//nma.isStopped = true;
+			nma.SetDestination(transform.position);
 		}
 	}
 
@@ -114,7 +108,6 @@ public class PersoScript : MonoBehaviour
 		vaRamasserUneCarte = false;
 		vaSurUneConsole = false;
 		WantedCarteId = -1;
-		myConsole = null;
 	}
 
 
@@ -149,6 +142,7 @@ public class PersoScript : MonoBehaviour
         }
         myConsole = _myConsole;
         PlayerAnim.SetBool("GoRun", true);
+		vaJouerUneCarte = true;
     }
 
 	public void OrderGoGetACard(int _wantedCardId)
