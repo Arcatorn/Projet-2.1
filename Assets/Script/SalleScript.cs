@@ -15,6 +15,7 @@ public class SalleScript : MonoBehaviour {
 	CartesManager cartesManager;
 	public SpriteRenderer textConsole;
 	public ConsoleScript myConsoleScript;
+	public GameObject myModule;
 
 	void Awake () 
 	{

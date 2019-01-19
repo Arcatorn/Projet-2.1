@@ -3252,6 +3252,7 @@ MonoBehaviour:
   spotInUse: 000000
   textConsole: {fileID: 1958821585}
   myConsoleScript: {fileID: 0}
+  myModule: {fileID: 1023022875}
 --- !u!65 &209685287
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3962,6 +3963,7 @@ MonoBehaviour:
   spotInUse: 000000
   textConsole: {fileID: 2091198307}
   myConsoleScript: {fileID: 0}
+  myModule: {fileID: 1949823761}
 --- !u!65 &241134763
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34817,6 +34819,7 @@ MonoBehaviour:
   spotInUse: 000000
   textConsole: {fileID: 303335147}
   myConsoleScript: {fileID: 0}
+  myModule: {fileID: 2112070701}
 --- !u!65 &876407609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47974,6 +47977,7 @@ MonoBehaviour:
   spotInUse: 000000
   textConsole: {fileID: 693463001}
   myConsoleScript: {fileID: 0}
+  myModule: {fileID: 1710047827}
 --- !u!65 &1403681415
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -56931,6 +56935,7 @@ MonoBehaviour:
   spotInUse: 000000
   textConsole: {fileID: 2042842623}
   myConsoleScript: {fileID: 0}
+  myModule: {fileID: 1677666566}
 --- !u!65 &1843427059
 BoxCollider:
   m_ObjectHideFlags: 0
