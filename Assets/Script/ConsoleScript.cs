@@ -11,6 +11,7 @@ public class ConsoleScript : MonoBehaviour
 	public Text TextADroite;
 	public bool persoOnMe = false;
 	public int persoOnMeID;
+	public GameObject keyboardConsoleToLookAt;
 	
 	public void ActivateText()
 	{

@@ -47,19 +47,21 @@ public class PersoScript : MonoBehaviour
 		}
 		if (WantedConsole != null && WantedConsole.GetComponent<ConsoleScript>().persoOnMeID != monID )
 		{
+            if (vaJouerUneCarte)
+            {
+                cartesManager.CancelOrderAnimBlank(carteID, monID);
+            }
 			CancelOrder();
 		}
-		DirectionFacing();	
+		DirectionFacing();
 	}
 
 	public void JouerUneCarte(int cardID)
 	{
 		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
-		Debug.Log(remainingDistance);
 		if (remainingDistance < 1.2f)
 		{
-			Vector3 relativePos = myConsole.gameObject.transform.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+			transform.position = nma.destination;
 			myConsole.persoOnMe = true;
 			myConsole.persoOnMeID = monID;
 			PlayerAnim.SetBool("GoRun",false);
@@ -67,7 +69,9 @@ public class PersoScript : MonoBehaviour
 			cartesManager.PlayACardOnModule(carteID);
 			carteID = -1;
 			vaJouerUneCarte = false;
-			nma.SetDestination(transform.position);
+			isConsoling = true;
+			//nma.SetDestination(transform.position);
+			StartCoroutine("CoroutineForLookingAtConsole", 0.5f);
 		}
 	}
 
@@ -89,14 +93,15 @@ public class PersoScript : MonoBehaviour
 		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
 		if (remainingDistance < 1.2f)
 		{
-			Vector3 relativePos = myConsole.gameObject.transform.position - transform.position;
-            transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+			transform.position = nma.destination;
 			myConsole.persoOnMe = true;
 			myConsole.persoOnMeID = monID;
 			PlayerAnim.SetBool("GoRun", false);
 			PlayerAnim.SetBool("OnConsole", true);
 			vaSurUneConsole = false;
-			nma.SetDestination(transform.position);
+			isConsoling = true;
+			//nma.SetDestination(transform.position);
+			StartCoroutine("CoroutineForLookingAtConsole", 0.25f);
 		}
 	}
 
@@ -107,6 +112,7 @@ public class PersoScript : MonoBehaviour
 		vaJouerUneCarte = false;
 		vaRamasserUneCarte = false;
 		vaSurUneConsole = false;
+		isConsoling = false;
 		WantedCarteId = -1;
 	}
 
@@ -152,5 +158,17 @@ public class PersoScript : MonoBehaviour
 		vaRamasserUneCarte = true;
 	}
 
+	private void LookConsole()
+	{
+		Vector3 relativePos = myConsole.keyboardConsoleToLookAt.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+	}
+
+	IEnumerator CoroutineForLookingAtConsole(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		LookConsole();
+		yield break;
+	}
 
 }

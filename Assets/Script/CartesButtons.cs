@@ -5,112 +5,101 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public enum ButtonStates
-{
-	disabled = 0,
-	normal = 1,
-	highlighted = 2,
-	hold = 3,
-	release = 4
-}
 
 public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler
 {
 
-	[HideInInspector]
-	public ButtonStates buttonState;
-	Animator anim;
-	private CardSound cardSound;
-	CartesManager cartesManager;
-	public Canvas myCanvas;
-	public GameObject ps;
-	public int id;
-	public TextMeshProUGUI textMeshProComponent;
-	
-	
-	private void Awake() {
-		anim = GetComponent<Animator>();
-		buttonState = ButtonStates.normal;
-		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
-		cardSound = Camera.main.GetComponent<CardSound>();
-	}
+    [HideInInspector]
+    public Animator anim;
+    private CardSound cardSound;
+    CartesManager cartesManager;
+    public Canvas myCanvas;
+    public GameObject ps;
+    public int id;
+    public TextMeshProUGUI textMeshProComponent;
 
-	public void OnBeginDrag(PointerEventData eventData)
-	{
-		//if (buttonState == ButtonStates.highlighted)
-		//{
-			anim.SetTrigger("Pressed");
-			buttonState = ButtonStates.hold;
-			GameMaster.isPlayingACard = true;
-			cardSound.HoldCard();
-		//}
-	}
 
-	public void OnEndDrag(PointerEventData eventData)
-	{
-		//if (buttonState == ButtonStates.hold)
-		//{
-		//	buttonState = ButtonStates.release;
-		//}
-
-		if (GameMaster.hittingAModule)
-            {
-                GameMaster.cardIDBeingPlayed = id;
-            	//buttonState = ButtonStates.disabled;
-				anim.SetTrigger("Normal");
-            }
-			else {
-				//buttonState = ButtonStates.normal;
-				anim.SetTrigger("Normal");
-			cardSound.CancelHolding();
-			}
-            GameMaster.endPlayingCard = true;
-
-		GameMaster.cursorIsOnCard = false;
-		GameMaster.isPlayingACard = false;
-	}
-
-	public void OnPointerEnter(PointerEventData eventData)
-	{
-		//if (buttonState == ButtonStates.normal)
-		//{
-			anim.SetTrigger("Highlighted");
-			buttonState = ButtonStates.highlighted;
-			GameMaster.cursorIsOnCard = true;
-			cardSound.HoverCard();
-		//}
-	}
-
-	public void OnPointerExit(PointerEventData eventData)
-	{
-		//if (buttonState == ButtonStates.highlighted)
-		//{
-			anim.SetTrigger("Normal");
-			buttonState = ButtonStates.normal;
-			GameMaster.cursorIsOnCard = false;
-		//}
-	}
-
-	public void OnDrag (PointerEventData eventData)
-	{
-		
-	}
-
-    private void Update()
+    private void Awake()
     {
-       /* if (buttonState == ButtonStates.release)
+        anim = GetComponent<Animator>();
+        cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
+        cardSound = Camera.main.GetComponent<CardSound>();
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+        {
+            eventData.pointerDrag = null;
+        }
+        else
+        {
+            anim.SetTrigger("Pressed");
+            GameMaster.isPlayingACard = true;
+            cardSound.HoldCard();
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+
+        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+        {
+            eventData.pointerDrag = null;
+        }
+        else
         {
             if (GameMaster.hittingAModule)
             {
                 GameMaster.cardIDBeingPlayed = id;
-            	buttonState = ButtonStates.disabled;
-				anim.SetTrigger("Normal");
+                anim.SetTrigger("Normal");
             }
-			else {
-				buttonState = ButtonStates.normal;
-				anim.SetTrigger("Normal");
-			}
+            else
+            {
+                anim.SetTrigger("Normal");
+                cardSound.CancelHolding();
+            }
             GameMaster.endPlayingCard = true;
-        }*/
+            GameMaster.cursorIsOnCard = false;
+            GameMaster.isPlayingACard = false;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+        {
+            eventData.pointerDrag = null;
+        }
+        else
+        {
+            if (!GameMaster.isPlayingACard)
+            {
+                anim.SetBool("CursorOn", true);
+                GameMaster.cursorIsOnCard = true;
+                cardSound.HoverCard();
+            }
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+        {
+            eventData.pointerDrag = null;
+        }
+        else
+        {
+            anim.SetBool("CursorOn", false);
+            GameMaster.cursorIsOnCard = false;
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+		if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+        {
+            eventData.pointerDrag = null;
+        }
     }
 }

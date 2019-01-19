@@ -13,6 +13,8 @@ public class SalleScript : MonoBehaviour {
 	public GameObject[] spotCartes = new GameObject[3];
 	public bool[] spotInUse = new bool[3];
 	CartesManager cartesManager;
+	public SpriteRenderer textConsole;
+	public ConsoleScript myConsoleScript;
 
 	void Awake () 
 	{
@@ -25,6 +27,7 @@ public class SalleScript : MonoBehaviour {
 		{
 			spotInUse[i] = false;
 		}
+		myConsoleScript = GetComponentInChildren<ConsoleScript>();
 	}
 
 	public void OnDragCardOnMe()
@@ -68,4 +71,16 @@ public class SalleScript : MonoBehaviour {
         }
         return toReturn;
     }
+
+	public void ChangeForPicto(Sprite _picto)
+	{
+		sr.sprite = _picto;
+		textConsole.enabled = false;
+	}
+
+	public void ChangeForText()
+	{
+		sr.sprite = null;
+		textConsole.enabled = true;
+	}
 }

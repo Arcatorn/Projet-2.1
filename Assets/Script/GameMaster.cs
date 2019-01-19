@@ -37,7 +37,6 @@ public class GameMaster : MonoBehaviour
         pc[0].updateRotation = false;
         pc[1].updateRotation = false;
         cartesManager = GetComponent<CartesManager>();
-        //cam.backgroundColor = colorPlayers[0];
     }
 
     void Update()
@@ -159,10 +158,17 @@ public class GameMaster : MonoBehaviour
         int layer = (1<<10);
         if (Physics.Raycast(caj.transform.position, dir, out hit, dist, layer))
         {
-            caj.GetComponent<Animator>().SetBool("Dance", true);
-            hit.collider.gameObject.transform.parent.gameObject.GetComponent<SalleScript>().OnDragCardOnMe();
-			hittingAModule = true;
-            moduleHit = hit.transform.gameObject;
+            SalleScript salleScript = hit.collider.gameObject.transform.parent.gameObject.GetComponent<SalleScript>();
+            if (salleScript.myConsoleScript.persoOnMeID == playerActif || salleScript.myConsoleScript.persoOnMe == false)
+            {
+                if (salleScript.textConsole.enabled == true)
+                {
+                    caj.GetComponent<Animator>().SetBool("Dance", true);
+                    salleScript.OnDragCardOnMe();
+                    hittingAModule = true;
+                    moduleHit = hit.transform.gameObject;
+                }
+            }
         }
         else
         {
@@ -181,10 +187,13 @@ public class GameMaster : MonoBehaviour
         pc[playerActif].enabled = true;
         var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
         pc[playerActif].destination = c.pos;
+        BeforeCancelOrder();
         persoScripts[playerActif].CancelOrder();
         persoScripts[playerActif].OrderGoPlayACard(cardIDBeingPlayed, c);
+        cartesManager.OrderAnimBlank(cardIDBeingPlayed, playerActif);
         cardIDBeingPlayed = -1;
         cardSound.GoingToPlayACard();
+        
     }
 
 
@@ -202,6 +211,7 @@ public class GameMaster : MonoBehaviour
                 if (consoleScript.persoOnMe == false)
                 {
                     pc[playerActif].destination = consoleScript.pos;
+                    BeforeCancelOrder();
                     persoScripts[playerActif].CancelOrder();
                     persoScripts[playerActif].OrderGoToConsole(consoleScript);
                 }
@@ -214,10 +224,19 @@ public class GameMaster : MonoBehaviour
                 {
                     int _wantedCardID = hit.collider.gameObject.GetComponent<CartePhysiqueScript>().id;
                     pc[playerActif].destination = hit.collider.gameObject.transform.position;
+                    BeforeCancelOrder();
                     persoScripts[playerActif].CancelOrder();
                     persoScripts[playerActif].OrderGoGetACard(_wantedCardID);
                 }
             }
+        }
+    }
+
+    public void BeforeCancelOrder()
+    {
+        if(persoScripts[playerActif].vaJouerUneCarte)
+        {
+            cartesManager.CancelOrderAnimBlank(persoScripts[playerActif].carteID, playerActif);
         }
     }
 
