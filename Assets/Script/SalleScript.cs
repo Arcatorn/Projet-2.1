@@ -16,6 +16,7 @@ public class SalleScript : MonoBehaviour {
 	public SpriteRenderer textConsole;
 	public ConsoleScript myConsoleScript;
 	public GameObject myModule;
+    public bool isFull = false;
 
     void Awake()
     {
@@ -113,5 +114,18 @@ public class SalleScript : MonoBehaviour {
 	void Update()
 	{
 		CheckMaterial();
+        CheckIsFull();
 	}
+
+    public void CheckIsFull()
+    {
+        isFull = true;
+        for (int i = 0; i < 3; i++)
+        {
+            if (spotInUse[i] == false)
+            {
+                isFull = false;
+            }
+        }
+    }
 }

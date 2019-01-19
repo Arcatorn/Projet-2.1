@@ -104,11 +104,4 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
         }
     }
 
-    private void Update() {
-        /*if (anim.GetBool("isBlank"))
-        {
-            Debug.Log(myImage.color);
-            cartesManager.ForceChangeColorBlank(myImage);
-        }*/
-    }
 }

@@ -20,6 +20,7 @@ public class AllActions : MonoBehaviour {
 		yield return new WaitForSeconds(2);
 		cartesManager.allSalles[a.salleID].salleScript.ChangeForText();
 		cartesManager.allSalles[a.salleID].salleScript.SpawnCarte(a.carteID);
+		a.persoScript.canReceiveOrder = true;
 		yield break;
 	}
 
@@ -27,14 +28,17 @@ public class AllActions : MonoBehaviour {
 	{
 		public int carteID;
 		public int salleID;
+		public PersoScript persoScript;
 	}
 
-	public void CallAction(int carteID, int salleID)
+	public void CallAction(int carteID, int salleID, PersoScript _persoScript)
 	{
 		int actionId = salleID * 6 + carteID;
 		monAction action = new monAction();
 		action.carteID = carteID;
 		action.salleID = salleID;
+		action.persoScript = _persoScript;
+		_persoScript.canReceiveOrder = false;
 		StartCoroutine("DureeAction", action);
 
 		string actionName;

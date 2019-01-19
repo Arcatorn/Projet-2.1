@@ -161,7 +161,7 @@ public class GameMaster : MonoBehaviour
             SalleScript salleScript = hit.collider.gameObject.transform.parent.gameObject.GetComponent<SalleScript>();
             if (salleScript.myConsoleScript.persoOnMeID == playerActif || salleScript.myConsoleScript.persoOnMe == false)
             {
-                if (salleScript.textConsole.enabled == true)
+                if (salleScript.textConsole.enabled == true && !salleScript.isFull && persoScripts[playerActif].canReceiveOrder)
                 {
                     caj.GetComponent<Animator>().SetBool("Dance", true);
                     salleScript.OnDragCardOnMe();
@@ -209,7 +209,7 @@ public class GameMaster : MonoBehaviour
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer))
             {
                 ConsoleScript consoleScript = hit.collider.gameObject.GetComponent<ConsoleScript>();
-                if (consoleScript.persoOnMe == false)
+                if (consoleScript.persoOnMe == false && persoScripts[playerActif].canReceiveOrder)
                 {
                     pc[playerActif].destination = consoleScript.pos;
                     BeforeCancelOrder();
@@ -221,7 +221,7 @@ public class GameMaster : MonoBehaviour
             int layer2 = (1<<13);
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer2))
             {
-                if (!cartesManager.CheckHandisFull(playerActif))
+                if (!cartesManager.CheckHandisFull(playerActif) && persoScripts[playerActif].canReceiveOrder)
                 {
                     int _wantedCardID = hit.collider.gameObject.GetComponent<CartePhysiqueScript>().id;
                     pc[playerActif].destination = hit.collider.gameObject.transform.position;

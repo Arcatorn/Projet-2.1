@@ -60,6 +60,7 @@ public class CartesManager : MonoBehaviour {
 	public List<Cartes> playerTwoCards = new List<Cartes>();
 	public Image[] emplacements;
 	CartesButtons[] cartesButtonsScripts = new CartesButtons[3];
+	public CartesIndicators[] cartesIndicators;
 	public GameObject[] cartesPhysiques = new GameObject[6];
 	public List<Salle> allSalles = new List<Salle>();
 	public static OnePlay toTransform;
@@ -137,13 +138,13 @@ public class CartesManager : MonoBehaviour {
 		if (toTransform.playerID == 0)
 		{
 			allSalles[idSalle].salleScript.ChangeForPicto(allCards[toTransform.cardID].picto);
-			allActions.CallAction(toTransform.cardID, idSalle);
+			allActions.CallAction(toTransform.cardID, idSalle, gameMaster.persoScripts[toTransform.playerID]);
 			playerOneCards.Remove(allCards[toTransform.cardID]);
 		}
 		else
 		{
 			allSalles[idSalle].salleScript.ChangeForPicto(allCards[toTransform.cardID].picto);
-			allActions.CallAction(toTransform.cardID, idSalle);
+			allActions.CallAction(toTransform.cardID, idSalle, gameMaster.persoScripts[toTransform.playerID]);
 			playerTwoCards.Remove(allCards[toTransform.cardID]);
 		}
 
@@ -251,6 +252,7 @@ public class CartesManager : MonoBehaviour {
                 }
             }
 		}
+		SortCartesIndicators();
     }
 
 	public bool CheckHandisFull(int player)
@@ -377,17 +379,87 @@ public class CartesManager : MonoBehaviour {
 		return toReturn;
 	}
 
-	public void ForceChangeColorBlank(Image _image)
+	public void SortCartesIndicators()
 	{
-		if (nouveauPlayerActif == 0)
+		int indicatorID = 0;
+		for (int i = 0; i < allCards.Count; i++)
 		{
-			_image.color = redCarteColor;
+			if (nouveauPlayerActif == 0)
+			{
+				if (!playerOneCards.Contains(allCards[i]))
+				{
+					cartesIndicators[indicatorID].myImage.sprite = allCards[i].illu;
+
+					if (playerTwoCards.Contains(allCards[i]))
+					{
+						if(gameMaster.persoScripts[nouveauPlayerActif].carteID == i)
+						{
+							cartesIndicators[indicatorID].ImAutrePersoVaLaJouer();
+						}
+						else if (gameMaster.persoScripts[nouveauPlayerActif].WantedCarteId == i)
+						{
+							cartesIndicators[indicatorID].ImAutrePersoVaLaChercher();
+						}
+						else{
+							cartesIndicators[indicatorID].ImAutrePerso();
+						}
+					}
+					else {
+						if(cartesPhysiques[i].transform.position.x > -80)
+						{
+							cartesIndicators[indicatorID].ImRassable();
+						}
+						else{
+							cartesIndicators[indicatorID].ImUsedByConsole();
+						}
+					}
+					indicatorID++;
+				}
+			}
+			else{
+				if (!playerTwoCards.Contains(allCards[i]))
+				{
+					cartesIndicators[indicatorID].myImage.sprite = allCards[i].illu;
+
+					if (playerOneCards.Contains(allCards[i]))
+					{
+						if(gameMaster.persoScripts[nouveauPlayerActif].carteID == i)
+						{
+							cartesIndicators[indicatorID].ImAutrePersoVaLaJouer();
+						}
+						else if (gameMaster.persoScripts[nouveauPlayerActif].WantedCarteId == i)
+						{
+							cartesIndicators[indicatorID].ImAutrePersoVaLaChercher();
+						}
+						else{
+							cartesIndicators[indicatorID].ImAutrePerso();
+						}
+					}
+					else {
+						if(cartesPhysiques[i].transform.position.x > -80)
+						{
+							cartesIndicators[indicatorID].ImRassable();
+						}
+						else{
+							cartesIndicators[indicatorID].ImUsedByConsole();
+						}
+					}
+					indicatorID++;
+				}
+			}
 		}
-		else
+
+		if (indicatorID <= 5)
 		{
-			_image.color = bleuCarteColor;
+			int remainingIndicators = 6 -indicatorID;
+			for (int i = 0; i < remainingIndicators; i++)
+			{
+				cartesIndicators[i + indicatorID].ImDisabled();
+			}
 		}
+
 	}
+
 
 }
 

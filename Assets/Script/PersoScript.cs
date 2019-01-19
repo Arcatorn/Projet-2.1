@@ -22,6 +22,7 @@ public class PersoScript : MonoBehaviour
 	[SerializeField] private GameObject specialAction;
 
 	public GameObject lumierePerso;
+	public bool canReceiveOrder = true;
 	
 	void Start ()
 	{
@@ -84,8 +85,8 @@ public class PersoScript : MonoBehaviour
 		if (remainingDistance < 2f)
 		{
 			cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
-			vaRamasserUneCarte = false;
-			cardSound.CardPickUp();
+        	vaRamasserUneCarte = false;
+        	cardSound.CardPickUp();
 			PlayerAnim.SetBool("GoRun", false);
 			PlayerAnim.SetTrigger("Grabbing");
 		}
