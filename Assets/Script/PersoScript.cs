@@ -75,7 +75,7 @@ public class PersoScript : MonoBehaviour
 			vaJouerUneCarte = false;
 			isConsoling = true;
 			//nma.SetDestination(transform.position);
-			StartCoroutine("CoroutineForLookingAtConsole", 0.5f);
+			StartCoroutine("CoroutineForLookingAtConsole", 0.15f);
 		}
 	}
 
@@ -105,7 +105,7 @@ public class PersoScript : MonoBehaviour
 			vaSurUneConsole = false;
 			isConsoling = true;
 			//nma.SetDestination(transform.position);
-			StartCoroutine("CoroutineForLookingAtConsole", 0.25f);
+			StartCoroutine("CoroutineForLookingAtConsole", 0.15f);
 		}
 	}
 
