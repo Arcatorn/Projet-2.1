@@ -70,11 +70,17 @@ public class PersoScript : MonoBehaviour
             myConsole.persoOnMeID = monID;
             PlayerAnim.SetBool("GoRun", false);
             PlayerAnim.SetTrigger("PlayCard");
-            cartesManager.PlayACardOnModule(carteID, monID);
-            carteID = -1;
+            StartCoroutine("WaitForIconDisplay");
             vaJouerUneCarte = false;
             isConsoling = true;
             StartCoroutine("CoroutineForLookingAtConsole");
+        }
+        else
+        {
+            if (!PlayerAnim.GetBool("GoRun"))
+            {
+                PlayerAnim.SetBool("GoRun", true);
+            }
         }
     }
 
@@ -146,7 +152,6 @@ public class PersoScript : MonoBehaviour
     {
         carteID = _cardId;
         myConsole = _myConsole;
-        PlayerAnim.SetBool("GoRun", true);
         vaJouerUneCarte = true;
     }
 
@@ -157,6 +162,12 @@ public class PersoScript : MonoBehaviour
         vaRamasserUneCarte = true;
     }
 
+    IEnumerator WaitForIconDisplay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        cartesManager.PlayACardOnModule(carteID, monID);
+        carteID = -1;
+    }
     private void TeleportDestintion(Vector3 _wantedDestination)
     {
         transform.position = Vector3.Lerp(transform.position, _wantedDestination, 0.1f);
