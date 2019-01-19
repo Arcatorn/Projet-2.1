@@ -34644,7 +34644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4051fe9692fb60b4292d4b9467013bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canGrab: 0
 --- !u!1 &778925881
 GameObject:
   m_ObjectHideFlags: 0
@@ -35227,7 +35226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4862745, g: 0.4862745, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.63585323, b: 0.48627448, a: 0.7254902}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -46995,7 +46994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4051fe9692fb60b4292d4b9467013bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canGrab: 0
 --- !u!1 &1262412314
 GameObject:
   m_ObjectHideFlags: 0

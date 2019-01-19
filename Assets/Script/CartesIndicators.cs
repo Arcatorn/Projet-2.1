@@ -12,7 +12,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
     CartesManager cartesManager;
 	public Image myImage;
 	Color persoBleu = new Color32(124,124,255,185);
-	Color persoRouge = new Color32(255, 124,124,185);
+	Color persoRouge = new Color32(255, 163,124,185);
 	GameMaster gameMaster;
 
 
@@ -33,6 +33,12 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 
         animator.SetTrigger("Click");
         animator.SetBool("Interaction", false);
+
+		int _wantedCardID = int.Parse(myImage.sprite.name.Substring(5, 1));
+		gameMaster.pc[gameMaster.playerActif].destination = cartesManager.cartesPhysiques[_wantedCardID].transform.position;
+		gameMaster.BeforeCancelOrder();
+		gameMaster.persoScripts[gameMaster.playerActif].CancelOrder();
+		gameMaster.persoScripts[gameMaster.playerActif].OrderGoGetACard(_wantedCardID);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -59,6 +65,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 	{
 		animator.SetBool("Interaction", true);
 		animator.SetBool("CursorOn", false);
+		myImage.color = new Color32(255, 255, 255, 185);
 	}
 
 	public void ImAutrePerso()
@@ -96,9 +103,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 	public void ImDisabled()
 	{
 		animator.SetBool("Interaction", false);
-		Color c = myImage.color;
-		c.a = 0;
-		myImage.color = c;
+		myImage.sprite = Resources.Load <Sprite> ("Sprites/Cartes/CarteBlank2");
 	}
 
 	private Color GiveMeColorAutrePerso()

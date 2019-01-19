@@ -20,6 +20,7 @@ public class AllActions : MonoBehaviour {
 		yield return new WaitForSeconds(2);
 		cartesManager.allSalles[a.salleID].salleScript.ChangeForText();
 		cartesManager.allSalles[a.salleID].salleScript.SpawnCarte(a.carteID);
+		cartesManager.SortCartesIndicators();
 		a.persoScript.canReceiveOrder = true;
 		yield break;
 	}
