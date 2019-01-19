@@ -33,10 +33,16 @@ public class PersoScript : MonoBehaviour
 	
 	void Update () 
 	{
-		if (vaJouerUneCarte)
-		{
-			JouerUneCarte(carteID);
-		}
+        if (vaJouerUneCarte)
+        {
+            JouerUneCarte(carteID);
+            if (myConsole.persoOnMeID != monID && myConsole.persoOnMe)
+            {
+                cartesManager.CancelOrderAnimBlank(carteID, monID);
+                CancelOrder();
+                nma.SetDestination(transform.position);
+            }
+        }
 		else if (vaRamasserUneCarte)
 		{
 			RamasserUneCarte();
@@ -44,14 +50,11 @@ public class PersoScript : MonoBehaviour
 		else if (vaSurUneConsole)
 		{
 			AllerSurUneConsole();
-		}
-		if (WantedConsole != null && WantedConsole.GetComponent<ConsoleScript>().persoOnMeID != monID )
-		{
-            if (vaJouerUneCarte)
-            {
-                cartesManager.CancelOrderAnimBlank(carteID, monID);
-            }
-			CancelOrder();
+			if (myConsole.persoOnMeID != monID && myConsole.persoOnMe)
+			{
+				CancelOrder();
+                nma.SetDestination(transform.position);
+			}
 		}
 		DirectionFacing();
 	}
@@ -107,6 +110,12 @@ public class PersoScript : MonoBehaviour
 
 	public void CancelOrder()
 	{
+		if (myConsole != null)
+        {
+            myConsole.persoOnMe = false;
+            myConsole.persoOnMeID = -1;
+			myConsole = null;
+        }
 		PlayerAnim.SetBool("OnConsole", false);
 		PlayerAnim.SetBool("GoRun", false);
 		vaJouerUneCarte = false;
@@ -128,11 +137,6 @@ public class PersoScript : MonoBehaviour
 
     public void OrderGoToConsole(ConsoleScript _myConsole)
     {
-        if (myConsole != null)
-        {
-            myConsole.persoOnMe = false;
-            myConsole.persoOnMeID = -1;
-        }
         myConsole = _myConsole;
         PlayerAnim.SetBool("GoRun", true);
         vaSurUneConsole = true;
@@ -141,11 +145,6 @@ public class PersoScript : MonoBehaviour
     public void OrderGoPlayACard(int _cardId, ConsoleScript _myConsole)
     {
         carteID = _cardId;
-        if (myConsole != null)
-        {
-            myConsole.persoOnMe = false;
-            myConsole.persoOnMeID = -1;
-        }
         myConsole = _myConsole;
         PlayerAnim.SetBool("GoRun", true);
 		vaJouerUneCarte = true;
