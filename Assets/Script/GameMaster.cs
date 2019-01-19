@@ -186,6 +186,7 @@ public class GameMaster : MonoBehaviour
     {
         pc[playerActif].enabled = true;
         var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
+        c.gameObject.transform.parent.gameObject.GetComponent<SalleScript>().OnExitCardOnMe();
         pc[playerActif].destination = c.pos;
         BeforeCancelOrder();
         persoScripts[playerActif].CancelOrder();

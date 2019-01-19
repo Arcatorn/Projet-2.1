@@ -211,6 +211,7 @@ public class CartesManager : MonoBehaviour {
                 else
                 {
                     m.sprite = Resources.Load<Sprite>("Sprites/Cartes/CarteBlank");
+					cartesButtonsScripts[i].anim.SetBool("isPlayed", false);
                     cartesButtonsScripts[i].anim.SetBool("isBlank", true);
 					m.color = redCarteColor;
                 }
@@ -244,6 +245,7 @@ public class CartesManager : MonoBehaviour {
                 else
                 {
                     m.sprite = Resources.Load<Sprite>("Sprites/Cartes/CarteBlank");
+					cartesButtonsScripts[i].anim.SetBool("isPlayed", false);
                     cartesButtonsScripts[i].anim.SetBool("isBlank", true);
 					m.color = bleuCarteColor;
                 }
