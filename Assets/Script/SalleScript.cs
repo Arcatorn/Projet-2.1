@@ -17,28 +17,35 @@ public class SalleScript : MonoBehaviour {
 	public ConsoleScript myConsoleScript;
 	public GameObject myModule;
 
-	void Awake () 
-	{
-		if (mr == null)
-		{
-			mr.material = normalMaterial;
-		}
-		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
-		for (int i = 0; i < spotInUse.Length; i++)
-		{
-			spotInUse[i] = false;
-		}
-		myConsoleScript = GetComponentInChildren<ConsoleScript>();
-	}
+    void Awake()
+    {
+
+        mr.material = onCardDrag;
+
+        cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
+        for (int i = 0; i < spotInUse.Length; i++)
+        {
+            spotInUse[i] = false;
+        }
+        myConsoleScript = GetComponentInChildren<ConsoleScript>();
+    }
 
 	public void OnDragCardOnMe()
 	{
-		mr.material = onCardDrag;
+		mr.material = normalMaterial;
+		if(mr.gameObject.transform.childCount > 0)
+		{
+			mr.gameObject.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = normalMaterial;
+		}
 	}
 
 	public void OnExitCardOnMe()
 	{
-		mr.material = normalMaterial;
+		mr.material = onCardDrag;
+		if(mr.gameObject.transform.childCount > 0)
+		{
+			mr.gameObject.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = onCardDrag;
+		}
 	}
 
     public void SpawnCarte(int carteID)
@@ -83,5 +90,28 @@ public class SalleScript : MonoBehaviour {
 	{
 		sr.sprite = null;
 		textConsole.enabled = true;
+	}
+
+    public void CheckMaterial()
+    {
+        if (mr.material.name.Contains(normalMaterial.name))
+        {
+            if (GameMaster.moduleHit == null)
+            {
+                OnExitCardOnMe();
+            }
+            else
+            {
+                if (GameMaster.moduleHit != myModule)
+                {
+                    OnExitCardOnMe();
+                }
+            }
+        }
+    }
+
+	void Update()
+	{
+		CheckMaterial();
 	}
 }
