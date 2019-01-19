@@ -108,7 +108,7 @@ public class CartesManager : MonoBehaviour {
                 playerTwoCards.Add(c);
             }
         }
-		SortCartes(playerOneCards);
+		SortCartes();
         InitializeSalles();
     }
 
@@ -116,14 +116,16 @@ public class CartesManager : MonoBehaviour {
 	{
 		public int cardID;
 		public GameObject mGO;
+		public int playerID;
 	}
 
-	public void PlayACardOnModule(int id)
+	public void PlayACardOnModule(int id, int _playerID)
 	{
 		OnePlay o = new OnePlay();
 		o.cardID = id;
 		o.mGO = GameMaster.moduleHit.transform.parent.gameObject;
 		o.mGO.transform.GetChild(0).GetComponent<ConsoleSound>().PlayCard();
+		o.playerID = _playerID;
 		toTransform = o;
 		aPlayHasOccured = true;
 	}
@@ -132,19 +134,22 @@ public class CartesManager : MonoBehaviour {
     {
 		int idSalle = toTransform.mGO.GetComponent<SalleScript>().id;
 		
-		if (nouveauPlayerActif == 0)
+		if (toTransform.playerID == 0)
 		{
-			allSalles[idSalle].salleScript.ChangeForPicto(playerOneCards[toTransform.cardID].picto);
-			allActions.CallAction(playerOneCards[toTransform.cardID].id, idSalle);
-			playerOneCards.RemoveAt(toTransform.cardID);
-			SortCartes(playerOneCards);
+			allSalles[idSalle].salleScript.ChangeForPicto(allCards[toTransform.cardID].picto);
+			allActions.CallAction(toTransform.cardID, idSalle);
+			playerOneCards.Remove(allCards[toTransform.cardID]);
 		}
 		else
 		{
-			allSalles[idSalle].salleScript.ChangeForPicto(playerTwoCards[toTransform.cardID].picto);
-			allActions.CallAction(playerTwoCards[toTransform.cardID].id, idSalle);
-			playerTwoCards.RemoveAt(toTransform.cardID);
-			SortCartes(playerTwoCards);
+			allSalles[idSalle].salleScript.ChangeForPicto(allCards[toTransform.cardID].picto);
+			allActions.CallAction(toTransform.cardID, idSalle);
+			playerTwoCards.Remove(allCards[toTransform.cardID]);
+		}
+
+		if (nouveauPlayerActif == toTransform.playerID)
+		{
+			SortCartes();
 		}
 		
         aPlayHasOccured = false;
@@ -154,12 +159,12 @@ public class CartesManager : MonoBehaviour {
     {
         for (int i = 0; i < 5; i++)
         {
-            if (i != 4)
-            {
-                Salle a = new Salle(GameObject.Find("Salle" + i.ToString()), (SallesTypes)i);
-                allSalles.Add(a);
-                a.salleScript.id = i;
-            }
+
+            Salle a = new Salle(GameObject.Find("Salle" + i.ToString()), (SallesTypes)i);
+            allSalles.Add(a);
+            a.salleScript.id = i;
+            a.salleScript.myConsoleScript.RoomNumber = i;
+
         }
     }
 
@@ -168,53 +173,83 @@ public class CartesManager : MonoBehaviour {
 		if (nouveauPlayerActif == 0)
 		{
 			nouveauPlayerActif = 1;
-			SortCartes(playerTwoCards);
 		}
 		else{
 			nouveauPlayerActif = 0;
-			SortCartes(playerOneCards);
 		}
+		SortCartes();
 	}
 
-	void SortCartes(List<Cartes> liste)
-	{
-        for (int i = 0; i < 3; i++)
+    void SortCartes()
+    {
+        if (nouveauPlayerActif == 0)
         {
-            Image m = cartesButtonsScripts[i].gameObject.GetComponent<Image>();
-            if (i < liste.Count)
+            for (int i = 0; i < 3; i++)
             {
-                m.sprite = liste[i].illu;
-                cartesButtonsScripts[i].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(liste[i].id + 1));
-                m.color = normalCarteColor;
-
-
-                if (gameMaster.persoScripts[nouveauPlayerActif].vaJouerUneCarte)
+                Image m = cartesButtonsScripts[i].gameObject.GetComponent<Image>();
+                if (i < playerOneCards.Count)
                 {
-                    if (liste[i].id == gameMaster.persoScripts[nouveauPlayerActif].carteID)
+                    m.sprite = playerOneCards[i].illu;
+                    cartesButtonsScripts[i].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(playerOneCards[i].id + 1));
+                    m.color = normalCarteColor;
+
+
+                    if (gameMaster.persoScripts[0].vaJouerUneCarte)
                     {
-                        cartesButtonsScripts[i].anim.SetBool("isPlayed", true);
-                        m.color = new Color32(255, 255, 255, 20);
+                        if (playerOneCards[i].id == gameMaster.persoScripts[0].carteID)
+                        {
+                            cartesButtonsScripts[i].anim.SetBool("isPlayed", true);
+                            m.color = new Color32(255, 255, 255, 20);
+                        }
+                    }
+                    else
+                    {
+                        cartesButtonsScripts[i].anim.SetBool("isBlank", false);
+                        cartesButtonsScripts[i].anim.SetBool("isPlayed", false);
                     }
                 }
                 else
                 {
-                    cartesButtonsScripts[i].anim.SetBool("isBlank", false);
-					cartesButtonsScripts[i].anim.SetBool("isPlayed", false);
+                    m.sprite = Resources.Load<Sprite>("Sprites/Cartes/CarteBlank");
+                    cartesButtonsScripts[i].anim.SetBool("isBlank", true);
+					m.color = redCarteColor;
                 }
             }
-			else {
-				m.sprite = Resources.Load<Sprite> ("Sprites/Cartes/CarteBlank");
-				cartesButtonsScripts[i].anim.SetBool("isBlank", true);
-				if (nouveauPlayerActif == 1)
-				{
+        }
+		else{
+			for (int i = 0; i < 3; i++)
+            {
+                Image m = cartesButtonsScripts[i].gameObject.GetComponent<Image>();
+                if (i < playerTwoCards.Count)
+                {
+                    m.sprite = playerTwoCards[i].illu;
+                    cartesButtonsScripts[i].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(playerTwoCards[i].id + 1));
+                    m.color = normalCarteColor;
+
+
+                    if (gameMaster.persoScripts[1].vaJouerUneCarte)
+                    {
+                        if (playerTwoCards[i].id == gameMaster.persoScripts[1].carteID)
+                        {
+                            cartesButtonsScripts[i].anim.SetBool("isPlayed", true);
+                            m.color = new Color32(255, 255, 255, 20);
+                        }
+                    }
+                    else
+                    {
+                        cartesButtonsScripts[i].anim.SetBool("isBlank", false);
+                        cartesButtonsScripts[i].anim.SetBool("isPlayed", false);
+                    }
+                }
+                else
+                {
+                    m.sprite = Resources.Load<Sprite>("Sprites/Cartes/CarteBlank");
+                    cartesButtonsScripts[i].anim.SetBool("isBlank", true);
 					m.color = bleuCarteColor;
-				}
-				else{
-					m.color = redCarteColor;
-				}
-			}
+                }
+            }
 		}
-	}
+    }
 
 	public bool CheckHandisFull(int player)
 	{
@@ -237,24 +272,28 @@ public class CartesManager : MonoBehaviour {
 		return toReturn;
 	}
 
-	public void AjouterUneCarteDansLaMain(int player, int carteId)
-	{
-		if (player == 0)
-		{
-			playerOneCards.Add(allCards[carteId]);
-			SortCartes(playerOneCards);
-			cartesPhysiques[carteId].transform.position = new Vector3(-100, 0,0);
-			CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
-			allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
-		}
-		else{
-			playerTwoCards.Add(allCards[carteId]);
-			SortCartes(playerTwoCards);
-			cartesPhysiques[carteId].transform.position = new Vector3(-100, 0,0);
-			CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
-			allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
-		}
-	}
+    public void AjouterUneCarteDansLaMain(int player, int carteId)
+    {
+        if (player == 0)
+        {
+            playerOneCards.Add(allCards[carteId]);
+            cartesPhysiques[carteId].transform.position = new Vector3(-100, 0, 0);
+            CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
+            allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
+        }
+        else
+        {
+            playerTwoCards.Add(allCards[carteId]);
+            cartesPhysiques[carteId].transform.position = new Vector3(-100, 0, 0);
+            CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
+            allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
+        }
+        if (nouveauPlayerActif == player)
+        {
+            SortCartes();
+        }
+    }
+
 
 	public void CancelOrderAnimBlank(int _cardID, int _player)
 	{
@@ -297,6 +336,7 @@ public class CartesManager : MonoBehaviour {
 		else{
 			for (int i = 0; i < playerTwoCards.Count; i++)
 			{
+				Debug.Log(playerTwoCards[i].id + " " + _cardID);
 				if (playerTwoCards[i].id == _cardID)
 				{
 					cartesButtonsScripts[i].gameObject.GetComponent<Image>().color = new Color32(255,255,255,20);

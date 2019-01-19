@@ -66,7 +66,7 @@ public class PersoScript : MonoBehaviour
 			myConsole.persoOnMeID = monID;
 			PlayerAnim.SetBool("GoRun",false);
 			PlayerAnim.SetTrigger("PlayCard");
-			cartesManager.PlayACardOnModule(carteID);
+			cartesManager.PlayACardOnModule(carteID, monID);
 			carteID = -1;
 			vaJouerUneCarte = false;
 			isConsoling = true;

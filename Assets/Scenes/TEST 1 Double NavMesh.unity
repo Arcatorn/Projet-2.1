@@ -3225,7 +3225,7 @@ Transform:
   - {fileID: 972482245}
   - {fileID: 1085669629}
   m_Father: {fileID: 519910308}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &209685286
 MonoBehaviour:
@@ -18238,8 +18238,8 @@ Transform:
   - {fileID: 1843427057}
   - {fileID: 876407607}
   - {fileID: 1403681413}
-  - {fileID: 1171573217}
   - {fileID: 209685285}
+  - {fileID: 1171573217}
   - {fileID: 549622827}
   - {fileID: 367143114}
   - {fileID: 384375092}
@@ -44047,7 +44047,7 @@ Transform:
   - {fileID: 1656891580}
   - {fileID: 1019840503}
   m_Father: {fileID: 519910308}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!65 &1171573219
 BoxCollider:

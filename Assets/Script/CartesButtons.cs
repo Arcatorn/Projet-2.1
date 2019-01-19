@@ -13,10 +13,9 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
     public Animator anim;
     private CardSound cardSound;
     CartesManager cartesManager;
-    public Canvas myCanvas;
-    public GameObject ps;
     public int id;
     public TextMeshProUGUI textMeshProComponent;
+    private Image myImage;
 
 
     private void Awake()
@@ -24,6 +23,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
         anim = GetComponent<Animator>();
         cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
         cardSound = Camera.main.GetComponent<CardSound>();
+        myImage = GetComponent<Image>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -51,7 +51,8 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
         {
             if (GameMaster.hittingAModule)
             {
-                GameMaster.cardIDBeingPlayed = id;
+                int i = int.Parse(myImage.sprite.name.Substring(5, 1));
+                GameMaster.cardIDBeingPlayed = i;
                 anim.SetTrigger("Normal");
             }
             else
