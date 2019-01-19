@@ -123,7 +123,7 @@ public class CartesManager : MonoBehaviour {
 	{
 		OnePlay o = new OnePlay();
 		o.cardID = id;
-		o.mGO = GameMaster.moduleHit.transform.parent.gameObject;
+		o.mGO = gameMaster.persoScripts[_playerID].myConsole.gameObject.transform.parent.gameObject;
 		o.mGO.transform.GetChild(0).GetComponent<ConsoleSound>().PlayCard();
 		o.playerID = _playerID;
 		toTransform = o;
