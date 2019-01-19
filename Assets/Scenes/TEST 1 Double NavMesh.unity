@@ -3194,7 +3194,7 @@ GameObject:
   - component: {fileID: 209685287}
   - component: {fileID: 209685286}
   m_Layer: 0
-  m_Name: Salle5
+  m_Name: Salle4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21027,6 +21027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0850687a87a82e4fb10c867e5853bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   myCanvas: {fileID: 1619270387}
   ps: {fileID: 0}
   id: 0
@@ -26711,6 +26712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0850687a87a82e4fb10c867e5853bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   myCanvas: {fileID: 1619270387}
   ps: {fileID: 0}
   id: 0
@@ -44017,7 +44019,7 @@ GameObject:
   - component: {fileID: 1171573217}
   - component: {fileID: 1171573219}
   m_Layer: 0
-  m_Name: Salle4
+  m_Name: Salle5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48816,6 +48818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0850687a87a82e4fb10c867e5853bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   myCanvas: {fileID: 1619270387}
   ps: {fileID: 0}
   id: 0

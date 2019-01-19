@@ -15,12 +15,12 @@ public enum CartesTypes
 
 public enum SallesTypes
 {
-	Communication = 0,
-	Defense = 1,
-	Radar = 2,
-	Informatique = 3,
-	Navigation = 4,
-	Excavation = 5
+	Radar = 0,
+	Electronics = 1,
+	Navigation = 2,
+	Defense = 3,
+	Excavation = 4,
+	Communication = 5
 }
 
 public class Cartes
@@ -150,17 +150,18 @@ public class CartesManager : MonoBehaviour {
         aPlayHasOccured = false;
     }
 
-	void InitializeSalles()
-	{
-		for (int i = 0; i < 6; i++)
-		{
-			if (i != 4){
-			Salle a = new Salle(GameObject.Find("Salle" + i.ToString()), (SallesTypes)i);
-			allSalles.Add(a);
-			a.salleScript.id = i;
-			}
-		}
-	}
+    void InitializeSalles()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            if (i != 4)
+            {
+                Salle a = new Salle(GameObject.Find("Salle" + i.ToString()), (SallesTypes)i);
+                allSalles.Add(a);
+                a.salleScript.id = i;
+            }
+        }
+    }
 
 	public void ChangerPictoMainDuJoueur()
 	{
