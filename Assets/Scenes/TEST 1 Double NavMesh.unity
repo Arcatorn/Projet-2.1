@@ -3649,7 +3649,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 13.14, y: 8.46}
+  m_Size: {x: 8.46, y: 8.46}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -37087,8 +37087,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.71783, y: 17.523941, z: 5.4941845}
-  m_Center: {x: 1.3939185, y: 3.8226137, z: 2.6762843}
+  m_Size: {x: 12.565166, y: 16.361504, z: 5.4941845}
+  m_Center: {x: 1.4369717, y: 4.4038334, z: 2.6762846}
 --- !u!65 &1023022878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37099,8 +37099,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.082294, y: 14.604305, z: 5.4941845}
-  m_Center: {x: 12.83359, y: 2.3627954, z: 2.6762843}
+  m_Size: {x: 9.115574, y: 12.40859, z: 5.4941845}
+  m_Center: {x: 12.31695, y: 2.4704287, z: 2.6762846}
 --- !u!1 &1024128941
 GameObject:
   m_ObjectHideFlags: 0
@@ -54058,8 +54058,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.877083, y: 18.271713, z: 5.4941845}
-  m_Center: {x: 1.473545, y: 0.7679723, z: 2.676285}
+  m_Size: {x: 12.704745, y: 16.065437, z: 5.4941845}
+  m_Center: {x: 1.5074862, y: 0.784945, z: 2.676285}
 --- !u!1 &1686669641
 GameObject:
   m_ObjectHideFlags: 0
@@ -54618,8 +54618,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.877084, y: 17.700598, z: 5.4941845}
-  m_Center: {x: 1.473545, y: 3.9109428, z: 2.6762843}
+  m_Size: {x: 12.419363, y: 15.724783, z: 5.4941845}
+  m_Center: {x: 1.4976398, y: 4.175992, z: 2.6762843}
 --- !u!1 &1714898335
 GameObject:
   m_ObjectHideFlags: 0
@@ -58333,8 +58333,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 14.877083, y: 19.856441, z: 5.4941845}
-  m_Center: {x: 1.4735451, y: -0.024391651, z: 2.6762846}
+  m_Size: {x: 12.621524, y: 17.741856, z: 5.4941845}
+  m_Center: {x: 1.4735436, y: -0.06668091, z: 2.6762846}
 --- !u!1 &1951602007
 GameObject:
   m_ObjectHideFlags: 0
@@ -66000,8 +66000,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 19.04821, y: 14.778516, z: 5.494184}
-  m_Center: {x: 3.5591114, y: 2.5145717, z: 2.6762846}
+  m_Size: {x: 16.994278, y: 12.686554, z: 5.494184}
+  m_Center: {x: 3.6351843, y: 2.4955564, z: 2.6762846}
 --- !u!1 &2118086065
 GameObject:
   m_ObjectHideFlags: 0
