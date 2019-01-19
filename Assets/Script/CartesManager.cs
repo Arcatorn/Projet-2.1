@@ -35,7 +35,7 @@ public class Cartes
 		id = _id;
 		cartesTypes = _cartesTypes;
 		cartePhysique = _cartePhysique;
-		illu = Resources.Load <Sprite> ("Sprites/Cartes/Carte" + id.ToString());
+		illu = Resources.Load <Sprite> ("Sprites/Cartes/V2/Carte" + id.ToString());
 		picto = Resources.Load <Sprite> ("Sprites/Cartes/PictoNeon" + id.ToString());
 	}
 }
