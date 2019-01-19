@@ -4,36 +4,36 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class PersoScript : MonoBehaviour 
+public class PersoScript : MonoBehaviour
 {
-	NavMeshAgent nma;
-	public int monID;
-	public bool vaJouerUneCarte = false;
-	public bool vaRamasserUneCarte = false;
-	public bool vaSurUneConsole = false;
-	public int carteID = -1;
-	public bool isConsoling = false;
-	public ConsoleScript myConsole = null;
-	public Animator PlayerAnim;
-	CartesManager cartesManager;
-	private CardSound cardSound;
-	public GameObject WantedConsole;
-	public int WantedCarteId;
-	[SerializeField] private GameObject specialAction;
+    NavMeshAgent nma;
+    public int monID;
+    public bool vaJouerUneCarte = false;
+    public bool vaRamasserUneCarte = false;
+    public bool vaSurUneConsole = false;
+    public int carteID = -1;
+    public bool isConsoling = false;
+    public ConsoleScript myConsole = null;
+    public Animator PlayerAnim;
+    CartesManager cartesManager;
+    private CardSound cardSound;
+    public GameObject WantedConsole;
+    public int WantedCarteId;
+    [SerializeField] private GameObject specialAction;
 
-	public GameObject lumierePerso;
-	public bool canReceiveOrder = true;
-	
-	void Start ()
-	{
-		lumierePerso = transform.GetChild(0).gameObject;
-		nma = GetComponent<NavMeshAgent>();
-		cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
-		cardSound = Camera.main.GetComponent<CardSound>();
-	}	
-	
-	void Update () 
-	{
+    public GameObject lumierePerso;
+    public bool canReceiveOrder = true;
+
+    void Start()
+    {
+        lumierePerso = transform.GetChild(0).gameObject;
+        nma = GetComponent<NavMeshAgent>();
+        cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
+        cardSound = Camera.main.GetComponent<CardSound>();
+    }
+
+    void Update()
+    {
         if (vaJouerUneCarte)
         {
             JouerUneCarte(carteID);
@@ -44,87 +44,86 @@ public class PersoScript : MonoBehaviour
                 nma.SetDestination(transform.position);
             }
         }
-		else if (vaRamasserUneCarte)
-		{
-			RamasserUneCarte();
-		}
-		else if (vaSurUneConsole)
-		{
-			AllerSurUneConsole();
-			if (myConsole.persoOnMeID != monID && myConsole.persoOnMe)
-			{
-				CancelOrder();
+        else if (vaRamasserUneCarte)
+        {
+            RamasserUneCarte();
+        }
+        else if (vaSurUneConsole)
+        {
+            AllerSurUneConsole();
+            if (myConsole.persoOnMeID != monID && myConsole.persoOnMe)
+            {
+                CancelOrder();
                 nma.SetDestination(transform.position);
-			}
-		}
-		DirectionFacing();
-	}
+            }
+        }
+        DirectionFacing();
+    }
 
-	public void JouerUneCarte(int cardID)
-	{
-		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
-		if (remainingDistance < 1.2f)
-		{
-			transform.position = nma.destination;
-			myConsole.persoOnMe = true;
-			myConsole.persoOnMeID = monID;
-			PlayerAnim.SetBool("GoRun",false);
-			PlayerAnim.SetTrigger("PlayCard");
-			cartesManager.PlayACardOnModule(carteID, monID);
-			carteID = -1;
-			vaJouerUneCarte = false;
-			isConsoling = true;
-			//nma.SetDestination(transform.position);
-			StartCoroutine("CoroutineForLookingAtConsole", 0.15f);
-		}
-	}
+    public void JouerUneCarte(int cardID)
+    {
+        var remainingDistance = Vector3.Distance(transform.position, nma.destination);
+        if (remainingDistance < 1.2f)
+        {
+            StartCoroutine("CoroutineForTeleportation", nma.destination);
+            myConsole.persoOnMe = true;
+            myConsole.persoOnMeID = monID;
+            PlayerAnim.SetBool("GoRun", false);
+            PlayerAnim.SetTrigger("PlayCard");
+            cartesManager.PlayACardOnModule(carteID, monID);
+            carteID = -1;
+            vaJouerUneCarte = false;
+            isConsoling = true;
+            StartCoroutine("CoroutineForLookingAtConsole");
+        }
+    }
 
-	public void RamasserUneCarte()
-	{
-		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
-		if (remainingDistance < 2f)
-		{
-			cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
-        	vaRamasserUneCarte = false;
-        	cardSound.CardPickUp();
-			PlayerAnim.SetBool("GoRun", false);
-			PlayerAnim.SetTrigger("Grabbing");
-		}
-	}
+    public void RamasserUneCarte()
+    {
+        var remainingDistance = Vector3.Distance(transform.position, nma.destination);
+        if (remainingDistance < 2f)
+        {
+            cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
+            vaRamasserUneCarte = false;
+            cardSound.CardPickUp();
+            PlayerAnim.SetBool("GoRun", false);
+            PlayerAnim.SetTrigger("Grabbing");
+        }
+    }
 
-	public void AllerSurUneConsole()
-	{
-		var remainingDistance = Vector3.Distance(transform.position, nma.destination);
-		if (remainingDistance < 1.2f)
-		{
-			transform.position = nma.destination;
-			myConsole.persoOnMe = true;
-			myConsole.persoOnMeID = monID;
-			PlayerAnim.SetBool("GoRun", false);
-			PlayerAnim.SetBool("OnConsole", true);
-			vaSurUneConsole = false;
-			isConsoling = true;
-			//nma.SetDestination(transform.position);
-			StartCoroutine("CoroutineForLookingAtConsole", 0.15f);
-		}
-	}
+    public void AllerSurUneConsole()
+    {
+        var remainingDistance = Vector3.Distance(transform.position, nma.destination);
+        if (remainingDistance < 1.2f)
+        {
+            StartCoroutine("CoroutineForTeleportation", nma.destination);
+            myConsole.persoOnMe = true;
+            myConsole.persoOnMeID = monID;
+            PlayerAnim.SetBool("GoRun", false);
+            PlayerAnim.SetBool("OnConsole", true);
+            vaSurUneConsole = false;
+            isConsoling = true;
+            //nma.SetDestination(transform.position);
+            StartCoroutine("CoroutineForLookingAtConsole");
+        }
+    }
 
-	public void CancelOrder()
-	{
-		if (myConsole != null)
+    public void CancelOrder()
+    {
+        if (myConsole != null)
         {
             myConsole.persoOnMe = false;
             myConsole.persoOnMeID = -1;
-			myConsole = null;
+            myConsole = null;
         }
-		PlayerAnim.SetBool("OnConsole", false);
-		PlayerAnim.SetBool("GoRun", false);
-		vaJouerUneCarte = false;
-		vaRamasserUneCarte = false;
-		vaSurUneConsole = false;
-		isConsoling = false;
-		WantedCarteId = -1;
-	}
+        PlayerAnim.SetBool("OnConsole", false);
+        PlayerAnim.SetBool("GoRun", false);
+        vaJouerUneCarte = false;
+        vaRamasserUneCarte = false;
+        vaSurUneConsole = false;
+        isConsoling = false;
+        WantedCarteId = -1;
+    }
 
 
     public void DirectionFacing()
@@ -148,27 +147,60 @@ public class PersoScript : MonoBehaviour
         carteID = _cardId;
         myConsole = _myConsole;
         PlayerAnim.SetBool("GoRun", true);
-		vaJouerUneCarte = true;
+        vaJouerUneCarte = true;
     }
 
-	public void OrderGoGetACard(int _wantedCardId)
-	{
-		WantedCarteId = _wantedCardId;
-		PlayerAnim.SetBool("GoRun", true);
-		vaRamasserUneCarte = true;
-	}
+    public void OrderGoGetACard(int _wantedCardId)
+    {
+        WantedCarteId = _wantedCardId;
+        PlayerAnim.SetBool("GoRun", true);
+        vaRamasserUneCarte = true;
+    }
 
-	private void LookConsole()
-	{
-		Vector3 relativePos = myConsole.keyboardConsoleToLookAt.transform.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-	}
+    private void TeleportDestintion(Vector3 _wantedDestination)
+    {
+        transform.position = Vector3.Lerp(transform.position, _wantedDestination, 0.1f);
+    }
 
-	IEnumerator CoroutineForLookingAtConsole(float delay)
-	{
-		yield return new WaitForSeconds(delay);
-		LookConsole();
-		yield break;
-	}
+    IEnumerator CoroutineForTeleportation(Vector3 _wantedDestination)
+    {
+        while (true)
+        {
+            var distanceRemaining = Mathf.Abs((transform.position - _wantedDestination).magnitude);
+            TeleportDestintion(_wantedDestination);
+            if (distanceRemaining < 0.1f)
+            {
+                yield break;
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+    }
+
+    private void LookConsole()
+    {
+        Vector3 relativePos = myConsole.keyboardConsoleToLookAt.transform.position - transform.position;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos), 0.75f);
+    }
+
+    IEnumerator CoroutineForLookingAtConsole()
+    {
+        while (true)
+        {
+            Vector3 relativePos = myConsole.keyboardConsoleToLookAt.transform.position - transform.position;
+            var angle = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(relativePos));
+            LookConsole();
+            if (Mathf.Abs(angle) <= 2f)
+            {
+                yield break;
+            }
+            else
+            {
+                yield return null;
+            }
+        }
+    }
 
 }
