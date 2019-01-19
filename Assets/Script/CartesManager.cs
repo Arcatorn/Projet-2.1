@@ -377,5 +377,17 @@ public class CartesManager : MonoBehaviour {
 		return toReturn;
 	}
 
+	public void ForceChangeColorBlank(Image _image)
+	{
+		if (nouveauPlayerActif == 0)
+		{
+			_image.color = redCarteColor;
+		}
+		else
+		{
+			_image.color = bleuCarteColor;
+		}
+	}
+
 }
 
