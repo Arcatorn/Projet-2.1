@@ -73,6 +73,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Interaction", true);
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("Full", false);
+		animator.SetBool("VaLaChercher", false);
 		myImage.color = new Color32(255, 255, 255, 185);
 	}
 
@@ -109,7 +110,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("VaLaChercher", false);
-		myImage.color = Color.yellow;
+		myImage.color = Color.green;
 	}
 
 	public void ImVaLaChercher()
@@ -118,7 +119,6 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Full", false);
 		animator.SetBool("VaLaChercher", true);
 		myImage.color = GiveMeColorPersoActif();
-		
 	}
 
 	public void ImDisabled()

@@ -36498,7 +36498,7 @@ MonoBehaviour:
   myConsole: {fileID: 0}
   PlayerAnim: {fileID: 1482442681}
   WantedConsole: {fileID: 0}
-  WantedCarteId: 0
+  WantedCarteId: -1
   specialAction: {fileID: 1510615420}
   lumierePerso: {fileID: 0}
   canReceiveOrder: 1
@@ -68113,7 +68113,7 @@ MonoBehaviour:
   myConsole: {fileID: 0}
   PlayerAnim: {fileID: 1344306653}
   WantedConsole: {fileID: 0}
-  WantedCarteId: 0
+  WantedCarteId: -1
   specialAction: {fileID: 1510615420}
   lumierePerso: {fileID: 0}
   canReceiveOrder: 1

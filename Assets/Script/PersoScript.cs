@@ -18,7 +18,7 @@ public class PersoScript : MonoBehaviour
     CartesManager cartesManager;
     private CardSound cardSound;
     public GameObject WantedConsole;
-    public int WantedCarteId;
+    public int WantedCarteId = -1;
     [SerializeField] private GameObject specialAction;
 
     public GameObject lumierePerso;
@@ -168,6 +168,7 @@ public class PersoScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
         cardSound.CardPickUp();
+        WantedCarteId = -1;
     }
 
     IEnumerator WaitForIconDisplay()

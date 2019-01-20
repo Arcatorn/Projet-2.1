@@ -302,10 +302,16 @@ public class CartesManager : MonoBehaviour
             CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
             allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
         }
+        gameMaster.persoScripts[player].WantedCarteId = -1;
         if (nouveauPlayerActif == player)
         {
             SortCartes();
         }
+        else
+        {
+            SortCartesIndicators();
+        }
+
     }
 
 
@@ -352,7 +358,6 @@ public class CartesManager : MonoBehaviour
         {
             for (int i = 0; i < playerTwoCards.Count; i++)
             {
-                Debug.Log(playerTwoCards[i].id + " " + _cardID);
                 if (playerTwoCards[i].id == _cardID)
                 {
                     cartesButtonsScripts[i].gameObject.GetComponent<Image>().color = new Color32(255, 255, 255, 20);
@@ -409,10 +414,6 @@ public class CartesManager : MonoBehaviour
                         {
                             cartesIndicators[indicatorID].ImAutrePersoVaLaJouer();
                         }
-                        else if (gameMaster.persoScripts[1].WantedCarteId == i)
-                        {
-                            cartesIndicators[indicatorID].ImAutrePersoVaLaChercher();
-                        }
                         else
                         {
                             cartesIndicators[indicatorID].ImAutrePerso();
@@ -437,6 +438,10 @@ public class CartesManager : MonoBehaviour
                             {
                                 cartesIndicators[indicatorID].ImRassableFull();
                             }
+                            if (gameMaster.persoScripts[1].WantedCarteId == i)
+                            {
+                                cartesIndicators[indicatorID].ImAutrePersoVaLaChercher();
+                            }
                         }
                         else
                         {
@@ -457,10 +462,6 @@ public class CartesManager : MonoBehaviour
                         if (gameMaster.persoScripts[0].carteID == i)
                         {
                             cartesIndicators[indicatorID].ImAutrePersoVaLaJouer();
-                        }
-                        else if (gameMaster.persoScripts[0].WantedCarteId == i)
-                        {
-                            cartesIndicators[indicatorID].ImAutrePersoVaLaChercher();
                         }
                         else
                         {
@@ -485,6 +486,10 @@ public class CartesManager : MonoBehaviour
                             else
                             {
                                 cartesIndicators[indicatorID].ImRassableFull();
+                            }
+                            if (gameMaster.persoScripts[0].WantedCarteId == i)
+                            {
+                                cartesIndicators[indicatorID].ImAutrePersoVaLaChercher();
                             }
                         }
                         else
