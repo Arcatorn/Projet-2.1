@@ -12,6 +12,7 @@ public class VehiculeFB : MonoBehaviour
     public GameObject[] particuleMoteur;
 
 	AmbiantSounds ambiantSounds;
+    public bool etatTempestOn = false;
 
 	void Awake()
 	{
@@ -36,7 +37,7 @@ public class VehiculeFB : MonoBehaviour
         {
             EtatTempete();
         }
-		 if (Input.GetKeyDown(KeyCode.M))
+		if (Input.GetKeyDown(KeyCode.M))
         {
             StopTempete();
         }
@@ -62,6 +63,8 @@ public class VehiculeFB : MonoBehaviour
         }
         cameraShake.Shake(0, 0, 0);
         particuleMoteur[0].transform.parent.GetComponent<Animator>().SetBool("playanim",false);
+        etatTempestOn = false;
+        
     }
 
     public void EtatDeplacement()
@@ -83,7 +86,7 @@ public class VehiculeFB : MonoBehaviour
             go.SetActive(false);
         }
         particuleMoteur[0].transform.parent.GetComponent<Animator>().SetBool("playanim",false);
-
+        etatTempestOn = false;
     }
 
     public void EtatSurregime()
@@ -104,6 +107,7 @@ public class VehiculeFB : MonoBehaviour
         }
         particuleMoteur[0].transform.parent.GetComponent<Animator>().SetBool("playanim",true);
         cameraShake.Shake(0.15f, 9999, 1);
+        etatTempestOn = false;
     }
 
     public void EtatTempete()
@@ -119,6 +123,8 @@ public class VehiculeFB : MonoBehaviour
         {
             go.SetActive(false);
         }
+        etatTempestOn = true;
+        StartCoroutine("RandomTempest", GiveMeARandom());
     }
 
     public void StopTempete()
@@ -128,5 +134,32 @@ public class VehiculeFB : MonoBehaviour
         {
             tempestGO[i].SetActive(false);
         }
+        etatTempestOn = false;
+    }
+
+    public void LaunchLighnting()
+    {
+        for (int i = 0; i < tempestGO.Length; i++)
+        {
+            tempestGO[i].GetComponentInChildren<Animator>().SetTrigger("go");
+        }
+    }
+
+    IEnumerator RandomTempest(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if(etatTempestOn)
+        {
+            LaunchLighnting();
+            StartCoroutine("RandomTempest", GiveMeARandom());
+            
+        }
+        yield break;
+    }
+
+    float GiveMeARandom()
+    {
+        float rnd = Random.value * 5 ;
+        return rnd;
     }
 }

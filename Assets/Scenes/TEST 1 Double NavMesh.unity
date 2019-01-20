@@ -918,7 +918,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1420454901108398, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198961127903147346, guid: e5989536a3a42ce4197b6a38026f85a1,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114658826281635498, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
@@ -38800,7 +38805,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1420454901108398, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198961127903147346, guid: e5989536a3a42ce4197b6a38026f85a1,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114658826281635498, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
@@ -40978,7 +40988,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1420454901108398, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198961127903147346, guid: e5989536a3a42ce4197b6a38026f85a1,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114658826281635498, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
@@ -52900,6 +52915,7 @@ MonoBehaviour:
   particuleMoteur:
   - {fileID: 1245225674}
   - {fileID: 1803434044}
+  etatTempestOn: 0
 --- !u!1 &1340069272
 GameObject:
   m_ObjectHideFlags: 0
@@ -53660,7 +53676,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1420454901108398, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198961127903147346, guid: e5989536a3a42ce4197b6a38026f85a1,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114658826281635498, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
@@ -54469,7 +54490,7 @@ SpriteRenderer:
   m_Size: {x: 0.72125, y: 0.72375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &1402977820
@@ -59766,7 +59787,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1420454901108398, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198961127903147346, guid: e5989536a3a42ce4197b6a38026f85a1,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114658826281635498, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
@@ -75945,7 +75971,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1420454901108398, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198961127903147346, guid: e5989536a3a42ce4197b6a38026f85a1,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114658826281635498, guid: e5989536a3a42ce4197b6a38026f85a1, type: 2}
