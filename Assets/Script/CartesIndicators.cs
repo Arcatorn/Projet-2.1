@@ -30,15 +30,18 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
         {
             pointerEvent = null;
         }
+        else
+        {
+            animator.SetTrigger("Click");
+            animator.SetBool("Interaction", false);
 
-        animator.SetTrigger("Click");
-        animator.SetBool("Interaction", false);
+            int _wantedCardID = int.Parse(myImage.sprite.name.Substring(5, 1));
+            gameMaster.pc[gameMaster.playerActif].destination = cartesManager.cartesPhysiques[_wantedCardID].transform.position;
+            gameMaster.BeforeCancelOrder();
+            gameMaster.persoScripts[gameMaster.playerActif].CancelOrder();
+            gameMaster.persoScripts[gameMaster.playerActif].OrderGoGetACard(_wantedCardID);
+        }
 
-		int _wantedCardID = int.Parse(myImage.sprite.name.Substring(5, 1));
-		gameMaster.pc[gameMaster.playerActif].destination = cartesManager.cartesPhysiques[_wantedCardID].transform.position;
-		gameMaster.BeforeCancelOrder();
-		gameMaster.persoScripts[gameMaster.playerActif].CancelOrder();
-		gameMaster.persoScripts[gameMaster.playerActif].OrderGoGetACard(_wantedCardID);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -47,8 +50,10 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
         {
             eventData = null;
         }
-
-        animator.SetBool("CursorOn", true);
+        else
+        {
+            animator.SetBool("CursorOn", true);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -57,38 +62,49 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
         {
             eventData = null;
         }
-
-        animator.SetBool("CursorOn", false);
+        else
+        {
+            animator.SetBool("CursorOn", false);
+        }
     }
 
 	public void ImRassable()
 	{
 		animator.SetBool("Interaction", true);
 		animator.SetBool("CursorOn", false);
+		animator.SetBool("Full", false);
 		myImage.color = new Color32(255, 255, 255, 185);
 	}
 
 	public void ImAutrePerso()
 	{
 		animator.SetBool("Interaction", false);
+		//animator.SetBool("Full", false);
+		animator.SetBool("CursorOn", false);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
 	public void ImAutrePersoVaLaChercher()
 	{
 		animator.SetBool("Interaction", false);
+		//animator.SetBool("Full", false);
+		animator.SetBool("CursorOn", false);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
 	public void ImAutrePersoVaLaJouer()
 	{
 		animator.SetBool("Interaction", false);
+		//animator.SetBool("Full", false);
+		animator.SetBool("CursorOn", false);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
 	public void ImUsedByConsole()
 	{
 		animator.SetBool("Interaction", false);
+		//animator.SetBool("Full", false);
+		animator.SetBool("CursorOn", false);
 		myImage.color = Color.yellow;
 	}
 
@@ -96,6 +112,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 	{
 		animator.SetTrigger("Click");
         animator.SetBool("Interaction", false);
+		//animator.SetBool("Full", false);
 		myImage.color = GiveMeColorPersoActif();
 		
 	}
@@ -103,7 +120,17 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 	public void ImDisabled()
 	{
 		animator.SetBool("Interaction", false);
+		animator.SetBool("Full", false);
+		animator.SetBool("CursorOn", false);
 		myImage.sprite = Resources.Load <Sprite> ("Sprites/Cartes/CarteBlank2");
+	}
+
+	public void ImRassableFull()
+	{
+		animator.SetBool("Interaction", false);
+		animator.SetBool("CursorOn", false);
+		animator.SetBool("Full", true);
+		myImage.color = new Color32(255, 255, 255, 20);
 	}
 
 	private Color GiveMeColorAutrePerso()

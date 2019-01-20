@@ -407,7 +407,13 @@ public class CartesManager : MonoBehaviour {
 					else {
 						if(cartesPhysiques[i].transform.position.x > -80)
 						{
-							cartesIndicators[indicatorID].ImRassable();
+                            if (playerOneCards.Count < 3)
+                            {
+                                cartesIndicators[indicatorID].ImRassable();
+                            }
+							else{
+								cartesIndicators[indicatorID].ImRassableFull();
+							}
 						}
 						else{
 							cartesIndicators[indicatorID].ImUsedByConsole();
@@ -434,17 +440,26 @@ public class CartesManager : MonoBehaviour {
 						else{
 							cartesIndicators[indicatorID].ImAutrePerso();
 						}
-					}
-					else {
-						if(cartesPhysiques[i].transform.position.x > -80)
-						{
-							cartesIndicators[indicatorID].ImRassable();
-						}
-						else{
-							cartesIndicators[indicatorID].ImUsedByConsole();
-						}
-					}
-					indicatorID++;
+                    }
+                    else
+                    {
+                        if (cartesPhysiques[i].transform.position.x > -80)
+                        {
+                            if (playerTwoCards.Count < 3)
+                            {
+                                cartesIndicators[indicatorID].ImRassable();
+                            }
+                            else
+                            {
+                                cartesIndicators[indicatorID].ImRassableFull();
+                            }
+                        }
+                        else
+                        {
+                            cartesIndicators[indicatorID].ImUsedByConsole();
+                        }
+                    }
+                    indicatorID++;
 				}
 			}
 		}
