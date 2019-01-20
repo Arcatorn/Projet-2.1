@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
 
 
 public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler
@@ -14,7 +13,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
     private CardSound cardSound;
     CartesManager cartesManager;
     public int id;
-    public TextMeshProUGUI textMeshProComponent;
+    public Image imageNumero;
     private Image myImage;
 
 
@@ -24,6 +23,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
         cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
         cardSound = Camera.main.GetComponent<CardSound>();
         myImage = GetComponent<Image>();
+        imageNumero = transform.GetChild(0).gameObject.GetComponent<Image>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)

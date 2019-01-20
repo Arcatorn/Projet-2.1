@@ -36,7 +36,7 @@ public class Cartes
         id = _id;
         cartesTypes = _cartesTypes;
         cartePhysique = _cartePhysique;
-        illu = Resources.Load<Sprite>("Sprites/Cartes/V3/Carte" + id.ToString());
+        illu = Resources.Load<Sprite>("Sprites/Cartes/V4/Carte" + id.ToString());
         picto = Resources.Load<Sprite>("Sprites/Cartes/PictoNeon" + id.ToString());
         num = id + 1;
     }
@@ -222,6 +222,7 @@ public class CartesManager : MonoBehaviour
                 else
                 {
                     m.sprite = Resources.Load<Sprite>("Sprites/Cartes/CarteBlank");
+                    cartesButtonsScripts[i].imageNumero.sprite = Resources.Load<Sprite>("Sprites/Cartes/CarteBlank");
                     cartesButtonsScripts[i].anim.SetBool("isPlayed", false);
                     cartesButtonsScripts[i].anim.SetBool("isBlank", true);
                     m.color = redCarteColor;
@@ -257,6 +258,7 @@ public class CartesManager : MonoBehaviour
                 else
                 {
                     m.sprite = Resources.Load<Sprite>("Sprites/Cartes/CarteBlank");
+                    cartesButtonsScripts[i].imageNumero.sprite = Resources.Load<Sprite>("Sprites/Cartes/CarteBlank");
                     cartesButtonsScripts[i].anim.SetBool("isPlayed", false);
                     cartesButtonsScripts[i].anim.SetBool("isBlank", true);
                     m.color = bleuCarteColor;
@@ -371,33 +373,9 @@ public class CartesManager : MonoBehaviour
         }
     }
 
-    string ConvertisseurIntEnChiffreRomain(int toConvert)
+    Sprite ConvertisseurIntEnChiffreRomain(int toConvert)
     {
-        string toReturn = "O";
-        if (toConvert == 1)
-        {
-            toReturn = "I";
-        }
-        else if (toConvert == 2)
-        {
-            toReturn = "II";
-        }
-        else if (toConvert == 3)
-        {
-            toReturn = "III";
-        }
-        else if (toConvert == 4)
-        {
-            toReturn = "IV";
-        }
-        else if (toConvert == 5)
-        {
-            toReturn = "V";
-        }
-        else if (toConvert == 6)
-        {
-            toReturn = "VI";
-        }
+        Sprite toReturn = Resources.Load <Sprite> ("Sprites/Cartes/ChiffresRomains/Romain" + toConvert.ToString());
         return toReturn;
     }
 
@@ -411,7 +389,7 @@ public class CartesManager : MonoBehaviour
                 if (!playerOneCards.Contains(allCards[i]))
                 {
                     cartesIndicators[indicatorID].myImage.sprite = allCards[i].illu;
-                    cartesIndicators[indicatorID].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(allCards[i].num));
+                    cartesIndicators[indicatorID].imageNumero.sprite = ConvertisseurIntEnChiffreRomain(allCards[i].num);
                     if (playerTwoCards.Contains(allCards[i]))
                     {
                         if (gameMaster.persoScripts[1].carteID == i)
@@ -457,7 +435,7 @@ public class CartesManager : MonoBehaviour
                 else
                 {
                     int a = playerOneCards.IndexOf(allCards[i]);
-                    cartesButtonsScripts[a].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(allCards[i].num));
+                    cartesButtonsScripts[a].imageNumero.sprite = ConvertisseurIntEnChiffreRomain(allCards[i].num);
                 }
             }
             else
@@ -465,7 +443,7 @@ public class CartesManager : MonoBehaviour
                 if (!playerTwoCards.Contains(allCards[i]))
                 {
                     cartesIndicators[indicatorID].myImage.sprite = allCards[i].illu;
-                    cartesIndicators[indicatorID].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(allCards[i].num));
+                    cartesIndicators[indicatorID].imageNumero.sprite = ConvertisseurIntEnChiffreRomain(allCards[i].num);
                     if (playerOneCards.Contains(allCards[i]))
                     {
                         if (gameMaster.persoScripts[0].carteID == i)
@@ -510,7 +488,7 @@ public class CartesManager : MonoBehaviour
                 }
                 else{
                     int a = playerTwoCards.IndexOf(allCards[i]);
-                    cartesButtonsScripts[a].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(allCards[i].num));
+                    cartesButtonsScripts[a].imageNumero.sprite = ConvertisseurIntEnChiffreRomain(allCards[i].num);
                 }
             }
         }

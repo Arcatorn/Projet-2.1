@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
 using UnityEngine;
 
 public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
@@ -14,7 +13,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 	Color persoBleu = new Color32(124,124,255,185);
 	Color persoRouge = new Color32(255, 163,124,185);
 	GameMaster gameMaster;
-	public TextMeshProUGUI textMeshProComponent;
+	public Image imageNumero;
 
 
     private void Awake()
@@ -22,6 +21,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
         cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
 		myImage = GetComponent<Image>();
 		gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+		imageNumero = transform.GetChild(0).gameObject.GetComponent<Image>();
     }
 
 
@@ -135,6 +135,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("Special", false);
 		myImage.sprite = Resources.Load <Sprite> ("Sprites/Cartes/CarteBlank2");
+		imageNumero.sprite = Resources.Load <Sprite> ("Sprites/Cartes/CarteBlank2");
 	}
 
 	public void ImRassableFull()
