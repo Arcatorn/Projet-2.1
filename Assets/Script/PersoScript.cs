@@ -73,7 +73,7 @@ public class PersoScript : MonoBehaviour
             StartCoroutine("WaitForIconDisplay");
             vaJouerUneCarte = false;
             isConsoling = true;
-            StartCoroutine("CoroutineForLookingAtConsole");
+            StartCoroutine("CoroutineForLookingAtConsole", myConsole.keyboardConsoleToLookAt.transform.position);
         }
         else
         {
@@ -87,13 +87,15 @@ public class PersoScript : MonoBehaviour
     public void RamasserUneCarte()
     {
         var remainingDistance = Vector3.Distance(transform.position, nma.destination);
-        if (remainingDistance < 2f)
+        print(remainingDistance);
+        if (remainingDistance < 3f)
         {
-            cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
-            vaRamasserUneCarte = false;
-            cardSound.CardPickUp();
+            StartCoroutine("CoroutineForLookingAtConsole", nma.destination);
+            nma.destination = transform.position;
             PlayerAnim.SetBool("GoRun", false);
             PlayerAnim.SetTrigger("Grabbing");
+            StartCoroutine("WaitForPickup");
+            vaRamasserUneCarte = false;
         }
     }
 
@@ -110,7 +112,7 @@ public class PersoScript : MonoBehaviour
             vaSurUneConsole = false;
             isConsoling = true;
             //nma.SetDestination(transform.position);
-            StartCoroutine("CoroutineForLookingAtConsole");
+            StartCoroutine("CoroutineForLookingAtConsole", myConsole.keyboardConsoleToLookAt.transform.position);
         }
     }
 
@@ -162,6 +164,13 @@ public class PersoScript : MonoBehaviour
         vaRamasserUneCarte = true;
     }
 
+    IEnumerator WaitForPickup()
+    {
+        yield return new WaitForSeconds(1f);
+        cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
+        cardSound.CardPickUp();
+    }
+
     IEnumerator WaitForIconDisplay()
     {
         yield return new WaitForSeconds(0.5f);
@@ -190,19 +199,19 @@ public class PersoScript : MonoBehaviour
         }
     }
 
-    private void LookConsole()
+    private void LookConsole(Vector3 _GameobjectToLook)
     {
-        Vector3 relativePos = myConsole.keyboardConsoleToLookAt.transform.position - transform.position;
+        Vector3 relativePos = _GameobjectToLook - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos), 0.75f);
     }
 
-    IEnumerator CoroutineForLookingAtConsole()
+    IEnumerator CoroutineForLookingAtConsole(Vector3 _GameobjectToLook)
     {
         while (true)
         {
-            Vector3 relativePos = myConsole.keyboardConsoleToLookAt.transform.position - transform.position;
+            Vector3 relativePos = _GameobjectToLook - transform.position;
             var angle = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(relativePos));
-            LookConsole();
+            LookConsole(_GameobjectToLook);
             if (Mathf.Abs(angle) <= 2f)
             {
                 yield break;
