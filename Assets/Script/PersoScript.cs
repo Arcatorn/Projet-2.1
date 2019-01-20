@@ -73,7 +73,7 @@ public class PersoScript : MonoBehaviour
             StartCoroutine("WaitForIconDisplay");
             vaJouerUneCarte = false;
             isConsoling = true;
-            StartCoroutine("CoroutineForLookingAtConsole", myConsole.keyboardConsoleToLookAt.transform.position);
+            StartCoroutine("CoroutineForLookingAt", myConsole.keyboardConsoleToLookAt.transform.position);
         }
         else
         {
@@ -90,7 +90,7 @@ public class PersoScript : MonoBehaviour
         print(remainingDistance);
         if (remainingDistance < 3f)
         {
-            StartCoroutine("CoroutineForLookingAtConsole", nma.destination);
+            StartCoroutine("CoroutineForLookingAt", nma.destination);
             nma.destination = transform.position;
             PlayerAnim.SetBool("GoRun", false);
             PlayerAnim.SetTrigger("Grabbing");
@@ -112,7 +112,7 @@ public class PersoScript : MonoBehaviour
             vaSurUneConsole = false;
             isConsoling = true;
             //nma.SetDestination(transform.position);
-            StartCoroutine("CoroutineForLookingAtConsole", myConsole.keyboardConsoleToLookAt.transform.position);
+            StartCoroutine("CoroutineForLookingAt", myConsole.keyboardConsoleToLookAt.transform.position);
         }
     }
 
@@ -199,19 +199,19 @@ public class PersoScript : MonoBehaviour
         }
     }
 
-    private void LookConsole(Vector3 _GameobjectToLook)
+    private void LookDestination(Vector3 _GameobjectToLook)
     {
         Vector3 relativePos = _GameobjectToLook - transform.position;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(relativePos), 0.75f);
     }
 
-    IEnumerator CoroutineForLookingAtConsole(Vector3 _GameobjectToLook)
+    IEnumerator CoroutineForLookingAt(Vector3 _GameobjectToLook)
     {
         while (true)
         {
             Vector3 relativePos = _GameobjectToLook - transform.position;
             var angle = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(relativePos));
-            LookConsole(_GameobjectToLook);
+            LookDestination(_GameobjectToLook);
             if (Mathf.Abs(angle) <= 2f)
             {
                 yield break;
