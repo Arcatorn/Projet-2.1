@@ -7,4 +7,5 @@ public class CartePhysiqueScript : MonoBehaviour {
 	public int id;
 	public int salleID;
 	public int spotID;
+	public bool canBeInteract = false;
 }

@@ -55,8 +55,10 @@ public class SalleScript : MonoBehaviour {
         if (!spotInUse[rnd])
         {
             cartesManager.cartesPhysiques[carteID].transform.position = spotCartes[rnd].transform.position;
-			cartesManager.cartesPhysiques[carteID].GetComponent<CartePhysiqueScript>().salleID = id;
-			cartesManager.cartesPhysiques[carteID].GetComponent<CartePhysiqueScript>().spotID = rnd;
+            CartePhysiqueScript cartePhysiqueScript = cartesManager.cartesPhysiques[carteID].GetComponent<CartePhysiqueScript>();
+			cartePhysiqueScript.salleID = id;
+			cartePhysiqueScript.spotID = rnd;
+            cartePhysiqueScript.canBeInteract = true;
 			spotInUse[rnd] = true;
         }
         else

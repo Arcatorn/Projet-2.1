@@ -36,7 +36,7 @@ public class Cartes
         id = _id;
         cartesTypes = _cartesTypes;
         cartePhysique = _cartePhysique;
-        illu = Resources.Load<Sprite>("Sprites/Cartes/V2/Carte" + id.ToString());
+        illu = Resources.Load<Sprite>("Sprites/Cartes/V3/Carte" + id.ToString());
         picto = Resources.Load<Sprite>("Sprites/Cartes/PictoNeon" + id.ToString());
         num = id + 1;
     }
@@ -423,7 +423,7 @@ public class CartesManager : MonoBehaviour
                     }
                     else
                     {
-                        if (cartesPhysiques[i].transform.position.x > -80)
+                        if (cartesPhysiques[i].GetComponent<CartePhysiqueScript>().canBeInteract)
                         {
                             if (playerOneCards.Count < 3)
                             {
@@ -477,7 +477,7 @@ public class CartesManager : MonoBehaviour
                     }
                     else
                     {
-                        if (cartesPhysiques[i].transform.position.x > -80)
+                        if (cartesPhysiques[i].GetComponent<CartePhysiqueScript>().canBeInteract)
                         {
                             if (playerTwoCards.Count < 3)
                             {

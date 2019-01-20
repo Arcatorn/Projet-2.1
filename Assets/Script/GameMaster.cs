@@ -218,17 +218,20 @@ public class GameMaster : MonoBehaviour
                 }
             }
 
-            int layer2 = (1<<13);
+            int layer2 = (1 << 13);
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer2))
             {
                 if (!cartesManager.CheckHandisFull(playerActif) && persoScripts[playerActif].canReceiveOrder)
                 {
-                    int _wantedCardID = hit.collider.gameObject.GetComponent<CartePhysiqueScript>().id;
-                    pc[playerActif].destination = hit.collider.gameObject.transform.position;
-                    BeforeCancelOrder();
-                    persoScripts[playerActif].CancelOrder();
-                    persoScripts[playerActif].OrderGoGetACard(_wantedCardID);
-                    cartesManager.SortCartesIndicators();
+                    if (hit.collider.gameObject.GetComponent<CartePhysiqueScript>().canBeInteract)
+                    {
+                        int _wantedCardID = hit.collider.gameObject.GetComponent<CartePhysiqueScript>().id;
+                        pc[playerActif].destination = hit.collider.gameObject.transform.position;
+                        BeforeCancelOrder();
+                        persoScripts[playerActif].CancelOrder();
+                        persoScripts[playerActif].OrderGoGetACard(_wantedCardID);
+                        cartesManager.SortCartesIndicators();
+                    }
                 }
             }
         }
