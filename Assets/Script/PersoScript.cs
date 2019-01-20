@@ -168,7 +168,6 @@ public class PersoScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         cartesManager.AjouterUneCarteDansLaMain(monID, WantedCarteId);
         cardSound.CardPickUp();
-        WantedCarteId = -1;
     }
 
     IEnumerator WaitForIconDisplay()
@@ -212,7 +211,7 @@ public class PersoScript : MonoBehaviour
             Vector3 relativePos = _GameobjectToLook - transform.position;
             var angle = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(relativePos));
             LookDestination(_GameobjectToLook);
-            if (Mathf.Abs(angle) <= 2f)
+            if (Mathf.Abs(angle) <= 3f)
             {
                 yield break;
             }
