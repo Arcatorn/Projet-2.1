@@ -49,7 +49,7 @@ public class SalleScript : MonoBehaviour {
 		}
 	}
 
-    public void SpawnCarte(int carteID)
+    /*public void SpawnCarte(int carteID)
     {
         int rnd = Random.Range(0, 3);
         if (!spotInUse[rnd])
@@ -68,7 +68,39 @@ public class SalleScript : MonoBehaviour {
                 SpawnCarte(carteID);
             }
         }
+    }*/
+
+    public void FindRandomSpot(int carteID)
+    {
+        int rnd = Random.Range(0, 3);
+        if (!spotInUse[rnd])
+        {
+            Vector3 pos = spotCartes[rnd].transform.position;
+            pos.y = -2.6f;
+            cartesManager.cartesPhysiques[carteID].transform.position = pos;
+            CartePhysiqueScript cartePhysiqueScript = cartesManager.cartesPhysiques[carteID].GetComponent<CartePhysiqueScript>();
+            cartePhysiqueScript.salleID = id;
+			cartePhysiqueScript.spotID = rnd;
+            spotCartes[rnd].GetComponentInChildren<Animator>().SetTrigger("Ouvre");
+            spotInUse[rnd] = true;
+            StartCoroutine("WaitOuverture", cartePhysiqueScript);
+        }
+        else{
+            
+            if (!TestSpot())
+            {
+                FindRandomSpot(carteID);
+            }
+        }
     }
+
+    IEnumerator WaitOuverture(CartePhysiqueScript cartePhysiqueScript)
+    {
+        yield return new WaitForSeconds(1);
+        cartePhysiqueScript.StartCoroutine("MonterLeCube");
+        yield break;
+    }
+
 
     bool TestSpot()
     {

@@ -17,10 +17,11 @@ public class AllActions : MonoBehaviour {
 
 	IEnumerator DureeAction(monAction a)
 	{
-		// LANCER ANIM MODULE ?? LIEN AVEC SPAWNCARTE
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(1);
+		cartesManager.allSalles[a.salleID].salleScript.FindRandomSpot(a.carteID);
+		yield return new WaitForSeconds(1);
 		cartesManager.allSalles[a.salleID].salleScript.ChangeForText();
-		cartesManager.allSalles[a.salleID].salleScript.SpawnCarte(a.carteID);
+		
 		cartesManager.SortCartesIndicators();
 		a.persoScript.canReceiveOrder = true;
 		yield break;

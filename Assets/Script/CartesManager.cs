@@ -296,6 +296,7 @@ public class CartesManager : MonoBehaviour
             cartesPhysiques[carteId].transform.position = new Vector3(-100, 0, 0);
             CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
             allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
+            allSalles[s.salleID].salleScript.spotCartes[s.spotID].GetComponentInChildren<Animator>().SetTrigger("Ferme");
         }
         else
         {
@@ -303,6 +304,7 @@ public class CartesManager : MonoBehaviour
             cartesPhysiques[carteId].transform.position = new Vector3(-100, 0, 0);
             CartePhysiqueScript s = cartesPhysiques[carteId].GetComponent<CartePhysiqueScript>();
             allSalles[s.salleID].salleScript.spotInUse[s.spotID] = false;
+            allSalles[s.salleID].salleScript.spotCartes[s.spotID].GetComponentInChildren<Animator>().SetTrigger("Ferme");
         }
         gameMaster.persoScripts[player].WantedCarteId = -1;
         if (nouveauPlayerActif == player)
