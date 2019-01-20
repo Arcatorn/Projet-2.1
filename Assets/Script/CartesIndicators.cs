@@ -14,6 +14,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 	Color persoBleu = new Color32(124,124,255,185);
 	Color persoRouge = new Color32(255, 163,124,185);
 	GameMaster gameMaster;
+	public TextMeshProUGUI textMeshProComponent;
 
 
     private void Awake()
@@ -74,6 +75,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("Full", false);
 		animator.SetBool("VaLaChercher", false);
+		animator.SetBool("Special", false);
 		myImage.color = new Color32(255, 255, 255, 185);
 	}
 
@@ -83,6 +85,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("VaLaChercher", false);
+		animator.SetBool("Special", false);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
@@ -92,6 +95,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("VaLaChercher", true);
+		animator.SetBool("Special", false);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
@@ -101,6 +105,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("VaLaChercher", false);
+		animator.SetBool("Special", true);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
@@ -110,7 +115,8 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("VaLaChercher", false);
-		myImage.color = Color.green;
+		animator.SetBool("Special", false);
+		myImage.color = new Color32(80, 255, 80, 185);
 	}
 
 	public void ImVaLaChercher()
@@ -118,6 +124,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
         animator.SetBool("Interaction", false);
 		animator.SetBool("Full", false);
 		animator.SetBool("VaLaChercher", true);
+		animator.SetBool("Special", false);
 		myImage.color = GiveMeColorPersoActif();
 	}
 
@@ -126,6 +133,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Interaction", false);
 		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
+		animator.SetBool("Special", false);
 		myImage.sprite = Resources.Load <Sprite> ("Sprites/Cartes/CarteBlank2");
 	}
 
@@ -134,6 +142,7 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 		animator.SetBool("Interaction", false);
 		animator.SetBool("CursorOn", false);
 		animator.SetBool("Full", true);
+		animator.SetBool("Special", false);
 		myImage.color = new Color32(255, 255, 255, 20);
 	}
 

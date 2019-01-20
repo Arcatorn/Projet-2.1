@@ -30,6 +30,7 @@ public class Cartes
     public GameObject cartePhysique;
     public Sprite illu;
     public Sprite picto;
+    public int num;
     public Cartes(int _id, CartesTypes _cartesTypes, GameObject _cartePhysique)
     {
         id = _id;
@@ -37,6 +38,7 @@ public class Cartes
         cartePhysique = _cartePhysique;
         illu = Resources.Load<Sprite>("Sprites/Cartes/V2/Carte" + id.ToString());
         picto = Resources.Load<Sprite>("Sprites/Cartes/PictoNeon" + id.ToString());
+        num = id + 1;
     }
 }
 
@@ -150,7 +152,7 @@ public class CartesManager : MonoBehaviour
             allActions.CallAction(toTransform.cardID, idSalle, gameMaster.persoScripts[toTransform.playerID]);
             playerTwoCards.Remove(allCards[toTransform.cardID]);
         }
-
+        ChangerCarteNum(allCards[toTransform.cardID]);
         if (nouveauPlayerActif == toTransform.playerID)
         {
             SortCartes();
@@ -199,7 +201,7 @@ public class CartesManager : MonoBehaviour
                 if (i < playerOneCards.Count)
                 {
                     m.sprite = playerOneCards[i].illu;
-                    cartesButtonsScripts[i].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(playerOneCards[i].id + 1));
+                    //cartesButtonsScripts[i].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(playerOneCards[i].num));
                     m.color = normalCarteColor;
 
 
@@ -234,7 +236,7 @@ public class CartesManager : MonoBehaviour
                 if (i < playerTwoCards.Count)
                 {
                     m.sprite = playerTwoCards[i].illu;
-                    cartesButtonsScripts[i].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(playerTwoCards[i].id + 1));
+                    //cartesButtonsScripts[i].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(playerTwoCards[i].num));
                     m.color = normalCarteColor;
 
 
@@ -407,7 +409,7 @@ public class CartesManager : MonoBehaviour
                 if (!playerOneCards.Contains(allCards[i]))
                 {
                     cartesIndicators[indicatorID].myImage.sprite = allCards[i].illu;
-
+                    cartesIndicators[indicatorID].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(allCards[i].num));
                     if (playerTwoCards.Contains(allCards[i]))
                     {
                         if (gameMaster.persoScripts[1].carteID == i)
@@ -450,13 +452,18 @@ public class CartesManager : MonoBehaviour
                     }
                     indicatorID++;
                 }
+                else
+                {
+                    int a = playerOneCards.IndexOf(allCards[i]);
+                    cartesButtonsScripts[a].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(allCards[i].num));
+                }
             }
             else
             {
                 if (!playerTwoCards.Contains(allCards[i]))
                 {
                     cartesIndicators[indicatorID].myImage.sprite = allCards[i].illu;
-
+                    cartesIndicators[indicatorID].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(allCards[i].num));
                     if (playerOneCards.Contains(allCards[i]))
                     {
                         if (gameMaster.persoScripts[0].carteID == i)
@@ -499,6 +506,10 @@ public class CartesManager : MonoBehaviour
                     }
                     indicatorID++;
                 }
+                else{
+                    int a = playerTwoCards.IndexOf(allCards[i]);
+                    cartesButtonsScripts[a].textMeshProComponent.SetText(ConvertisseurIntEnChiffreRomain(allCards[i].num));
+                }
             }
         }
 
@@ -513,6 +524,17 @@ public class CartesManager : MonoBehaviour
 
     }
 
+    public void ChangerCarteNum(Cartes cardPlayed)
+    {
+        for (int i = 0; i < allCards.Count; i++)
+        {
+            if (allCards[i].num > cardPlayed.num)
+            {
+                allCards[i].num -= 1;
+            }
+        }
+        cardPlayed.num = 6;
+    }
 
 }
 

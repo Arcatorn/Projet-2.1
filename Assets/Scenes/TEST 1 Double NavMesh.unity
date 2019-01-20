@@ -502,6 +502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 24281833}
   myImage: {fileID: 0}
+  textMeshProComponent: {fileID: 617109360}
 --- !u!95 &24281833
 Animator:
   serializedVersion: 3
@@ -2683,6 +2684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 169703092}
   myImage: {fileID: 0}
+  textMeshProComponent: {fileID: 527282694}
 --- !u!95 &169703092
 Animator:
   serializedVersion: 3
@@ -35263,6 +35265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 831779871}
   myImage: {fileID: 0}
+  textMeshProComponent: {fileID: 742350814}
 --- !u!1 &832396060
 GameObject:
   m_ObjectHideFlags: 0
@@ -47561,6 +47564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1290307387}
   myImage: {fileID: 0}
+  textMeshProComponent: {fileID: 1919243235}
 --- !u!95 &1290307387
 Animator:
   serializedVersion: 3
@@ -54683,6 +54687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1596866645}
   myImage: {fileID: 0}
+  textMeshProComponent: {fileID: 1046995263}
 --- !u!95 &1596866645
 Animator:
   serializedVersion: 3
@@ -67238,6 +67243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2037967207}
   myImage: {fileID: 0}
+  textMeshProComponent: {fileID: 1474686123}
 --- !u!95 &2037967207
 Animator:
   serializedVersion: 3
