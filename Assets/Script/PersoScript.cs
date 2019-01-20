@@ -187,7 +187,7 @@ public class PersoScript : MonoBehaviour
         {
             var distanceRemaining = Mathf.Abs((transform.position - _wantedDestination).magnitude);
             TeleportDestintion(_wantedDestination);
-            if (distanceRemaining < 0.1f)
+            if (distanceRemaining < 0.2f)
             {
                 yield break;
             }
