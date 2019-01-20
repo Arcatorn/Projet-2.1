@@ -21,11 +21,12 @@ public class ShakeGestion : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.F))
         {
-
+            CamScript.shakeDuration = 10;
+            CamScript.shakeAmount = 1;
         }
         if (Input.GetKey(KeyCode.G))
         {
-
+            //CamScript.Shake(10, )
         }
     }
 }

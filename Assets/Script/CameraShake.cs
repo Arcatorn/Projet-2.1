@@ -40,8 +40,8 @@ public class CameraShake : MonoBehaviour
     }
     public void Shake(float newShakeAmount,float newShakeDuration,float newDecreaseFactor)
     {
-        newShakeAmount = shakeAmount;
-        newShakeDuration = shakeDuration;
-        newDecreaseFactor = decreaseFactor;
+        shakeAmount = newShakeAmount;
+        shakeDuration = newShakeDuration;
+        decreaseFactor = newDecreaseFactor;
     }
 }
