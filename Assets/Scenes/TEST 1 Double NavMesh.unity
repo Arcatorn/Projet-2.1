@@ -98,7 +98,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.2
+    agentRadius: 0.3
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -106,7 +106,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.06666667
+    cellSize: 0.1
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -37600,9 +37600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 908492970}
   - component: {fileID: 908492969}
-  - component: {fileID: 908492967}
   - component: {fileID: 908492971}
-  - component: {fileID: 908492973}
   - component: {fileID: 908492972}
   m_Layer: 9
   m_Name: Player2
@@ -37611,19 +37609,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &908492967
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 908492966}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3.3699849
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.6809248, z: 0}
 --- !u!33 &908492969
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -37692,21 +37677,6 @@ MonoBehaviour:
   specialAction: {fileID: 1510615420}
   lumierePerso: {fileID: 0}
   canReceiveOrder: 1
---- !u!54 &908492973
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 908492966}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &909719451
 GameObject:
   m_ObjectHideFlags: 0
@@ -71324,9 +71294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2072771022}
   - component: {fileID: 2072771021}
-  - component: {fileID: 2072771019}
   - component: {fileID: 2072771023}
-  - component: {fileID: 2072771025}
   - component: {fileID: 2072771024}
   m_Layer: 9
   m_Name: Player1
@@ -71335,19 +71303,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &2072771019
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2072771018}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 3.3699849
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.6809248, z: 0}
 --- !u!33 &2072771021
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -71415,21 +71370,6 @@ MonoBehaviour:
   specialAction: {fileID: 1510615420}
   lumierePerso: {fileID: 0}
   canReceiveOrder: 1
---- !u!54 &2072771025
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2072771018}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &2079310778
 GameObject:
   m_ObjectHideFlags: 0
