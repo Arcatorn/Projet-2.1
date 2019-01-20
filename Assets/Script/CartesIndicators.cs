@@ -32,16 +32,16 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
         }
         else
         {
-            animator.SetTrigger("Click");
+            animator.SetBool("VaLaChercher", true);
             animator.SetBool("Interaction", false);
-
+			myImage.color = GiveMeColorPersoActif();
             int _wantedCardID = int.Parse(myImage.sprite.name.Substring(5, 1));
             gameMaster.pc[gameMaster.playerActif].destination = cartesManager.cartesPhysiques[_wantedCardID].transform.position;
             gameMaster.BeforeCancelOrder();
             gameMaster.persoScripts[gameMaster.playerActif].CancelOrder();
             gameMaster.persoScripts[gameMaster.playerActif].OrderGoGetACard(_wantedCardID);
+			cartesManager.SortCartesIndicators();
         }
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -79,40 +79,44 @@ public class CartesIndicators : MonoBehaviour, IEventSystemHandler, IPointerClic
 	public void ImAutrePerso()
 	{
 		animator.SetBool("Interaction", false);
-		//animator.SetBool("Full", false);
+		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
+		animator.SetBool("VaLaChercher", false);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
 	public void ImAutrePersoVaLaChercher()
 	{
 		animator.SetBool("Interaction", false);
-		//animator.SetBool("Full", false);
+		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
+		animator.SetBool("VaLaChercher", true);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
 	public void ImAutrePersoVaLaJouer()
 	{
 		animator.SetBool("Interaction", false);
-		//animator.SetBool("Full", false);
+		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
+		animator.SetBool("VaLaChercher", false);
 		myImage.color = GiveMeColorAutrePerso();
 	}
 
 	public void ImUsedByConsole()
 	{
 		animator.SetBool("Interaction", false);
-		//animator.SetBool("Full", false);
+		animator.SetBool("Full", false);
 		animator.SetBool("CursorOn", false);
+		animator.SetBool("VaLaChercher", false);
 		myImage.color = Color.yellow;
 	}
 
 	public void ImVaLaChercher()
 	{
-		animator.SetTrigger("Click");
         animator.SetBool("Interaction", false);
-		//animator.SetBool("Full", false);
+		animator.SetBool("Full", false);
+		animator.SetBool("VaLaChercher", true);
 		myImage.color = GiveMeColorPersoActif();
 		
 	}

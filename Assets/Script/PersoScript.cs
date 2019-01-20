@@ -87,7 +87,6 @@ public class PersoScript : MonoBehaviour
     public void RamasserUneCarte()
     {
         var remainingDistance = Vector3.Distance(transform.position, nma.destination);
-        print(remainingDistance);
         if (remainingDistance < 3f)
         {
             StartCoroutine("CoroutineForLookingAt", nma.destination);

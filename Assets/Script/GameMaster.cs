@@ -228,6 +228,7 @@ public class GameMaster : MonoBehaviour
                     BeforeCancelOrder();
                     persoScripts[playerActif].CancelOrder();
                     persoScripts[playerActif].OrderGoGetACard(_wantedCardID);
+                    cartesManager.SortCartesIndicators();
                 }
             }
         }
