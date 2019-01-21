@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class GameMaster : MonoBehaviour
     public Animator mainDuJoueur;
     public static bool actionSpeciale = false;
     public GameObject boutonSpecialeAction;
+    public GameObject boutonSpecialeCancel;
+    public GameObject[] flecheEtNum;
 
     void Awake()
     {
@@ -67,7 +70,7 @@ public class GameMaster : MonoBehaviour
 
             if (!switching)
             {
-                if (!cursorIsOnCard)
+                if (!cursorIsOnCard && !actionSpeciale)
                 {
                     ClicDetection();
                     Switch();
@@ -91,7 +94,7 @@ public class GameMaster : MonoBehaviour
                 persoScripts[playerActif].lumierePerso.SetActive(true);
                 switching = false;
                 cartesManager.ChangerPictoMainDuJoueur();
-                EnabledBoutonSpecialeAction(persoScripts[playerActif].isConsoling);
+                Cursor.SetCursor(Resources.Load <Texture2D> ("Sprites/Cursor/Cursor" + playerActif) as Texture2D, Vector2.zero, CursorMode.Auto);
             }
         }
     }
@@ -251,33 +254,53 @@ public class GameMaster : MonoBehaviour
 
     public void ButtonClickSpecialAction()
     {
-       //persoScripts[playerActif].WantedConsoleScript.ActivateText();
        if (actionSpeciale)
        {
-           // ON CANCEL : 
-           // • Desactiver bouton et Réactiver le normal
-           // • Relever la main du joueur
-           // • Disable les sprites numeros
+           cartesManager.ReleverLesCartes();
+           for (int i = 0; i < flecheEtNum.Length; i++)
+           {
+               flecheEtNum[i].SetActive(false);
+           }
+           boutonSpecialeAction.SetActive(true);
+           boutonSpecialeCancel.SetActive(false);
            actionSpeciale = false;
        }
        else if (!actionSpeciale)
        {
-           // ON ACTIVE :
-           // • Désactiver normal et activer bouton cancel
-           // • Enabled les sprites numéros
-           // • Fade in des sprites numeros
+           cartesManager.BaisserLesCartes();
+           SetNumerosBoutons();
+           boutonSpecialeAction.SetActive(false);
+           boutonSpecialeCancel.SetActive(true);
            actionSpeciale = true;
        }
     }
 
     public void EnabledBoutonSpecialeAction(bool a)
     {
-        if (a)
+        boutonSpecialeAction.SetActive(a);
+    }
+
+    public void SetNumerosBoutons()
+    {
+        for (int i = 0; i < flecheEtNum.Length; i++)
         {
-            boutonSpecialeAction.SetActive(true);
-        }
-        else{
-            boutonSpecialeAction.SetActive(false);
+            if(playerActif == 0)
+            {
+                if (i < cartesManager.playerOneCards.Count)
+                {
+                    int num = cartesManager.playerOneCards[i].num;
+                    flecheEtNum[i].GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Cartes/Numeros/Numero" + num);
+                    flecheEtNum[i].SetActive(true);
+                }
+            }
+            else{
+                if (i < cartesManager.playerTwoCards.Count)
+                {
+                    int num = cartesManager.playerTwoCards[i].num;
+                    flecheEtNum[i].GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Cartes/Numeros/Numero" + num);
+                    flecheEtNum[i].SetActive(true);
+                }
+            }
         }
     }
 

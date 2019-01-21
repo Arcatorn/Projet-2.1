@@ -59,6 +59,14 @@ public class PersoScript : MonoBehaviour
             }
         }
         DirectionFacing();
+
+        if (!gameMaster.boutonSpecialeAction.activeInHierarchy && !gameMaster.boutonSpecialeCancel.activeInHierarchy)
+        {
+            if (isConsoling && canReceiveOrder && monID == gameMaster.playerActif)
+            {
+                gameMaster.EnabledBoutonSpecialeAction(true);
+            }
+        }
     }
 
     public void JouerUneCarte(int cardID)
@@ -74,7 +82,6 @@ public class PersoScript : MonoBehaviour
             StartCoroutine("WaitForIconDisplay");
             vaJouerUneCarte = false;
             isConsoling = true;
-            gameMaster.EnabledBoutonSpecialeAction(true);
             StartCoroutine("CoroutineForLookingAt", myConsole.keyboardConsoleToLookAt.transform.position);
         }
         else
@@ -113,7 +120,6 @@ public class PersoScript : MonoBehaviour
             vaSurUneConsole = false;
             isConsoling = true;
             //nma.SetDestination(transform.position);
-            gameMaster.EnabledBoutonSpecialeAction(true);
             StartCoroutine("CoroutineForLookingAt", myConsole.keyboardConsoleToLookAt.transform.position);
         }
     }

@@ -516,5 +516,21 @@ public class CartesManager : MonoBehaviour
         cardPlayed.num = 6;
     }
 
+    public void BaisserLesCartes()
+    {
+        for (int i = 0; i < cartesButtonsScripts.Length; i++)
+        {
+            cartesButtonsScripts[i].anim.SetBool("Baisser", true);
+        }
+    }
+
+    public void ReleverLesCartes()
+    {
+        for (int i = 0; i < cartesButtonsScripts.Length; i++)
+        {
+            cartesButtonsScripts[i].anim.SetBool("Baisser", false);
+        }
+    }
+
 }
 

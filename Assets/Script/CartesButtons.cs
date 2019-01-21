@@ -15,6 +15,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
     public int id;
     public Image imageNumero;
     private Image myImage;
+    public GameObject pictoCAJ;
 
 
     private void Awake()
@@ -28,7 +29,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed") || GameMaster.actionSpeciale)
         {
             eventData.pointerDrag = null;
         }
@@ -37,6 +38,8 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
             anim.SetTrigger("Pressed");
             GameMaster.isPlayingACard = true;
             cardSound.HoldCard();
+            int i = int.Parse(myImage.sprite.name.Substring(5, 1));
+            pictoCAJ.GetComponent<SpriteRenderer>().sprite = Resources.Load <Sprite> ("Sprites/Cartes/PictoSimple" + i.ToString());
         }
     }
 
@@ -68,7 +71,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed") || GameMaster.actionSpeciale)
         {
             eventData.pointerDrag = null;
         }
@@ -85,7 +88,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+        if (anim.GetBool("isBlank") || anim.GetBool("isPlayed") || GameMaster.actionSpeciale)
         {
             eventData.pointerDrag = null;
         }
@@ -98,7 +101,7 @@ public class CartesButtons : MonoBehaviour, IEventSystemHandler, IBeginDragHandl
 
     public void OnDrag(PointerEventData eventData)
     {
-		if (anim.GetBool("isBlank") || anim.GetBool("isPlayed"))
+		if (anim.GetBool("isBlank") || anim.GetBool("isPlayed") || GameMaster.actionSpeciale)
         {
             eventData.pointerDrag = null;
         }
