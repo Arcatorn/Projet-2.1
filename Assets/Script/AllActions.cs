@@ -64,20 +64,6 @@ public class AllActions : MonoBehaviour {
 		hacked.SetActive(true);
 	}
 
-	public void BombeDuDrone()
-	{
-		/*
-		• Créer Light animée sur la bombe
-		• Son bombe
-		• Son explosion
-		• Screen shake
-		• Particule explosion
-		• Départ de feu
-		• Feu qui se propage
-		• On va faire un script à part je crois
-		 */
-	}
-
 	public void Grappin()
 	{
 		GameObject.Find("Grapin V2").GetComponent<GrapinSound>().LaunchGrapin();
@@ -148,7 +134,8 @@ public class AllActions : MonoBehaviour {
 		else if (actionId == 6)
 		{
 			// ELEC + OEIL
-			actionName = "Envoyer un dron de reconnaissance";
+			actionName = "Envoyer un drone de reconnaissance";
+			EnvoieDroneReco();
 			textADroite.text = actionName;
 		}
 		else if (actionId == 7)
@@ -257,6 +244,7 @@ public class AllActions : MonoBehaviour {
 		{
 			// EXCA + OEIL
 			actionName = "Tirer un bloc de roche en utilisant le ciblage";
+			OnTire();
 			textADroite.text = actionName;
 		}
 		else if (actionId == 25)
@@ -281,6 +269,7 @@ public class AllActions : MonoBehaviour {
 		{
 			// EXCA + GUEULE
 			actionName = "Lancer le grappin";
+			Grappin();
 			textADroite.text = actionName;
 		}
 		else if (actionId == 29)
