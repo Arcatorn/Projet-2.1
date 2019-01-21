@@ -18628,6 +18628,7 @@ GameObject:
   - component: {fileID: 241134761}
   - component: {fileID: 241134763}
   - component: {fileID: 241134762}
+  - component: {fileID: 241134764}
   m_Layer: 0
   m_Name: Salle0
   m_TagString: Untagged
@@ -18704,6 +18705,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 14.877083, y: 19.929153, z: 0.4535689}
   m_Center: {x: 1.4735451, y: -0.06074667, z: 0.15597625}
+--- !u!114 &241134764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 241134760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0bc679ab882624d968ef71bdb882e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Select_Sound: event:/explosion
 --- !u!1 &241825429
 GameObject:
   m_ObjectHideFlags: 0
@@ -90683,6 +90696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1190061238}
   - component: {fileID: 1190061237}
+  - component: {fileID: 1190061239}
   m_Layer: 0
   m_Name: Grapin V2
   m_TagString: Untagged
@@ -90731,6 +90745,18 @@ Transform:
   m_Father: {fileID: 209685285}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &1190061239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1190061236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece57bf8a7d79c240bdd1faf01a3c3e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Select_Sound: event:/Grappin3
 --- !u!1 &1199545686
 GameObject:
   m_ObjectHideFlags: 0
@@ -94212,7 +94238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9acb49d4df267cf44a5adb931ecbccee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Select_Sound: event:/Ambient_Vehicule_Loop
+  Select_Sound: event:/ambient_vehicule
   Select_Sound2: event:/tempete sans eclair
 --- !u!114 &1335090935
 MonoBehaviour:
@@ -100475,7 +100501,7 @@ SpriteRenderer:
   m_Size: {x: 0.72125, y: 0.72375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &1402977820
@@ -107720,6 +107746,23 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1486003426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1479561118777700, guid: 3defdbbb4a66b7d4eb824794200a57dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 602099158}
+--- !u!114 &1486003427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1486003426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204626a6f2f478c4c80572e61d161fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Select_Sound: event:/drone sent
 --- !u!1 &1486304276
 GameObject:
   m_ObjectHideFlags: 0
@@ -120058,6 +120101,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1609474120}
   m_Mesh: {fileID: 4300042, guid: a16ed2a2e0e5413478a48b1e16b3d9b2, type: 3}
+--- !u!1 &1612347653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1385575528399576, guid: 939b9bb5663e90541a188dd4b1e8984d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1367092805}
+--- !u!114 &1612347654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612347653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58121b4047aa5694380efc940337705d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Select_Sound: "event:/P\xEFston"
 --- !u!1 &1619270384
 GameObject:
   m_ObjectHideFlags: 0

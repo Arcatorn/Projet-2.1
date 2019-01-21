@@ -53,7 +53,7 @@ public class AllActions : MonoBehaviour {
 		{
 			etincellesChoc[i].GetComponent<ParticleSystem>().Play();
 		}
-		// Son
+		GameObject.Find("Salle0").GetComponent<RadarExplosion>().PETITCAILLOUQUIEXPLOSELERADAR();
 	}
 
 	public void Piratage()
@@ -82,34 +82,22 @@ public class AllActions : MonoBehaviour {
 
 	public void Grappin()
 	{
-		// Son lancement
+		GameObject.Find("Grapin V2").GetComponent<GrapinSound>().LaunchGrapin();
 		grappinAnim.SetTrigger("rip Douille");
 	}
 
 	public void OnTire()
 	{
 		pistonAnim.SetTrigger("Activer");
-		// Son pilon
+		GameObject.Find("Piston").GetComponent<PilonSound>().Pilon();
 		Camera.main.GetComponent<CameraShake>().ScreenShake();
 	}
 
 	public void EnvoieDroneReco()
 	{
 		droneAnim.SetTrigger("Activer");
-		// Son lancement du drone
+		GameObject.Find("DroneBay&Drones").GetComponent<DroneSound>().LaunchDrone();
 	}
-
-private void Update() {
-	if(Input.GetKeyDown(KeyCode.Space))
-	{
-		//Piratage();
-		//Grappin();
-		//EnvoieDroneReco();
-		//OnTire();
-		Choc();
-	}
-}
-	
 
 	public void CallAction(int carteID, int salleID, PersoScript _persoScript)
 	{
