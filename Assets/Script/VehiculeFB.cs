@@ -167,7 +167,7 @@ public class VehiculeFB : MonoBehaviour
         yield return new WaitForSeconds(delay);
         if(etatTempestOn)
         {
-            
+            GameObject.Find("IMPACT").GetComponent<impPACT>().impacct();
             StartCoroutine("RandomScreenShake", GiveMeARandom());
             cameraShake.ScreenShake();
         }

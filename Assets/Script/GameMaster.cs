@@ -39,7 +39,7 @@ public class GameMaster : MonoBehaviour
         pc[0].enabled = true;
         pc[1].enabled = true;
         cam = Camera.main;
-        offset = new Vector3 (0,players[playerActif].transform.position.y - cam.transform.position.y, 0);
+        offset = new Vector3(0, players[playerActif].transform.position.y - cam.transform.position.y, 0);
         pc[0].updateRotation = false;
         pc[1].updateRotation = false;
         cartesManager = GetComponent<CartesManager>();
@@ -66,7 +66,7 @@ public class GameMaster : MonoBehaviour
             {
                 caj.SetActive(false);
             }
-            
+
 
             if (!switching)
             {
@@ -78,7 +78,7 @@ public class GameMaster : MonoBehaviour
             }
         }
 
-       
+
 
     }
 
@@ -94,7 +94,7 @@ public class GameMaster : MonoBehaviour
                 persoScripts[playerActif].lumierePerso.SetActive(true);
                 switching = false;
                 cartesManager.ChangerPictoMainDuJoueur();
-                Cursor.SetCursor(Resources.Load <Texture2D> ("Sprites/Cursor/Cursor" + playerActif) as Texture2D, Vector2.zero, CursorMode.Auto);
+                Cursor.SetCursor(Resources.Load<Texture2D>("Sprites/Cursor/Cursor" + playerActif) as Texture2D, Vector2.zero, CursorMode.Auto);
             }
         }
     }
@@ -141,7 +141,7 @@ public class GameMaster : MonoBehaviour
 
     void CameraFollow()
     {
-        if(pc[playerActif].velocity.magnitude > 0.05f)
+        if (pc[playerActif].velocity.magnitude > 0.05f)
         {
             cam.transform.position = players[playerActif].transform.position - offset;
         }
@@ -155,14 +155,14 @@ public class GameMaster : MonoBehaviour
         }
         var origin = players[playerActif].transform.position;
         Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
-        
+
 
         RaycastHit hit;
         var dist = Vector3.Distance(origin, point);
         var dir = (point - Camera.main.transform.position);
 
         caj.transform.position = point + dir;
-        int layer = (1<<10);
+        int layer = (1 << 10);
         if (Physics.Raycast(caj.transform.position, dir, out hit, dist, layer))
         {
             SalleScript salleScript = hit.collider.gameObject.transform.parent.gameObject.GetComponent<SalleScript>();
@@ -192,7 +192,7 @@ public class GameMaster : MonoBehaviour
     public void PlayCard()
     {
         pc[playerActif].enabled = true;
-        var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof (ConsoleScript)) as ConsoleScript;
+        var c = moduleHit.transform.parent.gameObject.GetComponentInChildren(typeof(ConsoleScript)) as ConsoleScript;
         c.gameObject.transform.parent.gameObject.GetComponent<SalleScript>().OnExitCardOnMe();
         pc[playerActif].destination = c.pos;
         BeforeCancelOrder();
@@ -201,7 +201,7 @@ public class GameMaster : MonoBehaviour
         cartesManager.OrderAnimBlank(cardIDBeingPlayed, playerActif);
         cardIDBeingPlayed = -1;
         cardSound.GoingToPlayACard();
-        
+
     }
 
 
@@ -212,7 +212,7 @@ public class GameMaster : MonoBehaviour
             Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
             RaycastHit hit;
             var dir = (point - Camera.main.transform.position);
-            int layer = (1<<12);
+            int layer = (1 << 12);
             if (Physics.Raycast(point, dir, out hit, Mathf.Infinity, layer))
             {
                 ConsoleScript consoleScript = hit.collider.gameObject.GetComponent<ConsoleScript>();
@@ -246,7 +246,7 @@ public class GameMaster : MonoBehaviour
 
     public void BeforeCancelOrder()
     {
-        if(persoScripts[playerActif].vaJouerUneCarte)
+        if (persoScripts[playerActif].vaJouerUneCarte)
         {
             cartesManager.CancelOrderAnimBlank(persoScripts[playerActif].carteID, playerActif);
         }
@@ -254,25 +254,27 @@ public class GameMaster : MonoBehaviour
 
     public void ButtonClickSpecialAction()
     {
-       if (actionSpeciale)
-       {
-           cartesManager.ReleverLesCartes();
-           for (int i = 0; i < flecheEtNum.Length; i++)
-           {
-               flecheEtNum[i].SetActive(false);
-           }
-           boutonSpecialeAction.SetActive(true);
-           boutonSpecialeCancel.SetActive(false);
-           actionSpeciale = false;
-       }
-       else if (!actionSpeciale)
-       {
-           cartesManager.BaisserLesCartes();
-           SetNumerosBoutons();
-           boutonSpecialeAction.SetActive(false);
-           boutonSpecialeCancel.SetActive(true);
-           actionSpeciale = true;
-       }
+        if (actionSpeciale)
+        {
+            cartesManager.ReleverLesCartes();
+            for (int i = 0; i < flecheEtNum.Length; i++)
+            {
+                flecheEtNum[i].SetActive(false);
+            }
+            boutonSpecialeAction.SetActive(true);
+            boutonSpecialeCancel.SetActive(false);
+            GameObject.Find("Bouton").GetComponent<Bouton>().CancelBouton();
+            actionSpeciale = false;
+        }
+        else if (!actionSpeciale)
+        {
+            cartesManager.BaisserLesCartes();
+            SetNumerosBoutons();
+            boutonSpecialeAction.SetActive(false);
+            boutonSpecialeCancel.SetActive(true);
+            actionSpeciale = true;
+            GameObject.Find("Bouton").GetComponent<Bouton>().ClicBouton();
+        }
     }
 
     public void EnabledBoutonSpecialeAction(bool a)
@@ -284,20 +286,21 @@ public class GameMaster : MonoBehaviour
     {
         for (int i = 0; i < flecheEtNum.Length; i++)
         {
-            if(playerActif == 0)
+            if (playerActif == 0)
             {
                 if (i < cartesManager.playerOneCards.Count)
                 {
                     int num = cartesManager.playerOneCards[i].num;
-                    flecheEtNum[i].GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Cartes/Numeros/Numero" + num);
+                    flecheEtNum[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Cartes/Numeros/Numero" + num);
                     flecheEtNum[i].SetActive(true);
                 }
             }
-            else{
+            else
+            {
                 if (i < cartesManager.playerTwoCards.Count)
                 {
                     int num = cartesManager.playerTwoCards[i].num;
-                    flecheEtNum[i].GetComponent<Image>().sprite = Resources.Load <Sprite> ("Sprites/Cartes/Numeros/Numero" + num);
+                    flecheEtNum[i].GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/Cartes/Numeros/Numero" + num);
                     flecheEtNum[i].SetActive(true);
                 }
             }

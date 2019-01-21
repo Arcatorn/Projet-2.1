@@ -27,9 +27,9 @@ private void Awake() {
 
 	IEnumerator WaitForDroneAnimation(float delay)
 	{
-		gameObject.GetComponent<BombeSound>().Travel();
+		GameObject.Find("BombSound").GetComponent<BombeSound>().Travel();
 		yield return new WaitForSeconds(3.5f);
-		gameObject.GetComponent<BombeSound>().Bombe();
+		GameObject.Find("BombSound").GetComponent<BombeSound>().Bombe();
 		yield return new WaitForSeconds(6);
 		Destroy(d);
 		Destroy(bombe);
@@ -37,6 +37,7 @@ private void Awake() {
 		feuuuuuuu.SetActive(true);
 		ecran.SetActive(false);
 		StartCoroutine("Propagation", 1);
+		GameObject.Find("Ragnaros").GetComponent<Flamepropagation>().Feu();
 		yield break;
 	}
 
