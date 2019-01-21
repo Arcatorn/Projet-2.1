@@ -140,6 +140,7 @@ public class VehiculeFB : MonoBehaviour
         {
             tempestGO[i].GetComponentInChildren<Animator>().SetTrigger("go");
         }
+        GameObject.Find("Thunder").GetComponent<SonEclair>().Eclair();
     }
 
     IEnumerator RandomTempest(float delay)
@@ -156,7 +157,7 @@ public class VehiculeFB : MonoBehaviour
 
     float GiveMeARandom()
     {
-        float rnd = Random.value * 5 ;
+        float rnd = Random.value * 3 + 5 ;
         return rnd;
     }
 }
