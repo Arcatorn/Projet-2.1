@@ -9,6 +9,12 @@ public class AllActions : MonoBehaviour {
 	CartesManager cartesManager;
 	GameMaster gameMaster;
 	public Text textADroite;
+	public Animator pistonAnim;
+	public Animator grappinAnim;
+	public Animator droneAnim;
+	public GameObject[] baboums;
+	public GameObject explosionNav;
+	public GameObject[] etincellesChoc;
 	
 	void Awake () {
 		cartesManager = GetComponent<CartesManager>();
@@ -33,6 +39,77 @@ public class AllActions : MonoBehaviour {
 		public int salleID;
 		public PersoScript persoScript;
 	}
+
+	public void Choc()
+	{
+		Camera.main.GetComponent<CameraShake>().ScreenShake();
+		for (int i = 0; i < baboums.Length; i++)
+		{
+			baboums[i].SetActive(true);
+			baboums[i].GetComponent<Animator>().SetTrigger("BABOUM");
+		}
+		cartesManager.allSalles[0].salleScript.textConsole.gameObject.SetActive(false);
+		for (int i = 0; i < etincellesChoc.Length; i++)
+		{
+			etincellesChoc[i].GetComponent<ParticleSystem>().Play();
+		}
+		// Son
+	}
+
+	public void Piratage()
+	{
+		GameObject hacked = cartesManager.allSalles[2].salleScript.myConsoleScript.hacked;
+		hacked.transform.parent.GetChild(0).gameObject.SetActive(false);
+		hacked.transform.parent.GetChild(1).gameObject.SetActive(false);
+		hacked.SetActive(true);
+	}
+
+	public void BombeDuDrone()
+	{
+		/*
+		• Animation du drone ennemi qui arrive
+		• Bombe posée
+		• Créer Light animée sur la bombe
+		• Son bombe
+		• Son explosion
+		• Screen shake
+		• Particule explosion
+		• Départ de feu
+		• Feu qui se propage
+		• On va faire un script à part je crois
+		 */
+	}
+
+	public void Grappin()
+	{
+		// Son lancement
+		grappinAnim.SetTrigger("rip Douille");
+	}
+
+	public void OnTire()
+	{
+		pistonAnim.SetTrigger("Activer");
+		// Son pilon
+		Camera.main.GetComponent<CameraShake>().ScreenShake();
+	}
+
+	public void EnvoieDroneReco()
+	{
+		droneAnim.SetTrigger("Activer");
+		// Son lancement du drone
+	}
+
+private void Update() {
+	if(Input.GetKeyDown(KeyCode.Space))
+	{
+		//Piratage();
+		//Grappin();
+		//EnvoieDroneReco();
+		//OnTire();
+		Choc();
+	}
+}
+	
 
 	public void CallAction(int carteID, int salleID, PersoScript _persoScript)
 	{

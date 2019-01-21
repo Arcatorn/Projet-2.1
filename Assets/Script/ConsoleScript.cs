@@ -12,6 +12,7 @@ public class ConsoleScript : MonoBehaviour
 	public bool persoOnMe = false;
 	public int persoOnMeID;
 	public GameObject keyboardConsoleToLookAt;
+	public GameObject hacked;
 	
 	public void ActivateText()
 	{
