@@ -7,12 +7,11 @@ public class SITA_1 : MonoBehaviour
 
     public int situationNumber = 1;
     VideoSoundsA soundsA;
-    private void Awake()
+    private void Start()
     {
         soundsA = GetComponent<VideoSoundsA>();
         situationNumber = 1;
-        MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
-        a.Play();
+        StartCoroutine("SuperCoroutine1");
     }
 
     private void Update()
@@ -82,6 +81,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 1;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         yield break;
     }
@@ -91,6 +91,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 2;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         soundsA.StopAll();
         soundsA.SituationUne();
@@ -102,6 +103,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 3;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         yield break;
     }
@@ -111,6 +113,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 4;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         soundsA.StopAll();
         soundsA.SituationDeux();
@@ -122,6 +125,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 5;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         soundsA.StopAll();
         soundsA.SituationTrois();
@@ -133,6 +137,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 6;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         yield break;
     }
@@ -142,6 +147,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 7;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         soundsA.StopAll();
         soundsA.SituationQuatre();
@@ -153,6 +159,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 8;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         soundsA.StopAll();
         soundsA.SituationCinq();
@@ -164,6 +171,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 9;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         soundsA.StopAll();
         soundsA.SituationSix();
@@ -175,6 +183,7 @@ public class SITA_1 : MonoBehaviour
         situationNumber = 10;
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/A/SITA_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
+        a.Stop();
         a.Play();
         soundsA.StopAll();
         soundsA.SituationSept();

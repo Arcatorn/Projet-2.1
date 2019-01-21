@@ -13,7 +13,7 @@ public class VideoSoundB : MonoBehaviour {
 	[FMODUnity.EventRef] public string Select_Sound4;
 	public FMOD.Studio.EventInstance SoundEvent4;
 
-	void Start ()
+	void Awake ()
 	{
 		SoundEvent = FMODUnity.RuntimeManager.CreateInstance(Select_Sound);
 		SoundEvent.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(this.transform));

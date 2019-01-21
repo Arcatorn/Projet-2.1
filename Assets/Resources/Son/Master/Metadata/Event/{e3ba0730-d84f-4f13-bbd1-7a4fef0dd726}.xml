@@ -61,6 +61,8 @@
     <object class="GroupTrack" id="{a5e6ac8a-7023-42a8-9342-90dba019002f}">
         <relationship name="modules">
             <destination>{db917715-1bad-498e-ac03-91ce33ceaa23}</destination>
+            <destination>{10907088-09b6-4107-aa93-a330bdd3d7a6}</destination>
+            <destination>{4eea0c56-7d55-4e66-8681-5e402efeb2a9}</destination>
         </relationship>
         <relationship name="mixerGroup">
             <destination>{986f5346-0897-416f-ab8c-a046ed7beb77}</destination>
@@ -69,9 +71,14 @@
     <object class="Timeline" id="{9b7f68f3-8bbb-4716-b02b-d1363fbb7559}">
         <relationship name="modules">
             <destination>{db917715-1bad-498e-ac03-91ce33ceaa23}</destination>
+            <destination>{10907088-09b6-4107-aa93-a330bdd3d7a6}</destination>
+            <destination>{4eea0c56-7d55-4e66-8681-5e402efeb2a9}</destination>
         </relationship>
     </object>
     <object class="EventMixerMaster" id="{c74eb1b0-5582-460f-bac0-53d1479811b0}">
+        <property name="volume">
+            <value>2</value>
+        </property>
         <relationship name="effectChain">
             <destination>{c91bb90a-4fd6-404d-af91-1a4bfdd663e1}</destination>
         </relationship>
@@ -90,7 +97,44 @@
     <object class="MixerBusPanner" id="{f0fb3b51-5a05-4e28-8b6c-36526a2c04ba}"/>
     <object class="SingleSound" id="{db917715-1bad-498e-ac03-91ce33ceaa23}">
         <property name="length">
-            <value>28.5</value>
+            <value>17.5</value>
+        </property>
+        <property name="volume">
+            <value>-4</value>
+        </property>
+        <relationship name="audioFile">
+            <destination>{9e540215-c696-470e-8032-47aa4c6ec413}</destination>
+        </relationship>
+    </object>
+    <object class="SingleSound" id="{10907088-09b6-4107-aa93-a330bdd3d7a6}">
+        <property name="start">
+            <value>25</value>
+        </property>
+        <property name="length">
+            <value>3.5</value>
+        </property>
+        <property name="timelockedOffset">
+            <value>25</value>
+        </property>
+        <property name="volume">
+            <value>-7.5</value>
+        </property>
+        <relationship name="audioFile">
+            <destination>{9e540215-c696-470e-8032-47aa4c6ec413}</destination>
+        </relationship>
+    </object>
+    <object class="SingleSound" id="{4eea0c56-7d55-4e66-8681-5e402efeb2a9}">
+        <property name="start">
+            <value>17.5</value>
+        </property>
+        <property name="length">
+            <value>7.5</value>
+        </property>
+        <property name="timelockedOffset">
+            <value>17.5</value>
+        </property>
+        <property name="volume">
+            <value>5</value>
         </property>
         <relationship name="audioFile">
             <destination>{9e540215-c696-470e-8032-47aa4c6ec413}</destination>
