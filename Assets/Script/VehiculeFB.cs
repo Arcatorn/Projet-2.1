@@ -122,6 +122,7 @@ public class VehiculeFB : MonoBehaviour
         }
         etatTempestOn = true;
         StartCoroutine("RandomTempest", GiveMeARandom());
+        StartCoroutine("RandomScreenShake", GiveMeARandom());
     }
 
     public void StopTempete()
@@ -159,5 +160,17 @@ public class VehiculeFB : MonoBehaviour
     {
         float rnd = Random.value * 3 + 5 ;
         return rnd;
+    }
+
+    IEnumerator RandomScreenShake(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if(etatTempestOn)
+        {
+            
+            StartCoroutine("RandomScreenShake", GiveMeARandom());
+            cameraShake.ScreenShake();
+        }
+        yield break;
     }
 }
