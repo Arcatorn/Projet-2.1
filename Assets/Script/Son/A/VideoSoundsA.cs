@@ -48,7 +48,6 @@ public class VideoSoundsA : MonoBehaviour
 		FMOD.Studio.PLAYBACK_STATE fmodPbState;
         SoundEvent.getPlaybackState(out fmodPbState);
 		SoundEvent.start();		
-		print("oui");
 	}
 
 	public void SituationDeux()

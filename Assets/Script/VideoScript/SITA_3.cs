@@ -6,9 +6,11 @@ public class SITA_3 : MonoBehaviour
 {
 
     public int situationNumber = 1;
+    VideoSoundC soundC;
 
     private void Awake()
     {
+        soundC = GetComponent<VideoSoundC>();
         situationNumber = 1;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
         a.Play();
@@ -66,6 +68,8 @@ public class SITA_3 : MonoBehaviour
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/C/SITC_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
         a.Play();
+        soundC.StopAll();
+        soundC.SituationUne();
         yield break;
     }
 
@@ -84,6 +88,8 @@ public class SITA_3 : MonoBehaviour
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/C/SITC_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
         a.Play();
+        soundC.StopAll();
+        soundC.SituationDeux();
         yield break;
     }
 

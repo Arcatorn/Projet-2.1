@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328807684915358}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: -128.01913, y: 230.81483, z: -11.35}
+  m_LocalPosition: {x: -128.01913, y: 230.81483, z: -12.8}
   m_LocalScale: {x: 1.6, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,13 +111,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74413117f3ff6604b88a6d6faef99a08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Select_Sound: 
-  Select_Sound2: 
-  Select_Sound3: 
-  Select_Sound4: 
-  Select_Sound5: 
-  Select_Sound6: 
-  Select_Sound7: 
+  Select_Sound: event:/A/Situation_A_BlipRadar
+  Select_Sound2: event:/A/SituationA_ArriveeSurVehicule
+  Select_Sound3: event:/A/SituationA_OpenInfoPanel
+  Select_Sound4: event:/A/SituationA_EnemyApparition
+  Select_Sound5: event:/A/SituationA_SituationA_DroneLaunched
+  Select_Sound6: event:/A/SituationA_ProjectileFired
+  Select_Sound7: event:/A/SituationA_FinSequence
 --- !u!114 &114525309472936272
 MonoBehaviour:
   m_ObjectHideFlags: 1
