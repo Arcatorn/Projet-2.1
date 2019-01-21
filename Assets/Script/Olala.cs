@@ -9,6 +9,15 @@ public GameObject bombe;
 public GameObject explosion;
 public GameObject feuuuuuuu;
 public GameObject ecran;
+public GameObject ragnaros;
+public List<Transform>  allChilds = new List<Transform>();
+
+private void Awake() {
+	foreach(Transform child in ragnaros.transform)
+	{
+		allChilds.Add(child);
+	}
+}
 
 	public void GoDroneIncoming()
 	{
@@ -27,6 +36,7 @@ public GameObject ecran;
 		explosion.SetActive(true);
 		feuuuuuuu.SetActive(true);
 		ecran.SetActive(false);
+		StartCoroutine("Propagation", 1);
 		yield break;
 	}
 
@@ -35,6 +45,18 @@ public GameObject ecran;
 		{
 			GoDroneIncoming();
 		}
+	}
+
+	IEnumerator Propagation(int id)
+	{
+		yield return new WaitForSeconds(1);
+		allChilds[id].gameObject.SetActive(true);
+		if (id < allChilds.Count - 1)
+		{
+			StartCoroutine("Propagation", id+1);
+		}
+		yield break;
+		
 	}
 
 }
