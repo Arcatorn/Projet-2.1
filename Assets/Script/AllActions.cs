@@ -77,6 +77,22 @@ public class AllActions : MonoBehaviour {
 		Camera.main.GetComponent<CameraShake>().ScreenShake();
 	}
 
+	public void Bouclier()
+	{
+		// Animation fenêtre baissée
+		// Son fenêtre
+		// StartCoroutine("RemonterLesBoucliers)
+	}
+
+	public void Brouilleur()
+	{
+		// Animation fenêtre baissée
+		// Son fenêtre
+		// Son ambiance brouilleur
+		// StartCoroutine("RemonterLesBoucliers)
+	}
+
+
 	public void EnvoieDroneReco()
 	{
 		droneAnim.SetTrigger("Activer");

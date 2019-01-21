@@ -79,7 +79,6 @@ public class GameMaster : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-            print("Why");
             Cursor.SetCursor(Resources.Load<Texture2D>("Sprites/Cursor/CursorDrag" + playerActif) as Texture2D, Vector2.zero, CursorMode.Auto);
         }
         if (Input.GetMouseButtonUp(0))

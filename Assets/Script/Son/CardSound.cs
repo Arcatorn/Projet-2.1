@@ -36,26 +36,36 @@ public class CardSound : MonoBehaviour
 
 	public void HoldCard()
 	{
+		FMOD.Studio.PLAYBACK_STATE fmodPbState;
+        SoundEvent.getPlaybackState(out fmodPbState);
 		SoundEvent.start();		
 	}
 
 	public void CancelHolding()
 	{
+		FMOD.Studio.PLAYBACK_STATE fmodPbState;
+        SoundEvent2.getPlaybackState(out fmodPbState);
 		SoundEvent2.start();
 	}
 
 	public void HoverCard()
 	{
+		FMOD.Studio.PLAYBACK_STATE fmodPbState;
+        SoundEvent3.getPlaybackState(out fmodPbState);
 		SoundEvent3.start();
 	}
 
 	public void GoingToPlayACard()
 	{
+		FMOD.Studio.PLAYBACK_STATE fmodPbState;
+        SoundEvent4.getPlaybackState(out fmodPbState);
 		SoundEvent4.start();
 	}
 
 	public void CardPickUp()
 	{
+		FMOD.Studio.PLAYBACK_STATE fmodPbState;
+        SoundEvent5.getPlaybackState(out fmodPbState);
 		SoundEvent5.start();
 	}
 }
