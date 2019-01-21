@@ -18,7 +18,10 @@ public GameObject ecran;
 
 	IEnumerator WaitForDroneAnimation(float delay)
 	{
-		yield return new WaitForSeconds(10);
+		gameObject.GetComponent<BombeSound>().Travel();
+		yield return new WaitForSeconds(3.5f);
+		gameObject.GetComponent<BombeSound>().Bombe();
+		yield return new WaitForSeconds(6);
 		Destroy(d);
 		Destroy(bombe);
 		explosion.SetActive(true);

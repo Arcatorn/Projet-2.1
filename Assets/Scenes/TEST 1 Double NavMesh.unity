@@ -96056,6 +96056,7 @@ GameObject:
   - component: {fileID: 1335090936}
   - component: {fileID: 1335090934}
   - component: {fileID: 1335090937}
+  - component: {fileID: 1335090938}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -96235,6 +96236,19 @@ MonoBehaviour:
   explosion: {fileID: 956742495}
   feuuuuuuu: {fileID: 1598947640}
   ecran: {fileID: 303335145}
+--- !u!114 &1335090938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1335090929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d318460b1c463d5459f11470da7f31ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Select_Sound: event:/droneintoexplosion
+  Select_Sound2: event:/drone
 --- !u!1 &1340069272
 GameObject:
   m_ObjectHideFlags: 0
@@ -102453,7 +102467,7 @@ SpriteRenderer:
   m_Size: {x: 0.72125, y: 0.72375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &1402977820
