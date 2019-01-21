@@ -67,8 +67,6 @@ public class AllActions : MonoBehaviour {
 	public void BombeDuDrone()
 	{
 		/*
-		• Animation du drone ennemi qui arrive
-		• Bombe posée
 		• Créer Light animée sur la bombe
 		• Son bombe
 		• Son explosion

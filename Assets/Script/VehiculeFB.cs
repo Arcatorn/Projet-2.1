@@ -46,9 +46,6 @@ public class VehiculeFB : MonoBehaviour
     // ETAT SURREGIME
     // • Play son surrégime
 
-    // ETAT TEMPETE
-    // • Coordonner son eclair avec anim eclair
-    // • Randomisation anim eclairs
 
     public void EtatStop()
     {
