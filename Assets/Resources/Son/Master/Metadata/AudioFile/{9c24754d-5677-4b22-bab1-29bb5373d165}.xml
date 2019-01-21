@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.10.00">
-    <object class="AudioFile" id="{46fef824-e9a9-4fd9-a42c-2a6fd6ad85aa}">
+    <object class="AudioFile" id="{9c24754d-5677-4b22-bab1-29bb5373d165}">
         <property name="assetPath">
             <value>drone.wav</value>
         </property>
