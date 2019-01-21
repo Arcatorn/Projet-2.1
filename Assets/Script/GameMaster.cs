@@ -25,6 +25,9 @@ public class GameMaster : MonoBehaviour
 
     private CardSound cardSound;
     public Animator[] animButtons;
+    public Animator mainDuJoueur;
+    public static bool actionSpeciale = false;
+    public GameObject boutonSpecialeAction;
 
     void Awake()
     {
@@ -88,6 +91,7 @@ public class GameMaster : MonoBehaviour
                 persoScripts[playerActif].lumierePerso.SetActive(true);
                 switching = false;
                 cartesManager.ChangerPictoMainDuJoueur();
+                EnabledBoutonSpecialeAction(persoScripts[playerActif].isConsoling);
             }
         }
     }
@@ -248,6 +252,33 @@ public class GameMaster : MonoBehaviour
     public void ButtonClickSpecialAction()
     {
        //persoScripts[playerActif].WantedConsoleScript.ActivateText();
+       if (actionSpeciale)
+       {
+           // ON CANCEL : 
+           // • Desactiver bouton et Réactiver le normal
+           // • Relever la main du joueur
+           // • Disable les sprites numeros
+           actionSpeciale = false;
+       }
+       else if (!actionSpeciale)
+       {
+           // ON ACTIVE :
+           // • Désactiver normal et activer bouton cancel
+           // • Enabled les sprites numéros
+           // • Fade in des sprites numeros
+           actionSpeciale = true;
+       }
+    }
+
+    public void EnabledBoutonSpecialeAction(bool a)
+    {
+        if (a)
+        {
+            boutonSpecialeAction.SetActive(true);
+        }
+        else{
+            boutonSpecialeAction.SetActive(false);
+        }
     }
 
 }

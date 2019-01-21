@@ -20,7 +20,7 @@ public class PersoScript : MonoBehaviour
     public GameObject WantedConsole;
     public int WantedCarteId = -1;
     [SerializeField] private GameObject specialAction;
-
+    GameMaster gameMaster;
     public GameObject lumierePerso;
     public bool canReceiveOrder = true;
 
@@ -30,6 +30,7 @@ public class PersoScript : MonoBehaviour
         nma = GetComponent<NavMeshAgent>();
         cartesManager = GameObject.Find("GameMaster").GetComponent<CartesManager>();
         cardSound = Camera.main.GetComponent<CardSound>();
+        gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
     }
 
     void Update()
@@ -73,6 +74,7 @@ public class PersoScript : MonoBehaviour
             StartCoroutine("WaitForIconDisplay");
             vaJouerUneCarte = false;
             isConsoling = true;
+            gameMaster.EnabledBoutonSpecialeAction(true);
             StartCoroutine("CoroutineForLookingAt", myConsole.keyboardConsoleToLookAt.transform.position);
         }
         else
@@ -111,6 +113,7 @@ public class PersoScript : MonoBehaviour
             vaSurUneConsole = false;
             isConsoling = true;
             //nma.SetDestination(transform.position);
+            gameMaster.EnabledBoutonSpecialeAction(true);
             StartCoroutine("CoroutineForLookingAt", myConsole.keyboardConsoleToLookAt.transform.position);
         }
     }
@@ -130,6 +133,7 @@ public class PersoScript : MonoBehaviour
         vaSurUneConsole = false;
         isConsoling = false;
         WantedCarteId = -1;
+        gameMaster.EnabledBoutonSpecialeAction(false);
     }
 
 
