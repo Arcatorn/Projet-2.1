@@ -26,7 +26,7 @@ public class SITA_2 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if (situationNumber < 9)
+            if (situationNumber < 8)
             {
                 situationNumber += 1;
                 StartCoroutine("SuperCoroutine" + situationNumber.ToString());
@@ -68,10 +68,7 @@ public class SITA_2 : MonoBehaviour
         {
             StartCoroutine("SuperCoroutine8");
         }
-        else if (Input.GetKeyDown(KeyCode.Keypad9))
-        {
-            StartCoroutine("SuperCoroutine9");
-        }
+
     }
 
     IEnumerator SuperCoroutine1()
@@ -149,17 +146,6 @@ public class SITA_2 : MonoBehaviour
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/B/SITB_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
         a.Play();
-        yield break;
-    }
-
-    IEnumerator SuperCoroutine9()
-    {
-        situationNumber = 9;
-        GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/B/SITB_" + situationNumber.ToString()) as Material;
-        MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
-        a.Play();
-        soundB.StopAll();
-        soundB.SituationQuatre();
         yield break;
     }
 

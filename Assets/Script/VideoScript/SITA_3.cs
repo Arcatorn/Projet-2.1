@@ -26,7 +26,7 @@ public class SITA_3 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if (situationNumber < 4)
+            if (situationNumber < 3)
             {
                 StartCoroutine("SuperCoroutine" + situationNumber.ToString());
             }
@@ -46,10 +46,6 @@ public class SITA_3 : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Keypad3))
         {
             StartCoroutine("SuperCoroutine3");
-        }
-        else if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
-            StartCoroutine("SuperCoroutine4");
         }
     }
 
@@ -79,17 +75,6 @@ public class SITA_3 : MonoBehaviour
         GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/C/SITC_" + situationNumber.ToString()) as Material;
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
         a.Play();
-        yield break;
-    }
-
-    IEnumerator SuperCoroutine4()
-    {
-        situationNumber = 4;
-        GetComponent<Renderer>().material = Resources.Load<Material>("VIDEOS/C/SITC_" + situationNumber.ToString()) as Material;
-        MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
-        a.Play();
-        soundC.StopAll();
-        soundC.SituationDeux();
         yield break;
     }
 
