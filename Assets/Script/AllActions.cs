@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class AllActions : MonoBehaviour
 {
-
-
     CartesManager cartesManager;
     GameMaster gameMaster;
     public Text textADroite;
@@ -16,6 +14,7 @@ public class AllActions : MonoBehaviour
     public GameObject[] baboums;
     public GameObject explosionNav;
     public GameObject[] etincellesChoc;
+    public GameObject[] bouclier;
 
     void Awake()
     {
@@ -81,14 +80,14 @@ public class AllActions : MonoBehaviour
 
     public void Bouclier()
     {
-        // Animation fenêtre baissée
+        FermetureFenetres();
         GameObject.Find("Bouclier").GetComponent<BouclierSound>().PlayBouclierSound();
         // StartCoroutine("RemonterLesBoucliers)
     }
 
     public void Brouilleur()
     {
-        // Animation fenêtre baissée
+        FermetureFenetres();
         GameObject.Find("Bouclier").GetComponent<BouclierSound>().PlayBouclierSound();
         GameObject.Find("Brouilleur").GetComponent<BrouilleurSound>().PlayBrouilleurSound();
         // StartCoroutine("RemonterLesBoucliers)
@@ -100,6 +99,23 @@ public class AllActions : MonoBehaviour
         droneAnim.SetTrigger("Activer");
         GameObject.Find("DroneBay&Drones").GetComponent<DroneSound>().LaunchDrone();
     }
+
+    public void OuvertureFenetres()
+    {
+        for (int i = 0; i < bouclier.Length; i++)
+        {
+            bouclier[i].GetComponent<Animator>().SetTrigger("Ouverture");
+        }
+    }
+
+    public void FermetureFenetres()
+    {
+        for (int i = 0; i < bouclier.Length; i++)
+        {
+            bouclier[i].GetComponent<Animator>().SetTrigger("Fermeture");
+        }
+    }
+
 
     public void CallAction(int carteID, int salleID, PersoScript _persoScript)
     {
@@ -256,6 +272,7 @@ public class AllActions : MonoBehaviour
         {
             // DEF + TRUFFE
             actionName = "Activer le brouilleur";
+            Brouilleur();
             textADroite.text = actionName;
         }
         else if (actionId == 24)

@@ -7,6 +7,15 @@ public class SITA_1 : MonoBehaviour
 
     public int situationNumber = 1;
     VideoSoundsA soundsA;
+    AllActions allActions;
+    Olala olala;
+    public GameObject saboteur;
+
+    private void Awake()
+    {
+        allActions = GameObject.Find("GameMaster").GetComponent<AllActions>();
+        olala = GameObject.Find("GameMaster").GetComponent<Olala>();
+    }
     private void Start()
     {
         soundsA = GetComponent<VideoSoundsA>();
@@ -151,6 +160,7 @@ public class SITA_1 : MonoBehaviour
         a.Play();
         soundsA.StopAll();
         soundsA.SituationQuatre();
+        StartCoroutine("WaitForPiratage");
         yield break;
     }
 
@@ -163,6 +173,7 @@ public class SITA_1 : MonoBehaviour
         a.Play();
         soundsA.StopAll();
         soundsA.SituationCinq();
+        StartCoroutine("WaitForSaboteur");
         yield break;
     }
 
@@ -187,6 +198,30 @@ public class SITA_1 : MonoBehaviour
         a.Play();
         soundsA.StopAll();
         soundsA.SituationSept();
+        StartCoroutine("WaitForChoc");
+        yield break;
+    }
+
+    //
+
+    IEnumerator WaitForPiratage()
+    {
+        yield return new WaitForSeconds(2);
+        allActions.Piratage();
+        yield break;
+    }
+
+    IEnumerator WaitForSaboteur()
+    {
+        yield return new WaitForSeconds(5);
+        olala.GoDroneIncoming();
+        yield break;
+    }
+
+    IEnumerator WaitForChoc()
+    {
+        yield return new WaitForSeconds(3);
+        allActions.Choc();
         yield break;
     }
 

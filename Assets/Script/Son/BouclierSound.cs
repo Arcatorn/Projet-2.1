@@ -15,6 +15,8 @@ public class BouclierSound : MonoBehaviour
 
    public void PlayBouclierSound()
     {
+        FMOD.Studio.PLAYBACK_STATE fmodPbState;
+        SoundEvent.getPlaybackState(out fmodPbState);
         SoundEvent.start();
     }
 

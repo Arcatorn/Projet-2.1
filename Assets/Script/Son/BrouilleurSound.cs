@@ -16,6 +16,8 @@ public class BrouilleurSound : MonoBehaviour
 
     public void PlayBrouilleurSound()
     {
+        FMOD.Studio.PLAYBACK_STATE fmodPbState;
+        SoundEvent.getPlaybackState(out fmodPbState);
         SoundEvent.start();
     }
 
