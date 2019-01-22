@@ -19,6 +19,10 @@ public class VehiculeFB : MonoBehaviour
 		ambiantSounds = GetComponent<AmbiantSounds>();
 	}
 
+    private void Start() {
+        EtatDeplacement();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))

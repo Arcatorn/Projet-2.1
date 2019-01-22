@@ -143,6 +143,7 @@ public class SITA_2 : MonoBehaviour
         MovieTexture a = GetComponent<Renderer>().material.mainTexture as MovieTexture;
         a.Stop();
         a.Play();
+        GameObject.Find("GameMaster").GetComponent<AllActions>().FermetureFenetres();
         yield break;
     }
 

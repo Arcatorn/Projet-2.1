@@ -7,6 +7,10 @@ public class SITA_3 : MonoBehaviour
 
     public int situationNumber = 1;
     VideoSoundC soundC;
+    AllActions allActions;
+    private void Awake() {
+        allActions = GameObject.Find("GameMaster").GetComponent<AllActions>();
+    }
 
     private void Start()
     {
@@ -79,6 +83,8 @@ public class SITA_3 : MonoBehaviour
         a.Play();
         soundC.StopAll();
         soundC.SituationDeux();
+        yield return new WaitForSeconds(31);
+        GameObject.Find("GameMaster").GetComponent<VehiculeFB>().EtatTempete();
         yield break;
     }
 

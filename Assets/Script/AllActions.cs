@@ -15,11 +15,13 @@ public class AllActions : MonoBehaviour
     public GameObject explosionNav;
     public GameObject[] etincellesChoc;
     public GameObject[] bouclier;
+    VehiculeFB vehiculeFB;
 
     void Awake()
     {
         cartesManager = GetComponent<CartesManager>();
         gameMaster = GetComponent<GameMaster>();
+        vehiculeFB = GetComponent<VehiculeFB>();
     }
 
     IEnumerator DureeAction(monAction a)
@@ -212,6 +214,7 @@ public class AllActions : MonoBehaviour
         {
             // NAV + ESTOMAC
             actionName = "Passer en surrégime";
+            vehiculeFB.EtatSurregime();
             textADroite.text = actionName;
         }
         else if (actionId == 14)
@@ -292,6 +295,7 @@ public class AllActions : MonoBehaviour
         {
             // EXCA + GRIFFES
             actionName = "Tirer 3 blocs de roches d'un coup";
+            OnTire();
             textADroite.text = actionName;
         }
         else if (actionId == 27)
