@@ -8,15 +8,15 @@ public class SITA_3 : MonoBehaviour
     public int situationNumber = 1;
     VideoSoundC soundC;
     AllActions allActions;
-    private void Awake() {
+    private void Awake()
+    {
         allActions = GameObject.Find("GameMaster").GetComponent<AllActions>();
     }
 
     private void Start()
     {
         soundC = GetComponent<VideoSoundC>();
-        situationNumber = 1;
-        StartCoroutine("SuperCoroutine1");
+        situationNumber = 0;
     }
 
     private void Update()
@@ -31,6 +31,7 @@ public class SITA_3 : MonoBehaviour
         {
             if (situationNumber < 3)
             {
+                situationNumber += 1;
                 StartCoroutine("SuperCoroutine" + situationNumber.ToString());
             }
         }
@@ -40,6 +41,7 @@ public class SITA_3 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
+
             StartCoroutine("SuperCoroutine1");
         }
         else if (Input.GetKeyDown(KeyCode.Keypad2))

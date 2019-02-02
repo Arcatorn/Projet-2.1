@@ -18,4 +18,9 @@ public class Flamepropagation : MonoBehaviour
         SoundEvent.getPlaybackState(out fmodPbState);
         SoundEvent.start();
     }
+
+    public void StopAll()
+    {
+        SoundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
 }
